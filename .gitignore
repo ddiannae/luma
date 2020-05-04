@@ -5,3 +5,5 @@
 .Ruserdata
 packrat/*
 .Rprofile
+packrat/lib*/
+packrat/src/
