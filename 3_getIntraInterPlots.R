@@ -42,7 +42,7 @@ dev.off()
 p <- ggplot(all_interactions, aes(x = interaction_type, fill = interaction_type)) + 
   geom_bar() +
   geom_text(stat='count', aes(label=..count..), vjust=-1) +
-  ylim(c(0,25000)) +
+  ylim(c(0,20000)) +
   theme_few(base_size = 20) +
   theme(axis.text.x = element_blank(),
         axis.ticks.x = element_blank(),
