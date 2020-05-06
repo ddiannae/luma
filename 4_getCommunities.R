@@ -4,7 +4,7 @@
 ### 1_getIntraInteractions.R script
 library(igraph)
 library(dplyr)
-
+library(readr)
 getComInfo <- function(cmembership, network){
   comp.info <- lapply(unique(cmembership), function(idc){
     mem <- names(cmembership[cmembership == idc])
@@ -33,15 +33,15 @@ m <- lapply(conds, function(cond) {
   colnames(interactions)[1:2] <- c("from", "to")
   net <- graph_from_data_frame(interactions, 
                                directed=F, vertices = vertices)
-  comm <- cluster_infomap(graph = net, nb.trials = 10)
+  comm <- cluster_louvain(graph = net)
   names(comm$membership) <- comm$names
   
   df_comm <- data.frame(comm$names, comm$membership)
   colnames(df_comm) <- c("ensemblID", "community")
-  write.table(df_comm, paste0("data/network-tables/", cond,  "-communities.tsv"), 
+  write.table(df_comm, paste0("data/", cond,  "-communities.tsv"), 
             quote = F, row.names = F, col.names = T, sep = "\t")
   
   comm_info <- getComInfo(comm$membership, net)
-  write.table(comm_info, paste0("data/network-tables/", cond, "-communities-info.tsv"), 
+  write.table(comm_info, paste0("data/", cond, "-communities-info.tsv"), 
               quote = F, row.names = F, col.names = T, sep = "\t")
 })
