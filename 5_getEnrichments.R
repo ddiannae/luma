@@ -27,6 +27,7 @@ GO_BP <- tibble::enframe(GO_BP)
 
 m <- lapply(conds, function(cond) {
   gene_sets <- read_tsv(file = paste0("data/", cond,  "-communities.tsv"))
+  gene_sets_info <- read_tsv(file = paste0("data/", cond,  "-communities-info.tsv"))
   gene_universe <- read_tsv(file = paste0("data/network-tables/", cond,  "-vertices.tsv"))
   gene_universe <- unlist(gene_universe$ensemblID)
 
@@ -37,34 +38,37 @@ m <- lapply(conds, function(cond) {
       geneList <- unlist(gene_sets %>% filter( community == com) %>%
                            dplyr::select(ensemblID))
       
-      ego <- enricher(gene          = geneList,
-                      universe      = gene_universe,
-                      pAdjustMethod = "BH",
-                      pvalueCutoff  = 0.01,
-                      qvalueCutoff  = 0.05,
-                      minGSSize     = 10,
-                      TERM2GENE     = GO_BP)
-      
-      if(nrow(as.data.frame(ego)) > 0) {
-        ego@ontology = "BP"
-        ego@organism = "Homo sapiens"
+      if(length(geneList) >= 5) {
+        ego <- enricher(gene          = geneList,
+                        universe      = gene_universe,
+                        pAdjustMethod = "BH",
+                        pvalueCutoff  = 0.01,
+                        qvalueCutoff  = 0.05,
+                        minGSSize     = 10,
+                        TERM2GENE     = GO_BP)
         
-        ego <- as.data.frame(simplify(
-          ego,
-          cutoff = 0.7,
-          by = "p.adjust",
-          select_fun = min,
-          measure = "Wang",
-          semData = NULL
-        ))
-        
-        ego <- ego %>% inner_join(go2term(ego$ID), by = c("ID" = "go_id")) %>% 
-                dplyr::select(-Description) %>% dplyr::select(ID, Term, everything())
-        
-        
-        ego$commun <- com
-        return(ego)  
+        if(nrow(as.data.frame(ego)) > 0) {
+          ego@ontology = "BP"
+          ego@organism = "Homo sapiens"
+          
+          ego <- as.data.frame(simplify(
+            ego,
+            cutoff = 0.7,
+            by = "p.adjust",
+            select_fun = min,
+            measure = "Wang",
+            semData = NULL
+          ))
+          
+          ego <- ego %>% inner_join(go2term(ego$ID), by = c("ID" = "go_id")) %>% 
+            dplyr::select(-Description) %>% dplyr::select(ID, Term, everything())
+          
+          
+          ego$commun <- com
+          return(ego)  
+        }
       }
+      
       return(NULL)
   })
   

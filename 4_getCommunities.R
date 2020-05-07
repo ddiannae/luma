@@ -3,8 +3,9 @@
 ### Requires the type/intra/cond-all-distance-mi.txt file from the 
 ### 1_getIntraInteractions.R script
 library(igraph)
-library(dplyr)
 library(readr)
+library(dplyr)
+
 getComInfo <- function(cmembership, network){
   comp.info <- lapply(unique(cmembership), function(idc){
     mem <- names(cmembership[cmembership == idc])
