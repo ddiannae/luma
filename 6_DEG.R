@@ -47,7 +47,7 @@ summary(dt)
 glMDPlot(path = "data", fit, counts = M, groups = targets$group, status = dt)
 
 genesFULL <- bind_cols(
-  gene = rownames(fit$coefficients),
+  ensemblID = rownames(fit$coefficients),
   coef = fit$coefficients[, 2],
   p_value = fit$p.value[, 2],
   FDR = fit$fdr[, 2],
@@ -55,3 +55,8 @@ genesFULL <- bind_cols(
 )
 
 write_tsv(genesFULL, paste0("data/", conds[2], "-deg-ebayes.tsv"))
+vertices <- vertices %>% inner_join(genesFULL, by = "ensemblID")
+n <- 20127  
+
+write.table(vertices, file = paste0("data/network-tables/", conds[2], "-", n, "-vertices.tsv") , 
+            quote = F, row.names = F, col.names = T, sep = "\t")
