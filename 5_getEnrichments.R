@@ -10,7 +10,7 @@ library(enrichplot)
 conds <- c("healthy", "luma")
 
 enrichCommunities <- function(membership, universe, filename, 
-                              C2N, T2GDB, T2NDB, G2S, simplifyGO = FALSE){
+                              T2GDB, T2NDB, G2S, simplifyGO = FALSE){
   
   all_enrichments <- mclapply(X = unique(membership$community), 
                               mc.cores = 75,
@@ -53,9 +53,7 @@ enrichCommunities <- function(membership, universe, filename,
           ## with setReadable from clusterProfile
           ## but it's not parallelizable
           
-          cname <- unlist(C2N[C2N[[1]] == com, 2])
-          
-          png(paste0("figures/enrich/", filename, "-", cname, "-dotplot.png"), 
+          png(paste0("figures/enrich/", filename, "-", com, "-dotplot.png"), 
                      width = 600, height = 800)
           print(dotplot(ego, showCategory=20))
           dev.off()
@@ -76,7 +74,7 @@ enrichCommunities <- function(membership, universe, filename,
           
           ego@result <- res
          
-          png(paste0("figures/enrich/", filename, "-", cname, "-cnetplot.png"), 
+          png(paste0("figures/enrich/", filename, "-", com, "-cnetplot.png"), 
               width = 600, height = 600)
           print(cnetplot(ego, node_label="all"))
           dev.off()
@@ -158,7 +156,6 @@ m <- lapply(conds, function(cond) {
   enrichCommunities(membership = gene_sets[, c("ensemblID", "community")],
                     universe = gene_universe,
                     filename = paste0(cond, "-kegg"),
-                    C2N = comm_info, c("comm_id", "symbol"),
                     T2GDB = KEGG_db[, c("from", "ensembl")], 
                     T2NDB = KEGG$KEGGPATHID2NAME,
                     G2S = gene_sets[, c("ensemblID", "symbol")])
@@ -166,7 +163,6 @@ m <- lapply(conds, function(cond) {
   enrichCommunities(membership = gene_sets[, c("ensemblID", "community")],
                     universe = gene_universe,
                     filename = paste0(cond, "-go"),
-                    C2N = comm_info, c("comm_id", "symbol"),
                     T2GDB = GO_BP, 
                     T2NDB = GO_BP_names,
                     G2S = gene_sets[, c("ensemblID", "symbol")])
@@ -174,7 +170,6 @@ m <- lapply(conds, function(cond) {
   enrichCommunities(membership = gene_sets[, c("ensemblID", "community")],
                     universe = gene_universe,
                     filename = paste0(cond, "-onco"),
-                    C2N = comm_info, c("comm_id", "symbol"),
                     T2GDB = ONCO[, c("gs_name", "ensembl")], 
                     T2NDB = NULL,
                     G2S = gene_sets[, c("ensemblID", "symbol")])
