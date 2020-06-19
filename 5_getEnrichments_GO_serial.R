@@ -1,0 +1,66 @@
+library(readr)
+library(dplyr)
+library(org.Hs.eg.db)
+library(clusterProfiler)
+library(enrichplot)
+
+conds <- c("healthy", "luma")
+
+m <- lapply(conds, function(cond) {
+  membership <- read_tsv(file = paste0("data/", cond,  "-communities.tsv"))
+  gene_universe <- read_tsv(file = paste0("data/network-tables/", cond,  "-vertices.tsv"))
+  gene_universe <- unlist(gene_universe$ensemblID)
+  
+  all_enrichments <- lapply(X = unique(membership$community),
+                            FUN = function(com){
+
+                                gene_list <- unlist(membership %>% filter(community == com) %>%
+                                                     dplyr::select(ensemblID))
+                                
+                                if(length(gene_list) >= 5) {
+                                  
+                                  ego <- enrichGO(gene          = gene_list,
+                                                  universe      = gene_universe,
+                                                  OrgDb         = org.Hs.eg.db,
+                                                  keyType       = "ENSEMBL",
+                                                  ont           = "BP",
+                                                  pAdjustMethod = "BH",
+                                                  pvalueCutoff  = 0.01,
+                                                  qvalueCutoff  = 0.05,
+                                                  minGSSize     = 10,
+                                                  readable      = FALSE)
+                                  
+                                
+                                  if(nrow(as.data.frame(ego)) > 0) {
+                                    ego_df <- as.data.frame(ego)
+                                    ego_df$commun <- com 
+                                    
+                                    ## Plots with gene Symbols 
+                                    ## with setReadable from clusterProfile
+                                    ## but it's not parallelizable
+                                  
+                                    png(paste0("figures/enrich-serial/go-", com, "-dotplot.png"), 
+                                        width = 600, height = 800)
+                                    print(dotplot(ego, showCategory=20))
+                                    dev.off()
+                                      
+                                    png(paste0("figures/enrich-serial/go-", com, "-cnetplot.png"), 
+                                          width = 600, height = 600)
+                                    print(cnetplot(ego, node_label="category", showCategory = 10))
+                                    dev.off()
+                                    
+                                    return(ego_df)  
+                                  }
+                                }
+                                  
+                                return(NULL)
+                              })
+  
+  all_enrichments <- plyr::compact(all_enrichments) 
+  all_enrichments <- plyr::ldply(all_enrichments) 
+  
+  write.table(all_enrichments, file =  paste0("data/enrich-serial/",cond, "'go-enrichments.tsv"),
+              quote = F, row.names = F, sep = "\t")
+  
+  
+})
