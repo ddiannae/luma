@@ -1,0 +1,995 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
+<MINiML
+   xmlns="http://www.ncbi.nlm.nih.gov/geo/info/MINiML"
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xsi:schemaLocation="http://www.ncbi.nlm.nih.gov/geo/info/MINiML http://www.ncbi.nlm.nih.gov/geo/info/MINiML.xsd"
+   version="0.5.0" >
+
+  <Contributor iid="contrib1">
+    <Person><First>Elisa</First><Last>Fiorito</Last></Person>
+    <Email>elisa.fiorito@ncmm.uio.no</Email>
+    <Laboratory>Breast Cancer group</Laboratory>
+    <Department>Norwegian Centre for Molecular Medicine (NCMM)</Department>
+    <Organization>University of Oslo (UiO)</Organization>
+    <Address>
+      <Line>Forskningsparken - Gaustadalleen 21</Line>
+      <City>Oslo</City>
+      <Postal-Code>0349</Postal-Code>
+      <Country>Norway</Country>
+    </Address>
+  </Contributor>
+
+  <Contributor iid="contrib2">
+    <Organization>GEO</Organization>
+    <Address>
+      <City></City>
+      <Country>USA</Country>
+    </Address>
+  </Contributor>
+
+  <Contributor iid="contrib3">
+    <Person><First>Yogita</First><Last>Sharma</Last></Person>
+  </Contributor>
+
+  <Contributor iid="contrib4">
+    <Person><First>Siv</First><Last>Gilfillan</Last></Person>
+  </Contributor>
+
+  <Database iid="GEO">
+    <Name>Gene Expression Omnibus (GEO)</Name>
+    <Public-ID>GEO</Public-ID>
+    <Organization>NCBI NLM NIH</Organization>
+    <Web-Link>http://www.ncbi.nlm.nih.gov/geo</Web-Link>
+    <Email>geo@ncbi.nlm.nih.gov</Email>
+  </Database>
+
+  <Platform iid="GPL11154">
+    <Status database="GEO">
+      <Submission-Date>2010-11-02</Submission-Date>
+      <Release-Date>2010-11-02</Release-Date>
+      <Last-Update-Date>2019-03-27</Last-Update-Date>
+    </Status>
+    <Title>Illumina HiSeq 2000 (Homo sapiens)</Title>
+    <Accession database="GEO">GPL11154</Accession>
+    <Technology>high-throughput sequencing</Technology>
+    <Distribution>virtual</Distribution>
+    <Organism taxid="9606">Homo sapiens</Organism>
+    <Manufacturer></Manufacturer>
+    <Manufacture-Protocol>
+    </Manufacture-Protocol>
+    <Contact-Ref ref="contrib2" />
+  </Platform>
+
+  <Sample iid="GSM2257816">
+    <Status database="GEO">
+      <Submission-Date>2016-08-02</Submission-Date>
+      <Release-Date>2016-12-10</Release-Date>
+      <Last-Update-Date>2019-05-15</Last-Update-Date>
+    </Status>
+    <Title>CTCF_E0h_ChIPseq</Title>
+    <Accession database="GEO">GSM2257816</Accession>
+    <Type>SRA</Type>
+    <Channel-Count>1</Channel-Count>
+    <Channel position="1">
+      <Source>Luminal breast cancer cell line</Source>
+      <Organism taxid="9606">Homo sapiens</Organism>
+      <Characteristics tag="cell line">
+MCF-7
+      </Characteristics>
+      <Characteristics tag="chip antibody">
+CTCF: Millipore 07-729 (lot #2453497)
+      </Characteristics>
+      <Characteristics tag="treatment">
+control
+      </Characteristics>
+      <Characteristics tag="time">
+0h
+      </Characteristics>
+      <Treatment-Protocol>
+Upon hormone deprivation, MCF7 cells were treated either with 100 nM 17-beta-estradiol for 0h, 45 min or 3h.
+      </Treatment-Protocol>
+      <Growth-Protocol>
+MCF7 cells were hormone deprived for 72 h in DMEM 5% Charcoal stripped Fetal Bovine Serum.
+      </Growth-Protocol>
+      <Molecule>genomic DNA</Molecule>
+      <Extract-Protocol>
+For each ChIP-seq, 2 plates 70-80% confluent (around total 20 millions MCF7 cells) were lysed in SDS buffer (1% SDS, 10 mM EDTA, 50 mM Tris-HCl (pH 8.0)) and sonicated for 20 cycles 30 sec ON 30 sec OFF in Bioruptor sonicator (Diagenode). Subsequently, chromatin was diluted in dilution buffer (10 mM Tris-HCl pH 8.0, 0.5  mM EGTA pH 8.0, 1% Triton-X-100, 140 mM NaCl) and incubated over night with 10 ug of antibody coupled with magnetic beads. Afterwards, beads were washed 7 times with RIPA buffer (50mM HEPES pH7.6, 1mM EDTA pH8, 0.7% Na-deoxycholate, 1% NP-40, 0.5 M LiCl2) and reverse cross-linked at 65 degrees overnight in Elution buffer (50 mM Tris-HCl pH8, 1 mM EDTA pH8, 1% SDS). RNA was digested at 37 degrees in RNAse A (Ambion), and proteins were digested with proteinase K (Life Technologies) at 56 degrees. DNA was isolated by Phenol-chloroform extraction followed by Ethanol precipitation.
+Library preparation for sequencing was done following the instructions of TruSeq DNA sample preparation kit from Illumina.
+      </Extract-Protocol>
+    </Channel>
+    <Data-Processing>
+ChIP-seq reads were aligned to the hg19 genome assembly using Bowtie2 with default parameters.
+samtools was used to convert the SAM file into BAM and subsequently sort the BAM file.
+Duplicate reads were removed with samtools and the resulting file was converted into a BED file containing the aligned unique reads.
+MACS2 with default parameters was used to call the peaks over the MCF7 input DNA obtained from unChIPped material.
+Genome_build: hg19
+Supplementary_files_format_and_content: bed files contain ChIP-seq peaks and were generated by using MACS2.
+    </Data-Processing>
+    <Platform-Ref ref="GPL11154" />
+    <Library-Strategy>ChIP-Seq</Library-Strategy>
+    <Library-Source>genomic</Library-Source>
+    <Library-Selection>ChIP</Library-Selection>
+    <Instrument-Model>
+      <Predefined>Illumina HiSeq 2000</Predefined>
+    </Instrument-Model>
+    <Contact-Ref ref="contrib1" />
+    <Supplementary-Data type="BED">
+ftp://ftp.ncbi.nlm.nih.gov/geo/samples/GSM2257nnn/GSM2257816/suppl/GSM2257816_CTCF_E0h_MCF7_peaks.bed.gz
+    </Supplementary-Data>
+    <Relation type="BioSample" target="https://www.ncbi.nlm.nih.gov/biosample/SAMN05505359" />
+    <Relation type="SRA" target="https://www.ncbi.nlm.nih.gov/sra?term=SRX1995217" />
+  </Sample>
+
+  <Sample iid="GSM2257817">
+    <Status database="GEO">
+      <Submission-Date>2016-08-02</Submission-Date>
+      <Release-Date>2016-12-10</Release-Date>
+      <Last-Update-Date>2019-05-15</Last-Update-Date>
+    </Status>
+    <Title>CTCF_E45m_ChIPseq</Title>
+    <Accession database="GEO">GSM2257817</Accession>
+    <Type>SRA</Type>
+    <Channel-Count>1</Channel-Count>
+    <Channel position="1">
+      <Source>Luminal breast cancer cell line</Source>
+      <Organism taxid="9606">Homo sapiens</Organism>
+      <Characteristics tag="cell line">
+MCF-7
+      </Characteristics>
+      <Characteristics tag="chip antibody">
+CTCF: Millipore 07-729 (lot #2453497)
+      </Characteristics>
+      <Characteristics tag="treatment">
+estrogen
+      </Characteristics>
+      <Characteristics tag="time">
+45min
+      </Characteristics>
+      <Treatment-Protocol>
+Upon hormone deprivation, MCF7 cells were treated either with 100 nM 17-beta-estradiol for 0h, 45 min or 3h.
+      </Treatment-Protocol>
+      <Growth-Protocol>
+MCF7 cells were hormone deprived for 72 h in DMEM 5% Charcoal stripped Fetal Bovine Serum.
+      </Growth-Protocol>
+      <Molecule>genomic DNA</Molecule>
+      <Extract-Protocol>
+For each ChIP-seq, 2 plates 70-80% confluent (around total 20 millions MCF7 cells) were lysed in SDS buffer (1% SDS, 10 mM EDTA, 50 mM Tris-HCl (pH 8.0)) and sonicated for 20 cycles 30 sec ON 30 sec OFF in Bioruptor sonicator (Diagenode). Subsequently, chromatin was diluted in dilution buffer (10 mM Tris-HCl pH 8.0, 0.5  mM EGTA pH 8.0, 1% Triton-X-100, 140 mM NaCl) and incubated over night with 10 ug of antibody coupled with magnetic beads. Afterwards, beads were washed 7 times with RIPA buffer (50mM HEPES pH7.6, 1mM EDTA pH8, 0.7% Na-deoxycholate, 1% NP-40, 0.5 M LiCl2) and reverse cross-linked at 65 degrees overnight in Elution buffer (50 mM Tris-HCl pH8, 1 mM EDTA pH8, 1% SDS). RNA was digested at 37 degrees in RNAse A (Ambion), and proteins were digested with proteinase K (Life Technologies) at 56 degrees. DNA was isolated by Phenol-chloroform extraction followed by Ethanol precipitation.
+Library preparation for sequencing was done following the instructions of TruSeq DNA sample preparation kit from Illumina.
+      </Extract-Protocol>
+    </Channel>
+    <Data-Processing>
+ChIP-seq reads were aligned to the hg19 genome assembly using Bowtie2 with default parameters.
+samtools was used to convert the SAM file into BAM and subsequently sort the BAM file.
+Duplicate reads were removed with samtools and the resulting file was converted into a BED file containing the aligned unique reads.
+MACS2 with default parameters was used to call the peaks over the MCF7 input DNA obtained from unChIPped material.
+Genome_build: hg19
+Supplementary_files_format_and_content: bed files contain ChIP-seq peaks and were generated by using MACS2.
+    </Data-Processing>
+    <Platform-Ref ref="GPL11154" />
+    <Library-Strategy>ChIP-Seq</Library-Strategy>
+    <Library-Source>genomic</Library-Source>
+    <Library-Selection>ChIP</Library-Selection>
+    <Instrument-Model>
+      <Predefined>Illumina HiSeq 2000</Predefined>
+    </Instrument-Model>
+    <Contact-Ref ref="contrib1" />
+    <Supplementary-Data type="BED">
+ftp://ftp.ncbi.nlm.nih.gov/geo/samples/GSM2257nnn/GSM2257817/suppl/GSM2257817_CTCF_E45m_MCF7_peaks.bed.gz
+    </Supplementary-Data>
+    <Relation type="BioSample" target="https://www.ncbi.nlm.nih.gov/biosample/SAMN05505358" />
+    <Relation type="SRA" target="https://www.ncbi.nlm.nih.gov/sra?term=SRX1995218" />
+  </Sample>
+
+  <Sample iid="GSM2257818">
+    <Status database="GEO">
+      <Submission-Date>2016-08-02</Submission-Date>
+      <Release-Date>2016-12-10</Release-Date>
+      <Last-Update-Date>2019-05-15</Last-Update-Date>
+    </Status>
+    <Title>CTCF_E3h_ChIPseq</Title>
+    <Accession database="GEO">GSM2257818</Accession>
+    <Type>SRA</Type>
+    <Channel-Count>1</Channel-Count>
+    <Channel position="1">
+      <Source>Luminal breast cancer cell line</Source>
+      <Organism taxid="9606">Homo sapiens</Organism>
+      <Characteristics tag="cell line">
+MCF-7
+      </Characteristics>
+      <Characteristics tag="chip antibody">
+CTCF: Millipore 07-729 (lot #2453497)
+      </Characteristics>
+      <Characteristics tag="treatment">
+estrogen
+      </Characteristics>
+      <Characteristics tag="time">
+3h
+      </Characteristics>
+      <Treatment-Protocol>
+Upon hormone deprivation, MCF7 cells were treated either with 100 nM 17-beta-estradiol for 0h, 45 min or 3h.
+      </Treatment-Protocol>
+      <Growth-Protocol>
+MCF7 cells were hormone deprived for 72 h in DMEM 5% Charcoal stripped Fetal Bovine Serum.
+      </Growth-Protocol>
+      <Molecule>genomic DNA</Molecule>
+      <Extract-Protocol>
+For each ChIP-seq, 2 plates 70-80% confluent (around total 20 millions MCF7 cells) were lysed in SDS buffer (1% SDS, 10 mM EDTA, 50 mM Tris-HCl (pH 8.0)) and sonicated for 20 cycles 30 sec ON 30 sec OFF in Bioruptor sonicator (Diagenode). Subsequently, chromatin was diluted in dilution buffer (10 mM Tris-HCl pH 8.0, 0.5  mM EGTA pH 8.0, 1% Triton-X-100, 140 mM NaCl) and incubated over night with 10 ug of antibody coupled with magnetic beads. Afterwards, beads were washed 7 times with RIPA buffer (50mM HEPES pH7.6, 1mM EDTA pH8, 0.7% Na-deoxycholate, 1% NP-40, 0.5 M LiCl2) and reverse cross-linked at 65 degrees overnight in Elution buffer (50 mM Tris-HCl pH8, 1 mM EDTA pH8, 1% SDS). RNA was digested at 37 degrees in RNAse A (Ambion), and proteins were digested with proteinase K (Life Technologies) at 56 degrees. DNA was isolated by Phenol-chloroform extraction followed by Ethanol precipitation.
+Library preparation for sequencing was done following the instructions of TruSeq DNA sample preparation kit from Illumina.
+      </Extract-Protocol>
+    </Channel>
+    <Data-Processing>
+ChIP-seq reads were aligned to the hg19 genome assembly using Bowtie2 with default parameters.
+samtools was used to convert the SAM file into BAM and subsequently sort the BAM file.
+Duplicate reads were removed with samtools and the resulting file was converted into a BED file containing the aligned unique reads.
+MACS2 with default parameters was used to call the peaks over the MCF7 input DNA obtained from unChIPped material.
+Genome_build: hg19
+Supplementary_files_format_and_content: bed files contain ChIP-seq peaks and were generated by using MACS2.
+    </Data-Processing>
+    <Platform-Ref ref="GPL11154" />
+    <Library-Strategy>ChIP-Seq</Library-Strategy>
+    <Library-Source>genomic</Library-Source>
+    <Library-Selection>ChIP</Library-Selection>
+    <Instrument-Model>
+      <Predefined>Illumina HiSeq 2000</Predefined>
+    </Instrument-Model>
+    <Contact-Ref ref="contrib1" />
+    <Supplementary-Data type="BED">
+ftp://ftp.ncbi.nlm.nih.gov/geo/samples/GSM2257nnn/GSM2257818/suppl/GSM2257818_CTCF_3hE2_peaks_TH11.bed.gz
+    </Supplementary-Data>
+    <Relation type="BioSample" target="https://www.ncbi.nlm.nih.gov/biosample/SAMN05505357" />
+    <Relation type="SRA" target="https://www.ncbi.nlm.nih.gov/sra?term=SRX1995219" />
+  </Sample>
+
+  <Sample iid="GSM2257819">
+    <Status database="GEO">
+      <Submission-Date>2016-08-02</Submission-Date>
+      <Release-Date>2016-12-10</Release-Date>
+      <Last-Update-Date>2019-05-15</Last-Update-Date>
+    </Status>
+    <Title>ER_E0h_ChIPseq</Title>
+    <Accession database="GEO">GSM2257819</Accession>
+    <Type>SRA</Type>
+    <Channel-Count>1</Channel-Count>
+    <Channel position="1">
+      <Source>Luminal breast cancer cell line</Source>
+      <Organism taxid="9606">Homo sapiens</Organism>
+      <Characteristics tag="cell line">
+MCF-7
+      </Characteristics>
+      <Characteristics tag="chip antibody">
+ER-alpha: Santa Cruz Biotechnology sc-543 (lot #F1215)
+      </Characteristics>
+      <Characteristics tag="treatment">
+control
+      </Characteristics>
+      <Characteristics tag="time">
+0h
+      </Characteristics>
+      <Treatment-Protocol>
+Upon hormone deprivation, MCF7 cells were treated either with 100 nM 17-beta-estradiol for 0h, 45 min or 3h.
+      </Treatment-Protocol>
+      <Growth-Protocol>
+MCF7 cells were hormone deprived for 72 h in DMEM 5% Charcoal stripped Fetal Bovine Serum.
+      </Growth-Protocol>
+      <Molecule>genomic DNA</Molecule>
+      <Extract-Protocol>
+For each ChIP-seq, 2 plates 70-80% confluent (around total 20 millions MCF7 cells) were lysed in SDS buffer (1% SDS, 10 mM EDTA, 50 mM Tris-HCl (pH 8.0)) and sonicated for 20 cycles 30 sec ON 30 sec OFF in Bioruptor sonicator (Diagenode). Subsequently, chromatin was diluted in dilution buffer (10 mM Tris-HCl pH 8.0, 0.5  mM EGTA pH 8.0, 1% Triton-X-100, 140 mM NaCl) and incubated over night with 10 ug of antibody coupled with magnetic beads. Afterwards, beads were washed 7 times with RIPA buffer (50mM HEPES pH7.6, 1mM EDTA pH8, 0.7% Na-deoxycholate, 1% NP-40, 0.5 M LiCl2) and reverse cross-linked at 65 degrees overnight in Elution buffer (50 mM Tris-HCl pH8, 1 mM EDTA pH8, 1% SDS). RNA was digested at 37 degrees in RNAse A (Ambion), and proteins were digested with proteinase K (Life Technologies) at 56 degrees. DNA was isolated by Phenol-chloroform extraction followed by Ethanol precipitation.
+Library preparation for sequencing was done following the instructions of TruSeq DNA sample preparation kit from Illumina.
+      </Extract-Protocol>
+    </Channel>
+    <Data-Processing>
+ChIP-seq reads were aligned to the hg19 genome assembly using Bowtie2 with default parameters.
+samtools was used to convert the SAM file into BAM and subsequently sort the BAM file.
+Duplicate reads were removed with samtools and the resulting file was converted into a BED file containing the aligned unique reads.
+MACS2 with default parameters was used to call the peaks over the MCF7 input DNA obtained from unChIPped material.
+Genome_build: hg19
+Supplementary_files_format_and_content: bed files contain ChIP-seq peaks and were generated by using MACS2.
+    </Data-Processing>
+    <Platform-Ref ref="GPL11154" />
+    <Library-Strategy>ChIP-Seq</Library-Strategy>
+    <Library-Source>genomic</Library-Source>
+    <Library-Selection>ChIP</Library-Selection>
+    <Instrument-Model>
+      <Predefined>Illumina HiSeq 2000</Predefined>
+    </Instrument-Model>
+    <Contact-Ref ref="contrib1" />
+    <Supplementary-Data type="BED">
+ftp://ftp.ncbi.nlm.nih.gov/geo/samples/GSM2257nnn/GSM2257819/suppl/GSM2257819_ER_E0h_MCF7_peaks.bed.gz
+    </Supplementary-Data>
+    <Relation type="BioSample" target="https://www.ncbi.nlm.nih.gov/biosample/SAMN05505356" />
+    <Relation type="SRA" target="https://www.ncbi.nlm.nih.gov/sra?term=SRX1995220" />
+  </Sample>
+
+  <Sample iid="GSM2257820">
+    <Status database="GEO">
+      <Submission-Date>2016-08-02</Submission-Date>
+      <Release-Date>2016-12-10</Release-Date>
+      <Last-Update-Date>2019-05-15</Last-Update-Date>
+    </Status>
+    <Title>ER_E45m_ChIPseq</Title>
+    <Accession database="GEO">GSM2257820</Accession>
+    <Type>SRA</Type>
+    <Channel-Count>1</Channel-Count>
+    <Channel position="1">
+      <Source>Luminal breast cancer cell line</Source>
+      <Organism taxid="9606">Homo sapiens</Organism>
+      <Characteristics tag="cell line">
+MCF-7
+      </Characteristics>
+      <Characteristics tag="chip antibody">
+ER-alpha: Santa Cruz Biotechnology sc-543 (lot #F1215)
+      </Characteristics>
+      <Characteristics tag="treatment">
+estrogen
+      </Characteristics>
+      <Characteristics tag="time">
+45min
+      </Characteristics>
+      <Treatment-Protocol>
+Upon hormone deprivation, MCF7 cells were treated either with 100 nM 17-beta-estradiol for 0h, 45 min or 3h.
+      </Treatment-Protocol>
+      <Growth-Protocol>
+MCF7 cells were hormone deprived for 72 h in DMEM 5% Charcoal stripped Fetal Bovine Serum.
+      </Growth-Protocol>
+      <Molecule>genomic DNA</Molecule>
+      <Extract-Protocol>
+For each ChIP-seq, 2 plates 70-80% confluent (around total 20 millions MCF7 cells) were lysed in SDS buffer (1% SDS, 10 mM EDTA, 50 mM Tris-HCl (pH 8.0)) and sonicated for 20 cycles 30 sec ON 30 sec OFF in Bioruptor sonicator (Diagenode). Subsequently, chromatin was diluted in dilution buffer (10 mM Tris-HCl pH 8.0, 0.5  mM EGTA pH 8.0, 1% Triton-X-100, 140 mM NaCl) and incubated over night with 10 ug of antibody coupled with magnetic beads. Afterwards, beads were washed 7 times with RIPA buffer (50mM HEPES pH7.6, 1mM EDTA pH8, 0.7% Na-deoxycholate, 1% NP-40, 0.5 M LiCl2) and reverse cross-linked at 65 degrees overnight in Elution buffer (50 mM Tris-HCl pH8, 1 mM EDTA pH8, 1% SDS). RNA was digested at 37 degrees in RNAse A (Ambion), and proteins were digested with proteinase K (Life Technologies) at 56 degrees. DNA was isolated by Phenol-chloroform extraction followed by Ethanol precipitation.
+Library preparation for sequencing was done following the instructions of TruSeq DNA sample preparation kit from Illumina.
+      </Extract-Protocol>
+    </Channel>
+    <Data-Processing>
+ChIP-seq reads were aligned to the hg19 genome assembly using Bowtie2 with default parameters.
+samtools was used to convert the SAM file into BAM and subsequently sort the BAM file.
+Duplicate reads were removed with samtools and the resulting file was converted into a BED file containing the aligned unique reads.
+MACS2 with default parameters was used to call the peaks over the MCF7 input DNA obtained from unChIPped material.
+Genome_build: hg19
+Supplementary_files_format_and_content: bed files contain ChIP-seq peaks and were generated by using MACS2.
+    </Data-Processing>
+    <Platform-Ref ref="GPL11154" />
+    <Library-Strategy>ChIP-Seq</Library-Strategy>
+    <Library-Source>genomic</Library-Source>
+    <Library-Selection>ChIP</Library-Selection>
+    <Instrument-Model>
+      <Predefined>Illumina HiSeq 2000</Predefined>
+    </Instrument-Model>
+    <Contact-Ref ref="contrib1" />
+    <Supplementary-Data type="BED">
+ftp://ftp.ncbi.nlm.nih.gov/geo/samples/GSM2257nnn/GSM2257820/suppl/GSM2257820_ER_E45m_MCF7_peaks.bed.gz
+    </Supplementary-Data>
+    <Relation type="BioSample" target="https://www.ncbi.nlm.nih.gov/biosample/SAMN05505355" />
+    <Relation type="SRA" target="https://www.ncbi.nlm.nih.gov/sra?term=SRX1995221" />
+  </Sample>
+
+  <Sample iid="GSM2257821">
+    <Status database="GEO">
+      <Submission-Date>2016-08-02</Submission-Date>
+      <Release-Date>2016-12-10</Release-Date>
+      <Last-Update-Date>2019-05-15</Last-Update-Date>
+    </Status>
+    <Title>ER_3hE2_ChIPseq</Title>
+    <Accession database="GEO">GSM2257821</Accession>
+    <Type>SRA</Type>
+    <Channel-Count>1</Channel-Count>
+    <Channel position="1">
+      <Source>Luminal breast cancer cell line</Source>
+      <Organism taxid="9606">Homo sapiens</Organism>
+      <Characteristics tag="cell line">
+MCF-7
+      </Characteristics>
+      <Characteristics tag="chip antibody">
+ER-alpha: Santa Cruz Biotechnology sc-543 (lot #F1215)
+      </Characteristics>
+      <Characteristics tag="treatment">
+estrogen
+      </Characteristics>
+      <Characteristics tag="time">
+3h
+      </Characteristics>
+      <Treatment-Protocol>
+Upon hormone deprivation, MCF7 cells were treated either with 100 nM 17-beta-estradiol for 0h, 45 min or 3h.
+      </Treatment-Protocol>
+      <Growth-Protocol>
+MCF7 cells were hormone deprived for 72 h in DMEM 5% Charcoal stripped Fetal Bovine Serum.
+      </Growth-Protocol>
+      <Molecule>genomic DNA</Molecule>
+      <Extract-Protocol>
+For each ChIP-seq, 2 plates 70-80% confluent (around total 20 millions MCF7 cells) were lysed in SDS buffer (1% SDS, 10 mM EDTA, 50 mM Tris-HCl (pH 8.0)) and sonicated for 20 cycles 30 sec ON 30 sec OFF in Bioruptor sonicator (Diagenode). Subsequently, chromatin was diluted in dilution buffer (10 mM Tris-HCl pH 8.0, 0.5  mM EGTA pH 8.0, 1% Triton-X-100, 140 mM NaCl) and incubated over night with 10 ug of antibody coupled with magnetic beads. Afterwards, beads were washed 7 times with RIPA buffer (50mM HEPES pH7.6, 1mM EDTA pH8, 0.7% Na-deoxycholate, 1% NP-40, 0.5 M LiCl2) and reverse cross-linked at 65 degrees overnight in Elution buffer (50 mM Tris-HCl pH8, 1 mM EDTA pH8, 1% SDS). RNA was digested at 37 degrees in RNAse A (Ambion), and proteins were digested with proteinase K (Life Technologies) at 56 degrees. DNA was isolated by Phenol-chloroform extraction followed by Ethanol precipitation.
+Library preparation for sequencing was done following the instructions of TruSeq DNA sample preparation kit from Illumina.
+      </Extract-Protocol>
+    </Channel>
+    <Data-Processing>
+ChIP-seq reads were aligned to the hg19 genome assembly using Bowtie2 with default parameters.
+samtools was used to convert the SAM file into BAM and subsequently sort the BAM file.
+Duplicate reads were removed with samtools and the resulting file was converted into a BED file containing the aligned unique reads.
+MACS2 with default parameters was used to call the peaks over the MCF7 input DNA obtained from unChIPped material.
+Genome_build: hg19
+Supplementary_files_format_and_content: bed files contain ChIP-seq peaks and were generated by using MACS2.
+    </Data-Processing>
+    <Platform-Ref ref="GPL11154" />
+    <Library-Strategy>ChIP-Seq</Library-Strategy>
+    <Library-Source>genomic</Library-Source>
+    <Library-Selection>ChIP</Library-Selection>
+    <Instrument-Model>
+      <Predefined>Illumina HiSeq 2000</Predefined>
+    </Instrument-Model>
+    <Contact-Ref ref="contrib1" />
+    <Supplementary-Data type="BED">
+ftp://ftp.ncbi.nlm.nih.gov/geo/samples/GSM2257nnn/GSM2257821/suppl/GSM2257821_ER_E3h_MCF7_peaks.bed.gz
+    </Supplementary-Data>
+    <Relation type="BioSample" target="https://www.ncbi.nlm.nih.gov/biosample/SAMN05505354" />
+    <Relation type="SRA" target="https://www.ncbi.nlm.nih.gov/sra?term=SRX1995222" />
+  </Sample>
+
+  <Sample iid="GSM2257822">
+    <Status database="GEO">
+      <Submission-Date>2016-08-02</Submission-Date>
+      <Release-Date>2016-12-10</Release-Date>
+      <Last-Update-Date>2019-05-15</Last-Update-Date>
+    </Status>
+    <Title>FOXA1_E0h_ChIPseq</Title>
+    <Accession database="GEO">GSM2257822</Accession>
+    <Type>SRA</Type>
+    <Channel-Count>1</Channel-Count>
+    <Channel position="1">
+      <Source>Luminal breast cancer cell line</Source>
+      <Organism taxid="9606">Homo sapiens</Organism>
+      <Characteristics tag="cell line">
+MCF-7
+      </Characteristics>
+      <Characteristics tag="chip antibody">
+FOXA1 AbCam ab5089 (lot #GK122110-17) and ab23738 (lot #GK176970-1)
+      </Characteristics>
+      <Characteristics tag="treatment">
+control
+      </Characteristics>
+      <Characteristics tag="time">
+0h
+      </Characteristics>
+      <Treatment-Protocol>
+Upon hormone deprivation, MCF7 cells were treated either with 100 nM 17-beta-estradiol for 0h, 45 min or 3h.
+      </Treatment-Protocol>
+      <Growth-Protocol>
+MCF7 cells were hormone deprived for 72 h in DMEM 5% Charcoal stripped Fetal Bovine Serum.
+      </Growth-Protocol>
+      <Molecule>genomic DNA</Molecule>
+      <Extract-Protocol>
+For each ChIP-seq, 2 plates 70-80% confluent (around total 20 millions MCF7 cells) were lysed in SDS buffer (1% SDS, 10 mM EDTA, 50 mM Tris-HCl (pH 8.0)) and sonicated for 20 cycles 30 sec ON 30 sec OFF in Bioruptor sonicator (Diagenode). Subsequently, chromatin was diluted in dilution buffer (10 mM Tris-HCl pH 8.0, 0.5  mM EGTA pH 8.0, 1% Triton-X-100, 140 mM NaCl) and incubated over night with 10 ug of antibody coupled with magnetic beads. Afterwards, beads were washed 7 times with RIPA buffer (50mM HEPES pH7.6, 1mM EDTA pH8, 0.7% Na-deoxycholate, 1% NP-40, 0.5 M LiCl2) and reverse cross-linked at 65 degrees overnight in Elution buffer (50 mM Tris-HCl pH8, 1 mM EDTA pH8, 1% SDS). RNA was digested at 37 degrees in RNAse A (Ambion), and proteins were digested with proteinase K (Life Technologies) at 56 degrees. DNA was isolated by Phenol-chloroform extraction followed by Ethanol precipitation.
+Library preparation for sequencing was done following the instructions of TruSeq DNA sample preparation kit from Illumina.
+      </Extract-Protocol>
+    </Channel>
+    <Data-Processing>
+ChIP-seq reads were aligned to the hg19 genome assembly using Bowtie2 with default parameters.
+samtools was used to convert the SAM file into BAM and subsequently sort the BAM file.
+Duplicate reads were removed with samtools and the resulting file was converted into a BED file containing the aligned unique reads.
+MACS2 with default parameters was used to call the peaks over the MCF7 input DNA obtained from unChIPped material.
+Genome_build: hg19
+Supplementary_files_format_and_content: bed files contain ChIP-seq peaks and were generated by using MACS2.
+    </Data-Processing>
+    <Platform-Ref ref="GPL11154" />
+    <Library-Strategy>ChIP-Seq</Library-Strategy>
+    <Library-Source>genomic</Library-Source>
+    <Library-Selection>ChIP</Library-Selection>
+    <Instrument-Model>
+      <Predefined>Illumina HiSeq 2000</Predefined>
+    </Instrument-Model>
+    <Contact-Ref ref="contrib1" />
+    <Supplementary-Data type="BED">
+ftp://ftp.ncbi.nlm.nih.gov/geo/samples/GSM2257nnn/GSM2257822/suppl/GSM2257822_FOXA1_E0h_MCF7_peaks.bed.gz
+    </Supplementary-Data>
+    <Relation type="BioSample" target="https://www.ncbi.nlm.nih.gov/biosample/SAMN05505353" />
+    <Relation type="SRA" target="https://www.ncbi.nlm.nih.gov/sra?term=SRX1995223" />
+  </Sample>
+
+  <Sample iid="GSM2257823">
+    <Status database="GEO">
+      <Submission-Date>2016-08-02</Submission-Date>
+      <Release-Date>2016-12-10</Release-Date>
+      <Last-Update-Date>2019-05-15</Last-Update-Date>
+    </Status>
+    <Title>FOXA1_E45m_ChIPseq</Title>
+    <Accession database="GEO">GSM2257823</Accession>
+    <Type>SRA</Type>
+    <Channel-Count>1</Channel-Count>
+    <Channel position="1">
+      <Source>Luminal breast cancer cell line</Source>
+      <Organism taxid="9606">Homo sapiens</Organism>
+      <Characteristics tag="cell line">
+MCF-7
+      </Characteristics>
+      <Characteristics tag="chip antibody">
+FOXA1 AbCam ab5089 (lot #GK122110-17) and ab23738 (lot #GK176970-1)
+      </Characteristics>
+      <Characteristics tag="treatment">
+estrogen
+      </Characteristics>
+      <Characteristics tag="time">
+45min
+      </Characteristics>
+      <Treatment-Protocol>
+Upon hormone deprivation, MCF7 cells were treated either with 100 nM 17-beta-estradiol for 0h, 45 min or 3h.
+      </Treatment-Protocol>
+      <Growth-Protocol>
+MCF7 cells were hormone deprived for 72 h in DMEM 5% Charcoal stripped Fetal Bovine Serum.
+      </Growth-Protocol>
+      <Molecule>genomic DNA</Molecule>
+      <Extract-Protocol>
+For each ChIP-seq, 2 plates 70-80% confluent (around total 20 millions MCF7 cells) were lysed in SDS buffer (1% SDS, 10 mM EDTA, 50 mM Tris-HCl (pH 8.0)) and sonicated for 20 cycles 30 sec ON 30 sec OFF in Bioruptor sonicator (Diagenode). Subsequently, chromatin was diluted in dilution buffer (10 mM Tris-HCl pH 8.0, 0.5  mM EGTA pH 8.0, 1% Triton-X-100, 140 mM NaCl) and incubated over night with 10 ug of antibody coupled with magnetic beads. Afterwards, beads were washed 7 times with RIPA buffer (50mM HEPES pH7.6, 1mM EDTA pH8, 0.7% Na-deoxycholate, 1% NP-40, 0.5 M LiCl2) and reverse cross-linked at 65 degrees overnight in Elution buffer (50 mM Tris-HCl pH8, 1 mM EDTA pH8, 1% SDS). RNA was digested at 37 degrees in RNAse A (Ambion), and proteins were digested with proteinase K (Life Technologies) at 56 degrees. DNA was isolated by Phenol-chloroform extraction followed by Ethanol precipitation.
+Library preparation for sequencing was done following the instructions of TruSeq DNA sample preparation kit from Illumina.
+      </Extract-Protocol>
+    </Channel>
+    <Data-Processing>
+ChIP-seq reads were aligned to the hg19 genome assembly using Bowtie2 with default parameters.
+samtools was used to convert the SAM file into BAM and subsequently sort the BAM file.
+Duplicate reads were removed with samtools and the resulting file was converted into a BED file containing the aligned unique reads.
+MACS2 with default parameters was used to call the peaks over the MCF7 input DNA obtained from unChIPped material.
+Genome_build: hg19
+Supplementary_files_format_and_content: bed files contain ChIP-seq peaks and were generated by using MACS2.
+    </Data-Processing>
+    <Platform-Ref ref="GPL11154" />
+    <Library-Strategy>ChIP-Seq</Library-Strategy>
+    <Library-Source>genomic</Library-Source>
+    <Library-Selection>ChIP</Library-Selection>
+    <Instrument-Model>
+      <Predefined>Illumina HiSeq 2000</Predefined>
+    </Instrument-Model>
+    <Contact-Ref ref="contrib1" />
+    <Supplementary-Data type="BED">
+ftp://ftp.ncbi.nlm.nih.gov/geo/samples/GSM2257nnn/GSM2257823/suppl/GSM2257823_FOXA1_E45m_MCF7_peaks.bed.gz
+    </Supplementary-Data>
+    <Relation type="BioSample" target="https://www.ncbi.nlm.nih.gov/biosample/SAMN05505352" />
+    <Relation type="SRA" target="https://www.ncbi.nlm.nih.gov/sra?term=SRX1995224" />
+  </Sample>
+
+  <Sample iid="GSM2257824">
+    <Status database="GEO">
+      <Submission-Date>2016-08-02</Submission-Date>
+      <Release-Date>2016-12-10</Release-Date>
+      <Last-Update-Date>2019-05-15</Last-Update-Date>
+    </Status>
+    <Title>FOXA1_3hE2_ChIPseq</Title>
+    <Accession database="GEO">GSM2257824</Accession>
+    <Type>SRA</Type>
+    <Channel-Count>1</Channel-Count>
+    <Channel position="1">
+      <Source>Luminal breast cancer cell line</Source>
+      <Organism taxid="9606">Homo sapiens</Organism>
+      <Characteristics tag="cell line">
+MCF-7
+      </Characteristics>
+      <Characteristics tag="chip antibody">
+FOXA1 AbCam ab5089 (lot #GK122110-17) and ab23738 (lot #GK176970-1)
+      </Characteristics>
+      <Characteristics tag="treatment">
+estrogen
+      </Characteristics>
+      <Characteristics tag="time">
+3h
+      </Characteristics>
+      <Treatment-Protocol>
+Upon hormone deprivation, MCF7 cells were treated either with 100 nM 17-beta-estradiol for 0h, 45 min or 3h.
+      </Treatment-Protocol>
+      <Growth-Protocol>
+MCF7 cells were hormone deprived for 72 h in DMEM 5% Charcoal stripped Fetal Bovine Serum.
+      </Growth-Protocol>
+      <Molecule>genomic DNA</Molecule>
+      <Extract-Protocol>
+For each ChIP-seq, 2 plates 70-80% confluent (around total 20 millions MCF7 cells) were lysed in SDS buffer (1% SDS, 10 mM EDTA, 50 mM Tris-HCl (pH 8.0)) and sonicated for 20 cycles 30 sec ON 30 sec OFF in Bioruptor sonicator (Diagenode). Subsequently, chromatin was diluted in dilution buffer (10 mM Tris-HCl pH 8.0, 0.5  mM EGTA pH 8.0, 1% Triton-X-100, 140 mM NaCl) and incubated over night with 10 ug of antibody coupled with magnetic beads. Afterwards, beads were washed 7 times with RIPA buffer (50mM HEPES pH7.6, 1mM EDTA pH8, 0.7% Na-deoxycholate, 1% NP-40, 0.5 M LiCl2) and reverse cross-linked at 65 degrees overnight in Elution buffer (50 mM Tris-HCl pH8, 1 mM EDTA pH8, 1% SDS). RNA was digested at 37 degrees in RNAse A (Ambion), and proteins were digested with proteinase K (Life Technologies) at 56 degrees. DNA was isolated by Phenol-chloroform extraction followed by Ethanol precipitation.
+Library preparation for sequencing was done following the instructions of TruSeq DNA sample preparation kit from Illumina.
+      </Extract-Protocol>
+    </Channel>
+    <Data-Processing>
+ChIP-seq reads were aligned to the hg19 genome assembly using Bowtie2 with default parameters.
+samtools was used to convert the SAM file into BAM and subsequently sort the BAM file.
+Duplicate reads were removed with samtools and the resulting file was converted into a BED file containing the aligned unique reads.
+MACS2 with default parameters was used to call the peaks over the MCF7 input DNA obtained from unChIPped material.
+Genome_build: hg19
+Supplementary_files_format_and_content: bed files contain ChIP-seq peaks and were generated by using MACS2.
+    </Data-Processing>
+    <Platform-Ref ref="GPL11154" />
+    <Library-Strategy>ChIP-Seq</Library-Strategy>
+    <Library-Source>genomic</Library-Source>
+    <Library-Selection>ChIP</Library-Selection>
+    <Instrument-Model>
+      <Predefined>Illumina HiSeq 2000</Predefined>
+    </Instrument-Model>
+    <Contact-Ref ref="contrib1" />
+    <Supplementary-Data type="BED">
+ftp://ftp.ncbi.nlm.nih.gov/geo/samples/GSM2257nnn/GSM2257824/suppl/GSM2257824_FOXA1_E3h_MCF7_peaks.bed.gz
+    </Supplementary-Data>
+    <Relation type="BioSample" target="https://www.ncbi.nlm.nih.gov/biosample/SAMN05505348" />
+    <Relation type="SRA" target="https://www.ncbi.nlm.nih.gov/sra?term=SRX1995225" />
+  </Sample>
+
+  <Sample iid="GSM2257825">
+    <Status database="GEO">
+      <Submission-Date>2016-08-02</Submission-Date>
+      <Release-Date>2016-12-10</Release-Date>
+      <Last-Update-Date>2019-05-15</Last-Update-Date>
+    </Status>
+    <Title>LaminB_0hE2_ChIPseq</Title>
+    <Accession database="GEO">GSM2257825</Accession>
+    <Type>SRA</Type>
+    <Channel-Count>1</Channel-Count>
+    <Channel position="1">
+      <Source>Luminal breast cancer cell line</Source>
+      <Organism taxid="9606">Homo sapiens</Organism>
+      <Characteristics tag="cell line">
+MCF-7
+      </Characteristics>
+      <Characteristics tag="chip antibody">
+LaminB (c-20) Santa Cruz Biotechnology sc-6216 (lot #F1715)
+      </Characteristics>
+      <Characteristics tag="treatment">
+control
+      </Characteristics>
+      <Characteristics tag="time">
+0h
+      </Characteristics>
+      <Treatment-Protocol>
+Upon hormone deprivation, MCF7 cells were treated either with 100 nM 17-beta-estradiol for 0h, 45 min or 3h.
+      </Treatment-Protocol>
+      <Growth-Protocol>
+MCF7 cells were hormone deprived for 72 h in DMEM 5% Charcoal stripped Fetal Bovine Serum.
+      </Growth-Protocol>
+      <Molecule>genomic DNA</Molecule>
+      <Extract-Protocol>
+For each ChIP-seq, 2 plates 70-80% confluent (around total 20 millions MCF7 cells) were lysed in SDS buffer (1% SDS, 10 mM EDTA, 50 mM Tris-HCl (pH 8.0)) and sonicated for 20 cycles 30 sec ON 30 sec OFF in Bioruptor sonicator (Diagenode). Subsequently, chromatin was diluted in dilution buffer (10 mM Tris-HCl pH 8.0, 0.5  mM EGTA pH 8.0, 1% Triton-X-100, 140 mM NaCl) and incubated over night with 10 ug of antibody coupled with magnetic beads. Afterwards, beads were washed 7 times with RIPA buffer (50mM HEPES pH7.6, 1mM EDTA pH8, 0.7% Na-deoxycholate, 1% NP-40, 0.5 M LiCl2) and reverse cross-linked at 65 degrees overnight in Elution buffer (50 mM Tris-HCl pH8, 1 mM EDTA pH8, 1% SDS). RNA was digested at 37 degrees in RNAse A (Ambion), and proteins were digested with proteinase K (Life Technologies) at 56 degrees. DNA was isolated by Phenol-chloroform extraction followed by Ethanol precipitation.
+Library preparation for sequencing was done following the instructions of TruSeq DNA sample preparation kit from Illumina.
+      </Extract-Protocol>
+    </Channel>
+    <Data-Processing>
+ChIP-seq reads were aligned to the hg19 genome assembly using Bowtie2 with default parameters.
+samtools was used to convert the SAM file into BAM and subsequently sort the BAM file.
+Duplicate reads were removed with samtools and the resulting file was converted into a BED file containing the aligned unique reads.
+MACS2 with default parameters was used to call the peaks over the MCF7 input DNA obtained from unChIPped material.
+Genome_build: hg19
+Supplementary_files_format_and_content: bed files contain ChIP-seq peaks and were generated by using MACS2.
+    </Data-Processing>
+    <Platform-Ref ref="GPL11154" />
+    <Library-Strategy>ChIP-Seq</Library-Strategy>
+    <Library-Source>genomic</Library-Source>
+    <Library-Selection>ChIP</Library-Selection>
+    <Instrument-Model>
+      <Predefined>Illumina HiSeq 2000</Predefined>
+    </Instrument-Model>
+    <Contact-Ref ref="contrib1" />
+    <Supplementary-Data type="BED">
+ftp://ftp.ncbi.nlm.nih.gov/geo/samples/GSM2257nnn/GSM2257825/suppl/GSM2257825_LaminB_E0h_MCF7_peaks.bed.gz
+    </Supplementary-Data>
+    <Relation type="BioSample" target="https://www.ncbi.nlm.nih.gov/biosample/SAMN05505347" />
+    <Relation type="SRA" target="https://www.ncbi.nlm.nih.gov/sra?term=SRX1995226" />
+  </Sample>
+
+  <Sample iid="GSM2257826">
+    <Status database="GEO">
+      <Submission-Date>2016-08-02</Submission-Date>
+      <Release-Date>2016-12-10</Release-Date>
+      <Last-Update-Date>2019-05-15</Last-Update-Date>
+    </Status>
+    <Title>LaminB_E45m_ChIPseq</Title>
+    <Accession database="GEO">GSM2257826</Accession>
+    <Type>SRA</Type>
+    <Channel-Count>1</Channel-Count>
+    <Channel position="1">
+      <Source>Luminal breast cancer cell line</Source>
+      <Organism taxid="9606">Homo sapiens</Organism>
+      <Characteristics tag="cell line">
+MCF-7
+      </Characteristics>
+      <Characteristics tag="chip antibody">
+LaminB (c-20) Santa Cruz Biotechnology sc-6216 (lot #F1715)
+      </Characteristics>
+      <Characteristics tag="treatment">
+estrogen
+      </Characteristics>
+      <Characteristics tag="time">
+45min
+      </Characteristics>
+      <Treatment-Protocol>
+Upon hormone deprivation, MCF7 cells were treated either with 100 nM 17-beta-estradiol for 0h, 45 min or 3h.
+      </Treatment-Protocol>
+      <Growth-Protocol>
+MCF7 cells were hormone deprived for 72 h in DMEM 5% Charcoal stripped Fetal Bovine Serum.
+      </Growth-Protocol>
+      <Molecule>genomic DNA</Molecule>
+      <Extract-Protocol>
+For each ChIP-seq, 2 plates 70-80% confluent (around total 20 millions MCF7 cells) were lysed in SDS buffer (1% SDS, 10 mM EDTA, 50 mM Tris-HCl (pH 8.0)) and sonicated for 20 cycles 30 sec ON 30 sec OFF in Bioruptor sonicator (Diagenode). Subsequently, chromatin was diluted in dilution buffer (10 mM Tris-HCl pH 8.0, 0.5  mM EGTA pH 8.0, 1% Triton-X-100, 140 mM NaCl) and incubated over night with 10 ug of antibody coupled with magnetic beads. Afterwards, beads were washed 7 times with RIPA buffer (50mM HEPES pH7.6, 1mM EDTA pH8, 0.7% Na-deoxycholate, 1% NP-40, 0.5 M LiCl2) and reverse cross-linked at 65 degrees overnight in Elution buffer (50 mM Tris-HCl pH8, 1 mM EDTA pH8, 1% SDS). RNA was digested at 37 degrees in RNAse A (Ambion), and proteins were digested with proteinase K (Life Technologies) at 56 degrees. DNA was isolated by Phenol-chloroform extraction followed by Ethanol precipitation.
+Library preparation for sequencing was done following the instructions of TruSeq DNA sample preparation kit from Illumina.
+      </Extract-Protocol>
+    </Channel>
+    <Data-Processing>
+ChIP-seq reads were aligned to the hg19 genome assembly using Bowtie2 with default parameters.
+samtools was used to convert the SAM file into BAM and subsequently sort the BAM file.
+Duplicate reads were removed with samtools and the resulting file was converted into a BED file containing the aligned unique reads.
+MACS2 with default parameters was used to call the peaks over the MCF7 input DNA obtained from unChIPped material.
+Genome_build: hg19
+Supplementary_files_format_and_content: bed files contain ChIP-seq peaks and were generated by using MACS2.
+    </Data-Processing>
+    <Platform-Ref ref="GPL11154" />
+    <Library-Strategy>ChIP-Seq</Library-Strategy>
+    <Library-Source>genomic</Library-Source>
+    <Library-Selection>ChIP</Library-Selection>
+    <Instrument-Model>
+      <Predefined>Illumina HiSeq 2000</Predefined>
+    </Instrument-Model>
+    <Contact-Ref ref="contrib1" />
+    <Supplementary-Data type="BED">
+ftp://ftp.ncbi.nlm.nih.gov/geo/samples/GSM2257nnn/GSM2257826/suppl/GSM2257826_LaminB_E45m_MCF7_peaks.bed.gz
+    </Supplementary-Data>
+    <Relation type="BioSample" target="https://www.ncbi.nlm.nih.gov/biosample/SAMN05505346" />
+    <Relation type="SRA" target="https://www.ncbi.nlm.nih.gov/sra?term=SRX1995227" />
+  </Sample>
+
+  <Sample iid="GSM2257827">
+    <Status database="GEO">
+      <Submission-Date>2016-08-02</Submission-Date>
+      <Release-Date>2016-12-10</Release-Date>
+      <Last-Update-Date>2019-05-15</Last-Update-Date>
+    </Status>
+    <Title>LaminB_3hE2_ChIPseq</Title>
+    <Accession database="GEO">GSM2257827</Accession>
+    <Type>SRA</Type>
+    <Channel-Count>1</Channel-Count>
+    <Channel position="1">
+      <Source>Luminal breast cancer cell line</Source>
+      <Organism taxid="9606">Homo sapiens</Organism>
+      <Characteristics tag="cell line">
+MCF-7
+      </Characteristics>
+      <Characteristics tag="chip antibody">
+LaminB (c-20) Santa Cruz Biotechnology sc-6216 (lot #F1715)
+      </Characteristics>
+      <Characteristics tag="treatment">
+estrogen
+      </Characteristics>
+      <Characteristics tag="time">
+3h
+      </Characteristics>
+      <Treatment-Protocol>
+Upon hormone deprivation, MCF7 cells were treated either with 100 nM 17-beta-estradiol for 0h, 45 min or 3h.
+      </Treatment-Protocol>
+      <Growth-Protocol>
+MCF7 cells were hormone deprived for 72 h in DMEM 5% Charcoal stripped Fetal Bovine Serum.
+      </Growth-Protocol>
+      <Molecule>genomic DNA</Molecule>
+      <Extract-Protocol>
+For each ChIP-seq, 2 plates 70-80% confluent (around total 20 millions MCF7 cells) were lysed in SDS buffer (1% SDS, 10 mM EDTA, 50 mM Tris-HCl (pH 8.0)) and sonicated for 20 cycles 30 sec ON 30 sec OFF in Bioruptor sonicator (Diagenode). Subsequently, chromatin was diluted in dilution buffer (10 mM Tris-HCl pH 8.0, 0.5  mM EGTA pH 8.0, 1% Triton-X-100, 140 mM NaCl) and incubated over night with 10 ug of antibody coupled with magnetic beads. Afterwards, beads were washed 7 times with RIPA buffer (50mM HEPES pH7.6, 1mM EDTA pH8, 0.7% Na-deoxycholate, 1% NP-40, 0.5 M LiCl2) and reverse cross-linked at 65 degrees overnight in Elution buffer (50 mM Tris-HCl pH8, 1 mM EDTA pH8, 1% SDS). RNA was digested at 37 degrees in RNAse A (Ambion), and proteins were digested with proteinase K (Life Technologies) at 56 degrees. DNA was isolated by Phenol-chloroform extraction followed by Ethanol precipitation.
+Library preparation for sequencing was done following the instructions of TruSeq DNA sample preparation kit from Illumina.
+      </Extract-Protocol>
+    </Channel>
+    <Data-Processing>
+ChIP-seq reads were aligned to the hg19 genome assembly using Bowtie2 with default parameters.
+samtools was used to convert the SAM file into BAM and subsequently sort the BAM file.
+Duplicate reads were removed with samtools and the resulting file was converted into a BED file containing the aligned unique reads.
+MACS2 with default parameters was used to call the peaks over the MCF7 input DNA obtained from unChIPped material.
+Genome_build: hg19
+Supplementary_files_format_and_content: bed files contain ChIP-seq peaks and were generated by using MACS2.
+    </Data-Processing>
+    <Platform-Ref ref="GPL11154" />
+    <Library-Strategy>ChIP-Seq</Library-Strategy>
+    <Library-Source>genomic</Library-Source>
+    <Library-Selection>ChIP</Library-Selection>
+    <Instrument-Model>
+      <Predefined>Illumina HiSeq 2000</Predefined>
+    </Instrument-Model>
+    <Contact-Ref ref="contrib1" />
+    <Supplementary-Data type="BED">
+ftp://ftp.ncbi.nlm.nih.gov/geo/samples/GSM2257nnn/GSM2257827/suppl/GSM2257827_LaminB_E3h_MCF7_peaks.bed.gz
+    </Supplementary-Data>
+    <Relation type="BioSample" target="https://www.ncbi.nlm.nih.gov/biosample/SAMN05505351" />
+    <Relation type="SRA" target="https://www.ncbi.nlm.nih.gov/sra?term=SRX1995228" />
+  </Sample>
+
+  <Sample iid="GSM2257828">
+    <Status database="GEO">
+      <Submission-Date>2016-08-02</Submission-Date>
+      <Release-Date>2016-12-10</Release-Date>
+      <Last-Update-Date>2019-05-15</Last-Update-Date>
+    </Status>
+    <Title>siCTCF_ER_ChIPseq</Title>
+    <Accession database="GEO">GSM2257828</Accession>
+    <Type>SRA</Type>
+    <Channel-Count>1</Channel-Count>
+    <Channel position="1">
+      <Source>Luminal breast cancer cell line</Source>
+      <Organism taxid="9606">Homo sapiens</Organism>
+      <Characteristics tag="cell line">
+MCF-7
+      </Characteristics>
+      <Characteristics tag="chip antibody">
+ER-alpha: Santa Cruz Biotechnology sc-543 (lot #F1215)
+      </Characteristics>
+      <Characteristics tag="treatment">
+siCTCF
+      </Characteristics>
+      <Treatment-Protocol>
+Upon hormone deprivation, MCF7 cells were treated either with 100 nM 17-beta-estradiol for 0h, 45 min or 3h.
+      </Treatment-Protocol>
+      <Growth-Protocol>
+MCF7 cells were hormone deprived for 72 h in DMEM 5% Charcoal stripped Fetal Bovine Serum.
+      </Growth-Protocol>
+      <Molecule>genomic DNA</Molecule>
+      <Extract-Protocol>
+For each ChIP-seq, 2 plates 70-80% confluent (around total 20 millions MCF7 cells) were lysed in SDS buffer (1% SDS, 10 mM EDTA, 50 mM Tris-HCl (pH 8.0)) and sonicated for 20 cycles 30 sec ON 30 sec OFF in Bioruptor sonicator (Diagenode). Subsequently, chromatin was diluted in dilution buffer (10 mM Tris-HCl pH 8.0, 0.5  mM EGTA pH 8.0, 1% Triton-X-100, 140 mM NaCl) and incubated over night with 10 ug of antibody coupled with magnetic beads. Afterwards, beads were washed 7 times with RIPA buffer (50mM HEPES pH7.6, 1mM EDTA pH8, 0.7% Na-deoxycholate, 1% NP-40, 0.5 M LiCl2) and reverse cross-linked at 65 degrees overnight in Elution buffer (50 mM Tris-HCl pH8, 1 mM EDTA pH8, 1% SDS). RNA was digested at 37 degrees in RNAse A (Ambion), and proteins were digested with proteinase K (Life Technologies) at 56 degrees. DNA was isolated by Phenol-chloroform extraction followed by Ethanol precipitation.
+Library preparation for sequencing was done following the instructions of TruSeq DNA sample preparation kit from Illumina.
+      </Extract-Protocol>
+    </Channel>
+    <Data-Processing>
+ChIP-seq reads were aligned to the hg19 genome assembly using Bowtie2 with default parameters.
+samtools was used to convert the SAM file into BAM and subsequently sort the BAM file.
+Duplicate reads were removed with samtools and the resulting file was converted into a BED file containing the aligned unique reads.
+MACS2 with default parameters was used to call the peaks over the MCF7 input DNA obtained from unChIPped material.
+Genome_build: hg19
+Supplementary_files_format_and_content: bed files contain ChIP-seq peaks and were generated by using MACS2.
+    </Data-Processing>
+    <Platform-Ref ref="GPL11154" />
+    <Library-Strategy>ChIP-Seq</Library-Strategy>
+    <Library-Source>genomic</Library-Source>
+    <Library-Selection>ChIP</Library-Selection>
+    <Instrument-Model>
+      <Predefined>Illumina HiSeq 2000</Predefined>
+    </Instrument-Model>
+    <Contact-Ref ref="contrib1" />
+    <Supplementary-Data type="BED">
+ftp://ftp.ncbi.nlm.nih.gov/geo/samples/GSM2257nnn/GSM2257828/suppl/GSM2257828_siCTCF_ER_E45m_ChIP_MCF7_peaks.bed.gz
+    </Supplementary-Data>
+    <Relation type="BioSample" target="https://www.ncbi.nlm.nih.gov/biosample/SAMN05505350" />
+    <Relation type="SRA" target="https://www.ncbi.nlm.nih.gov/sra?term=SRX1995229" />
+  </Sample>
+
+  <Sample iid="GSM2257829">
+    <Status database="GEO">
+      <Submission-Date>2016-08-02</Submission-Date>
+      <Release-Date>2016-12-10</Release-Date>
+      <Last-Update-Date>2019-05-15</Last-Update-Date>
+    </Status>
+    <Title>siNT_ER_ChIPseq</Title>
+    <Accession database="GEO">GSM2257829</Accession>
+    <Type>SRA</Type>
+    <Channel-Count>1</Channel-Count>
+    <Channel position="1">
+      <Source>Luminal breast cancer cell line</Source>
+      <Organism taxid="9606">Homo sapiens</Organism>
+      <Characteristics tag="cell line">
+MCF-7
+      </Characteristics>
+      <Characteristics tag="chip antibody">
+ER-alpha: Santa Cruz Biotechnology sc-543 (lot #F1215)
+      </Characteristics>
+      <Characteristics tag="treatment">
+siNT
+      </Characteristics>
+      <Treatment-Protocol>
+Upon hormone deprivation, MCF7 cells were treated either with 100 nM 17-beta-estradiol for 0h, 45 min or 3h.
+      </Treatment-Protocol>
+      <Growth-Protocol>
+MCF7 cells were hormone deprived for 72 h in DMEM 5% Charcoal stripped Fetal Bovine Serum.
+      </Growth-Protocol>
+      <Molecule>genomic DNA</Molecule>
+      <Extract-Protocol>
+For each ChIP-seq, 2 plates 70-80% confluent (around total 20 millions MCF7 cells) were lysed in SDS buffer (1% SDS, 10 mM EDTA, 50 mM Tris-HCl (pH 8.0)) and sonicated for 20 cycles 30 sec ON 30 sec OFF in Bioruptor sonicator (Diagenode). Subsequently, chromatin was diluted in dilution buffer (10 mM Tris-HCl pH 8.0, 0.5  mM EGTA pH 8.0, 1% Triton-X-100, 140 mM NaCl) and incubated over night with 10 ug of antibody coupled with magnetic beads. Afterwards, beads were washed 7 times with RIPA buffer (50mM HEPES pH7.6, 1mM EDTA pH8, 0.7% Na-deoxycholate, 1% NP-40, 0.5 M LiCl2) and reverse cross-linked at 65 degrees overnight in Elution buffer (50 mM Tris-HCl pH8, 1 mM EDTA pH8, 1% SDS). RNA was digested at 37 degrees in RNAse A (Ambion), and proteins were digested with proteinase K (Life Technologies) at 56 degrees. DNA was isolated by Phenol-chloroform extraction followed by Ethanol precipitation.
+Library preparation for sequencing was done following the instructions of TruSeq DNA sample preparation kit from Illumina.
+      </Extract-Protocol>
+    </Channel>
+    <Data-Processing>
+ChIP-seq reads were aligned to the hg19 genome assembly using Bowtie2 with default parameters.
+samtools was used to convert the SAM file into BAM and subsequently sort the BAM file.
+Duplicate reads were removed with samtools and the resulting file was converted into a BED file containing the aligned unique reads.
+MACS2 with default parameters was used to call the peaks over the MCF7 input DNA obtained from unChIPped material.
+Genome_build: hg19
+Supplementary_files_format_and_content: bed files contain ChIP-seq peaks and were generated by using MACS2.
+    </Data-Processing>
+    <Platform-Ref ref="GPL11154" />
+    <Library-Strategy>ChIP-Seq</Library-Strategy>
+    <Library-Source>genomic</Library-Source>
+    <Library-Selection>ChIP</Library-Selection>
+    <Instrument-Model>
+      <Predefined>Illumina HiSeq 2000</Predefined>
+    </Instrument-Model>
+    <Contact-Ref ref="contrib1" />
+    <Supplementary-Data type="BED">
+ftp://ftp.ncbi.nlm.nih.gov/geo/samples/GSM2257nnn/GSM2257829/suppl/GSM2257829_siNT_ER_E45m_ChIP_MCF7_peaks.bed.gz
+    </Supplementary-Data>
+    <Relation type="BioSample" target="https://www.ncbi.nlm.nih.gov/biosample/SAMN05505349" />
+    <Relation type="SRA" target="https://www.ncbi.nlm.nih.gov/sra?term=SRX1995230" />
+  </Sample>
+
+  <Sample iid="GSM2420109">
+    <Status database="GEO">
+      <Submission-Date>2016-12-08</Submission-Date>
+      <Release-Date>2016-12-10</Release-Date>
+      <Last-Update-Date>2019-05-15</Last-Update-Date>
+    </Status>
+    <Title>MCF7_input_ChIPseq</Title>
+    <Accession database="GEO">GSM2420109</Accession>
+    <Type>SRA</Type>
+    <Channel-Count>1</Channel-Count>
+    <Channel position="1">
+      <Source>Luminal breast cancer cell line</Source>
+      <Organism taxid="9606">Homo sapiens</Organism>
+      <Characteristics tag="cell line">
+MCF-7
+      </Characteristics>
+      <Characteristics tag="chip antibody">
+none (input)
+      </Characteristics>
+      <Treatment-Protocol>
+Upon hormone deprivation, MCF7 cells were treated either with 100 nM 17-beta-estradiol for 0h, 45 min or 3h.
+      </Treatment-Protocol>
+      <Growth-Protocol>
+MCF7 cells were hormone deprived for 72 h in DMEM 5% Charcoal stripped Fetal Bovine Serum.
+      </Growth-Protocol>
+      <Molecule>genomic DNA</Molecule>
+      <Extract-Protocol>
+For each ChIP-seq, 2 plates 70-80% confluent (around total 20 millions MCF7 cells) were lysed in SDS buffer (1% SDS, 10 mM EDTA, 50 mM Tris-HCl (pH 8.0)) and sonicated for 20 cycles 30 sec ON 30 sec OFF in Bioruptor sonicator (Diagenode). Subsequently, chromatin was diluted in dilution buffer (10 mM Tris-HCl pH 8.0, 0.5  mM EGTA pH 8.0, 1% Triton-X-100, 140 mM NaCl) and incubated over night with 10 ug of antibody coupled with magnetic beads. Afterwards, beads were washed 7 times with RIPA buffer (50mM HEPES pH7.6, 1mM EDTA pH8, 0.7% Na-deoxycholate, 1% NP-40, 0.5 M LiCl2) and reverse cross-linked at 65 degrees overnight in Elution buffer (50 mM Tris-HCl pH8, 1 mM EDTA pH8, 1% SDS). RNA was digested at 37 degrees in RNAse A (Ambion), and proteins were digested with proteinase K (Life Technologies) at 56 degrees. DNA was isolated by Phenol-chloroform extraction followed by Ethanol precipitation.
+Library preparation for sequencing was done following the instructions of TruSeq DNA sample preparation kit from Illumina.
+      </Extract-Protocol>
+    </Channel>
+    <Data-Processing>
+ChIP-seq reads were aligned to the hg19 genome assembly using Bowtie2 with default parameters.
+samtools was used to convert the SAM file into BAM and subsequently sort the BAM file.
+Duplicate reads were removed with samtools and the resulting file was converted into a BED file containing the aligned unique reads.
+MACS2 with default parameters was used to call the peaks over the MCF7 input DNA obtained from unChIPped material.
+Genome_build: hg19
+Supplementary_files_format_and_content: bed files contain ChIP-seq peaks and were generated by using MACS2.
+    </Data-Processing>
+    <Platform-Ref ref="GPL11154" />
+    <Library-Strategy>ChIP-Seq</Library-Strategy>
+    <Library-Source>genomic</Library-Source>
+    <Library-Selection>ChIP</Library-Selection>
+    <Instrument-Model>
+      <Predefined>Illumina HiSeq 2000</Predefined>
+    </Instrument-Model>
+    <Contact-Ref ref="contrib1" />
+    <Supplementary-Data type="unknown">
+NONE
+    </Supplementary-Data>
+    <Relation type="BioSample" target="https://www.ncbi.nlm.nih.gov/biosample/SAMN06122740" />
+    <Relation type="SRA" target="https://www.ncbi.nlm.nih.gov/sra?term=SRX2404837" />
+  </Sample>
+
+  <Series iid="GSE85106">
+    <Status database="GEO">
+      <Submission-Date>2016-08-02</Submission-Date>
+      <Release-Date>2016-12-10</Release-Date>
+      <Last-Update-Date>2019-05-15</Last-Update-Date>
+    </Status>
+    <Title>CTCF modulates Estrogen Receptor function through specific chromatin and nuclear matrix interactions [ChIP-seq]</Title>
+    <Accession database="GEO">GSE85106</Accession>
+    <Pubmed-ID>27638884</Pubmed-ID>
+    <Summary>
+In our work we used high-throughput sequencing methods to get insight in the role of CTCF in ER-mediated gene regulation in luminal breast cancer cells. After assessing genome-wide binding of CTCF, ER, FOXA1 and Lamin B in MCF7 cells treated with estrogen for different time points, we could correlate the interaction to the chromatin with estrogen-induced de novo transcription (from GRO-seq data) and loop formation (from ChIA-PET, Fullwood et al., 2009). We observed that CTCF binding correlates with ER-mediated transcription and its depletion can affect ER-ER loop formation and subsequently gene expression.
+    </Summary>
+    <Overall-Design>
+Examination of CTCF, ER, FOXA1 and Lamin B chromatin binding in MCF7 cells upon estrogen stimulation for 0h, 45min or 3h.
+    </Overall-Design>
+    <Type>Genome binding/occupancy profiling by high throughput sequencing</Type>
+    <Contributor-Ref ref="contrib1" position="1" />
+    <Contributor-Ref ref="contrib3" position="2" />
+    <Contributor-Ref ref="contrib4" position="3" />
+    <Contact-Ref ref="contrib1" />
+    <Sample-Ref ref="GSM2257816" />
+    <Sample-Ref ref="GSM2257817" />
+    <Sample-Ref ref="GSM2257818" />
+    <Sample-Ref ref="GSM2257819" />
+    <Sample-Ref ref="GSM2257820" />
+    <Sample-Ref ref="GSM2257821" />
+    <Sample-Ref ref="GSM2257822" />
+    <Sample-Ref ref="GSM2257823" />
+    <Sample-Ref ref="GSM2257824" />
+    <Sample-Ref ref="GSM2257825" />
+    <Sample-Ref ref="GSM2257826" />
+    <Sample-Ref ref="GSM2257827" />
+    <Sample-Ref ref="GSM2257828" />
+    <Sample-Ref ref="GSM2257829" />
+    <Sample-Ref ref="GSM2420109" />
+    <Supplementary-Data type="TAR">
+ftp://ftp.ncbi.nlm.nih.gov/geo/series/GSE85nnn/GSE85106/suppl/GSE85106_RAW.tar
+    </Supplementary-Data>
+    <Relation type="SubSeries of" target="GSE85108" />
+    <Relation type="BioProject" target="https://www.ncbi.nlm.nih.gov/bioproject/PRJNA336191" />
+    <Relation type="SRA" target="https://www.ncbi.nlm.nih.gov/sra?term=SRP080814" />
+  </Series>
+
+</MINiML>
