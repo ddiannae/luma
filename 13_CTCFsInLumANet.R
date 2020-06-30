@@ -48,4 +48,4 @@ gb_ctfs <- bind_rows(gb_ctfs) %>% select(-type)
 extreme_ctcfs <- gb_ctfs %>% group_by(chr, gene_sum) %>% filter(
   end == min(end) | end == max(end)
 )
-write_tsv(gb_ctfs, path = "data/extreme_ctcfs_in_luma.tsv")
+write_tsv(extreme_ctcfs, path = "data/extreme_ctcfs_in_luma.tsv")
