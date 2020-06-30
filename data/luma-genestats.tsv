@@ -1,4 +1,4 @@
-ensemblID	no_na	mean	median	sd	lowerq	upperq	min	max
+ensembl_id	no_na	mean	median	sd	lowerq	upperq	min	max
 ENSG00000259424	210	3.2	2	6.638873484886225	2	3	1	93
 ENSG00000140443	210	3.2	2	6.638873484886225	2	3	1	93
 ENSG00000278022	210	3.2	2	6.638873484886225	2	3	1	93
