@@ -1,0 +1,148 @@
+#Partially deleted in new
+chr1	31967567	31967965	MACS_peak_177	535.77
+#Partially deleted in new
+chr1	142967532	142967793	MACS_peak_889	62.38
+#Partially deleted in new
+chr1	143282653	143283394	MACS_peak_892	339.59
+#Split in new
+chr1	144146594	144147177	MACS_peak_909	886.97
+#Split in new
+chr1	144322150	144322470	MACS_peak_910	71.25
+#Split in new
+chr1	144342406	144342701	MACS_peak_911	127.10
+#Split in new
+chr1	144379196	144379475	MACS_peak_912	206.70
+#Split in new
+chr1	146057160	146057515	MACS_peak_954	219.26
+#Split in new
+chr1	146236085	146236302	MACS_peak_955	216.26
+#Split in new
+chr1	146244386	146244856	MACS_peak_956	1190.97
+#Split in new
+chr1	148247300	148247937	MACS_peak_998	647.88
+#Split in new
+chr1	148340081	148340664	MACS_peak_1000	805.95
+#Split in new
+chr1	148577450	148577955	MACS_peak_1004	802.01
+#Split in new
+chr1	148739666	148740040	MACS_peak_1009	824.41
+#Split in new
+chr1	148760606	148761082	MACS_peak_1010	699.72
+#Split in new
+chr1	149033141	149033578	MACS_peak_1016	279.91
+#Split in new
+chr1	149033901	149035001	MACS_peak_1017	450.82
+#Partially deleted in new
+chr10	5198632	5198862	MACS_peak_1942	517.97
+#Split in new
+chr10	42596621	42600665	MACS_peak_2323	3100.00
+#Split in new
+chr10	47770338	47770563	MACS_peak_2393	844.95
+#Split in new
+chr10	49085206	49085436	MACS_peak_2404	863.14
+#Split in new
+chr11	87687725	87688233	MACS_peak_3694	2299.55
+#Partially deleted in new
+chr12	95476	95802	MACS_peak_3937	58.28
+#Partially deleted in new
+chr14	106541901	106542187	MACS_peak_6537	450.92
+#Partially deleted in new
+chr15	82787438	82787680	MACS_peak_7075	414.14
+#Split in new
+chr16	46412331	46414740	MACS_peak_7626	132.22
+#Partially deleted in new
+chr17	22262512	22263083	MACS_peak_8112	173.74
+#Partially deleted in new
+chr17	34658696	34659006	MACS_peak_8172	2207.47
+#Split in new
+chr17	34797415	34797792	MACS_peak_8174	968.96
+#Partially deleted in new
+chr17	66067449	66069085	MACS_peak_8841	3100.00
+#Partially deleted in new
+chr19	40388439	40388746	MACS_peak_9584	951.22
+#Split in new
+chr1_gl000192_random	186288	186680	MACS_peak_9828	508.79
+#Partially deleted in new
+chr2	36181240	36181664	MACS_peak_10080	843.52
+#Partially deleted in new
+chr2	89563567	89564189	MACS_peak_10503	1086.76
+#Partially deleted in new
+chr2	89830394	89830821	MACS_peak_10506	303.31
+#Split in new
+chr2	91624354	91624901	MACS_peak_10552	438.62
+#Split in new
+chr2	91649704	91649993	MACS_peak_10554	115.30
+#Split in new
+chr2	91711371	91711726	MACS_peak_10560	234.18
+#Partially deleted in new
+chr20	29803825	29804047	MACS_peak_11849	202.97
+#Split in new
+chr22	20688087	20688945	MACS_peak_12846	1032.46
+#Split in new
+chr22	20690119	20691543	MACS_peak_12847	1060.17
+#Partially deleted in new
+chr3	195214210	195214515	MACS_peak_14716	306.33
+#Partially deleted in new
+chr3	195283638	195283854	MACS_peak_14718	757.83
+#Partially deleted in new
+chr4	31820756	31821002	MACS_peak_14966	763.02
+#Partially deleted in new
+chr4	32834168	32834695	MACS_peak_14971	1284.23
+#Partially deleted in new
+chr4	75426525	75427456	MACS_peak_15229	2404.74
+#Split in new
+chr6	906255	907082	MACS_peak_17189	3100.00
+#Split in new
+chr6	61913864	61914615	MACS_peak_17575	573.70
+#Split in new
+chr8	2300272	2300617	MACS_peak_19544	89.18
+#Split in new
+chr9	40122493	40122726	MACS_peak_20937	124.93
+#Split in new
+chr9	40994200	40994540	MACS_peak_20939	337.15
+#Partially deleted in new
+chr9	41124740	41124975	MACS_peak_20940	670.71
+#Split in new
+chr9	41196134	41196369	MACS_peak_20941	745.98
+#Partially deleted in new
+chr9	43084518	43084664	MACS_peak_20962	781.57
+#Split in new
+chr9	44277980	44278294	MACS_peak_20969	488.85
+#Split in new
+chr9	44278581	44278789	MACS_peak_20970	913.83
+#Split in new
+chr9	44419987	44420174	MACS_peak_20971	675.66
+#Split in new
+chr9	44654867	44655102	MACS_peak_20972	701.86
+#Split in new
+chr9	65610515	65610974	MACS_peak_20994	133.45
+#Split in new
+chr9	65708469	65708678	MACS_peak_20995	638.02
+#Split in new
+chr9	69227880	69228233	MACS_peak_21057	59.96
+#Partially deleted in new
+chr9	70709486	70709865	MACS_peak_21110	546.22
+#Split in new
+chrX	49213884	49214144	MACS_peak_22210	429.38
+#Split in new
+chrX	49232945	49233188	MACS_peak_22211	328.50
+#Split in new
+chrX	49242472	49242740	MACS_peak_22212	307.01
+#Split in new
+chrX	51434739	51435093	MACS_peak_22225	737.12
+#Split in new
+chrX	51444335	51444711	MACS_peak_22226	1155.50
+#Partially deleted in new
+chrX	101489173	101489428	MACS_peak_22549	102.95
+#Split in new
+chrX	105551741	105552307	MACS_peak_22588	846.87
+#Partially deleted in new
+chrX	113975838	113976108	MACS_peak_22662	429.01
+#Partially deleted in new
+chrX	124741616	124742225	MACS_peak_22763	913.93
+#Partially deleted in new
+chrX	134249095	134249445	MACS_peak_22831	488.85
+#Partially deleted in new
+chrX	149551047	149551280	MACS_peak_22913	765.42
+#Split in new
+chrX	149570865	149571125	MACS_peak_22914	71.83
