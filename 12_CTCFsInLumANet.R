@@ -1,12 +1,8 @@
 library(readr)
 library(dplyr)
 
-ctcfs <- read_tsv("data/all_ctcfs.tsv", col_types = cols_only(
-              id = col_character(),
-              chr = col_character(),
-              start = col_double(),
-              end = col_double()
-            ))
+ctcfs_hg19 <- read_tsv("data/GSE85108/GSM2257816_CTCF_E0h_MCF7_peaks.bed", 
+                       col_names = c("chr", "start", "end", "id", "score"))
 
 luma_vertices <- read_tsv("data/network-tables/luma-20127-vertices.tsv", 
                           col_types = cols_only(
