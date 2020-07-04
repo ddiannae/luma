@@ -13,6 +13,8 @@ ctcfs <- read_tsv("data/class_ctcfs.tsv", col_types = cols(
 
 ctcfs_hits <- read_tsv("data/ctcfs_hits.tsv")
 
+luma_interactions <- read_tsv("data/network-tables/luma-20127-interactions.tsv")
+luma_interactions <- luma_interactions %>% filter(interaction_type != "Trans")
 luma_vertices <- read_tsv("data/network-tables/luma-20127-vertices.tsv", 
                           col_types = cols_only(
                             ensemblID = col_character(),
@@ -20,7 +22,8 @@ luma_vertices <- read_tsv("data/network-tables/luma-20127-vertices.tsv",
                             start = col_integer(),
                             end = col_integer()
                           ))
-luma_vertices <- luma_vertices %>% rename(id = ensemblID)
+luma_vertices <- luma_vertices %>% rename(id = ensemblID) %>%
+  filter(id %in% luma_interactions$source | id %in% luma_interactions$target)
 
 luma_ctcfs <- ctcfs %>% semi_join((ctcfs_hits %>% 
   semi_join(luma_vertices, by = c("sequence" = "id"))), by = c("id" = "ctcf")) %>%
