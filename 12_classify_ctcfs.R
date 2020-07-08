@@ -3,6 +3,7 @@ library(dplyr)
 library(plyr)
 library(stringr)
 library(IRanges)
+library(ggplot2)
 
 chrs <- as.character(c(seq(1:22), "X"))
 annot <- read_tsv("data/Biomart_EnsemblG94_GRCh38_p12.txt",
@@ -56,6 +57,25 @@ ctcfs_hits <- parallel::mclapply(X = chrs, mc.cores = 23, FUN = function(ch){
 class_ctcfs <- ldply(lapply(ctcfs_hits, "[[", "ctcfs"))
 ctcfs_hits <- ldply(lapply(ctcfs_hits, "[[", "hits"))
 
+class_ctcfs <- class_ctcfs %>% mutate(type = case_when(phits > 0 ~ "promoter",
+                                        ghits > 0 ~ "gen",
+                                        ohits > 0 ~ "other",
+                                        TRUE ~ "intergen"))
+
+png(paste0("figures/ctcfs/class-barplot-all.png"), width = 800, height = 600)
+ggplot(class_ctcfs, aes(x = type, fill = type)) +
+  geom_bar() +
+  theme_bw() +
+  scale_fill_viridis_d() 
+dev.off()
+
+png(paste0("figures/ctcfs/class-barplot-all-bychr.png"), width = 1200, height = 1200)
+ggplot(class_ctcfs, aes(x = type, fill = type)) +
+  geom_bar() +
+  theme_bw() +
+  scale_fill_viridis_d() + 
+  facet_wrap(~chr)
+dev.off()
+
 write_tsv(class_ctcfs, path = "data/class_ctcfs.tsv")
 write_tsv(ctcfs_hits, path = "data/ctcfs_hits.tsv")
-

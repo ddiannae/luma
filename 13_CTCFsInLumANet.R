@@ -1,71 +1,109 @@
 library(readr)
 library(dplyr)
+library(ggplot2)
+library(IRanges)
 
-ctcfs <- read_tsv("data/class_ctcfs.tsv", col_types = cols(
+ctcfs <- read_tsv("data/class_ctcfs.tsv", col_types = cols_only(
   chr = col_character(),
   start = col_double(),
   end = col_double(),
   id = col_character(),
-  score = col_double(),
-  phits = col_double(),
-  ghits = col_double(),
-  ohits = col_double()))
+  score = col_double()))
 
-ctcfs_hits <- read_tsv("data/ctcfs_hits.tsv")
-
-luma_interactions <- read_tsv("data/network-tables/luma-20127-interactions.tsv")
-luma_interactions <- luma_interactions %>% filter(interaction_type != "Trans")
-luma_vertices <- read_tsv("data/network-tables/luma-20127-vertices.tsv", 
+genes <- read_tsv("data/network-tables/luma-20127-vertices.tsv", 
                           col_types = cols_only(
                             ensemblID = col_character(),
                             chr = col_character(),
                             start = col_integer(),
                             end = col_integer()
                           ))
-luma_vertices <- luma_vertices %>% rename(id = ensemblID) %>%
-  filter(id %in% luma_interactions$source | id %in% luma_interactions$target)
+genes <- genes %>% dplyr::rename(id = ensemblID)
 
-luma_ctcfs <- ctcfs %>% semi_join((ctcfs_hits %>% 
-  semi_join(luma_vertices, by = c("sequence" = "id"))), by = c("id" = "ctcf")) %>%
-  mutate(type = "luma")
-  
+promoters <- genes %>% mutate(end = start + 5000, start = start - 5000)
+extended_regions <- genes %>% mutate(start = start - 5000, end = end)
+gene_bodies <- genes %>% mutate(start = start + 5000) %>% 
+  filter(end > start)
+
 chrs <- as.character(c(seq(1:22), "X"))
 
-gb_ctfs <- parallel::mclapply(X = chrs, mc.cores = 23, FUN = function(ch){
-  gs_in_c <- luma_vertices %>% filter(chr == ch) %>% 
-    mutate(type = "Gene")
-  cs_in_c <- ctcfs %>% filter(chr == ch) %>% select(id, chr, start, end) %>%
-    mutate(type = "CTCF")
+luma_ctfs <- parallel::mclapply(X = chrs, mc.cores = 23, FUN = function(ch){
+  chr_ctcfs <- ctcfs %>% filter(chr == ch)
+  chr_gene_bodies <- gene_bodies %>% filter(chr == ch)
+  chr_promoters <- promoters %>% filter(chr == ch)
+  chr_extended_regions <- extended_regions %>% filter(chr == ch)
   
-  all <- bind_rows(gs_in_c, cs_in_c) %>% arrange(start) %>%
-    mutate(gene_sum = cumsum(type == "Gene"))
+  cranges <- IRanges(start = chr_ctcfs$start, end = chr_ctcfs$end, names = chr_ctcfs$id)
+  granges <- IRanges(start = chr_gene_bodies$start, end = chr_gene_bodies$end, names = chr_gene_bodies$id)
+  pranges <- IRanges(start = chr_promoters$start, end = chr_promoters$end, names = chr_promoters$id)
+  eranges <- IRanges(start = chr_extended_regions$start, end = chr_extended_regions$end, names = chr_extended_regions$id)
   
-  cs_in_c <- all %>% filter(type == "CTCF")
+  #ctcfs in promotoers and gene bodies
+  chr_ctcfs <- chr_ctcfs %>% mutate(phits = countOverlaps(cranges, pranges, type = "within"), 
+                                    ghits = countOverlaps(cranges, granges, type = "within"))
+                         
+  phits <- as.data.frame(findOverlaps(cranges, pranges, type = "within")) %>% 
+    mutate(ctcf = chr_ctcfs$id[queryHits], sequence = chr_promoters$id[subjectHits], type = "promoter")
   
-  ## Check how many genes are between two ctcf binding sites
-  ngenes <- lapply(seq(1:nrow(cs_in_c)), function(i){
-    cs <- unname(unlist(cs_in_c[i, "gene_sum"]))
-    start <- unname(unlist(cs_in_c[i, "start"]))
-    pre_cs <- unname(unlist(cs_in_c[i-1, "gene_sum"]))
-    pre_end <- unname(unlist(cs_in_c[i-1, "end"]))
-    
-    return(list(genes = cs - pre_cs, distance = start - pre_end))
-  })
-  cs_in_c$genes <- c(cs_in_c$gene_sum[1], unlist(lapply(ngenes, "[[", "genes")))
-  cs_in_c$distance <- c(cs_in_c$start[1], unlist(lapply(ngenes, "[[", "distance")))
+  ghits <- as.data.frame(findOverlaps(cranges, granges, type = "within")) %>% 
+    mutate(ctcf = chr_ctcfs$id[queryHits], sequence = chr_gene_bodies$id[subjectHits], type = "gene")
   
-  return(cs_in_c)
+  hits <- bind_rows(phits, ghits) %>% select(ctcf, sequence, type)
+  
+  # Distance to the extended region
+  dist <- distanceToNearest(cranges, eranges)
+  chr_ctcfs$near_region <- chr_extended_regions$id[to(dist)]
+  chr_ctcfs$near_distance <- unlist(elementMetadata(dist))
+  return(list(ctcfs = chr_ctcfs, hits = hits))
 })
 
-gb_ctfs <- bind_rows(gb_ctfs) %>% select(-type)
-extreme_ctcfs <- gb_ctfs %>% group_by(chr, gene_sum) %>% filter(
-  end == min(end) | end == max(end)
-)
+class_ctcfs <- plyr::ldply(lapply(luma_ctfs, "[[", "ctcfs"))
+ctcfs_hits <- plyr::ldply(lapply(luma_ctfs, "[[", "hits"))
 
-extreme_ctcfs <- ctcfs %>% semi_join(extreme_ctcfs, by = "id") %>% 
-  mutate(type = "extreme")
+class_ctcfs <- class_ctcfs %>% mutate(type = case_when(phits > 0 ~ "promoter",
+                                                   ghits > 0 ~ "gene",
+                                                   TRUE ~ "intergen"))
 
-all_filter <- bind_rows(luma_ctcfs, extreme_ctcfs) %>% group_by(id) %>% filter(
-  type == max(type))
+class_ctcfs %>% select(type) %>% table()
+# gene intergen promoter 
+# 1749    18184      420 
 
-write_tsv(all_filter, path = "data/ctcfs_in_luma.tsv")
+
+png(paste0("figures/ctcfs/class-barplot-luma.png"), width = 600, height = 800)
+ggplot(class_ctcfs, aes(x = type, fill = type)) +
+  geom_bar() +
+  theme_bw() +
+  scale_fill_viridis_d() 
+dev.off()
+
+ctcfs_count <- bind_rows(
+  class_ctcfs %>% filter(near_distance <= 100000) %>% select(type) %>% mutate(distance = "100k"),
+  class_ctcfs %>% filter(near_distance <= 75000) %>% select(type) %>% mutate(distance = "75k"),
+  class_ctcfs %>% filter(near_distance <= 50000) %>% select(type) %>% mutate(distance = "50k"),
+  class_ctcfs %>% filter(near_distance <= 25000) %>% select(type) %>% mutate(distance = "25k"),
+  class_ctcfs %>% filter(near_distance <= 15000) %>% select(type) %>% mutate(distance = "15k"),
+  class_ctcfs %>% filter(near_distance <= 10000) %>% select(type) %>% mutate(distance = "10k"),
+  class_ctcfs %>% filter(near_distance <= 5000) %>% select(type) %>% mutate(distance = "5k"),
+  class_ctcfs %>% filter(near_distance <= 1000) %>% select(type) %>% mutate(distance = "1k"))
+ctcfs_count <- ctcfs_count %>% group_by(type, distance) %>% tally()
+ctcfs_count$distance <- factor(ctcfs_count$distance, 
+                                  levels = c("1k", "5k", "10k", "15k", "25k", "50k", "75k", "100k"))
+
+png(paste0("figures/ctcfs/class-barplot-luma-distance.png"), width = 800, height = 800)
+ggplot(ctcfs_count, aes(x = distance,  y = n, fill = type)) +
+  geom_bar(position="dodge", stat="identity") +
+  theme_bw() +
+  scale_fill_viridis_d() 
+dev.off()
+
+## digamos que 25k 
+class_ctcfs_25 <- class_ctcfs %>% filter(near_distance <= 25000)
+
+png(paste0("figures/ctcfs/class-barplot-luma-distance-bychr.png"), width = 1200, height = 1200)
+ggplot(class_ctcfs_25, aes(x = type, fill = type)) +
+  geom_bar() +
+  theme_bw() +
+  scale_fill_viridis_d() + 
+  facet_wrap(~chr)
+dev.off()
+
+write_tsv(class_ctcfs, path = "data/ctcfs_in_luma.tsv")
