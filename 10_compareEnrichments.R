@@ -35,3 +35,21 @@ healthy_only <- healthy_kegg %>% anti_join(luma_kegg)
 write_tsv(luma_only %>% select(ID), "data/enrich-universe/luma-only-KEGG.tsv")
 write_tsv(healthy_only %>% select(ID), "data/enrich-universe/healthy-only-KEGG.tsv")
 write_tsv(shared %>% select(ID), "data/enrich-universe/shared-only-KEGG.tsv")
+
+
+healthy_enr <- read_tsv("./data/enrich-universe/healthy-go-enrichments.tsv")
+luma_enr <- read_tsv("./data/enrich-universe/luma-go-enrichments.tsv")
+healthy_enr <- healthy_enr %>% filter(p.adjust < 0.005)
+luma_enr <- luma_enr %>% filter(p.adjust < 0.005)
+write_tsv(luma_enr, "data/enrich-universe/luma-go-filtered-enrichments.tsv")
+write_tsv(healthy_enr, "data/enrich-universe/healthy-go-filtered-enrichments.tsv")
+
+intra_vertices <- read_tsv("data/luma-intra-vertices.tsv") 
+intra_comm <- unlist(unique(intra_vertices %>% select(community)))
+luma_enr <- luma_enr %>% mutate(community_type = ifelse(commun %in% intra_comm, "Intra", "Inter"))
+intra_enrich <- luma_enr %>% filter(community_type == "Intra")
+## 136 términos en 9 comunidades intra
+inter_enrich <-  luma_enr %>% filter(community_type == "Inter")
+## 792 términos en 20 comunidades inter
+inter_enrich %>% filter(commun == 230) %>% select(ID) %>% write_tsv("data/communities/comm230-inter.tsv")
+
