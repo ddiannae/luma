@@ -8,7 +8,7 @@ conds <- c("healthy", "luma")
 
 m <- lapply(conds, function(cond) {
   cat("Working with condition: ", cond, "\n")
-  membership <- read_tsv(file = paste0("data/", cond,  "-communities.tsv"))
+  membership <- read_tsv(file = paste0("data/communities/", cond,  "-communities.tsv"))
   gene_universe <- read_tsv(file = paste0("data/genes_in_exp_matrix.txt"), 
                             col_names = c("ensemblID"), skip = 1)
   gene_universe <- unlist(gene_universe$ensemblID)

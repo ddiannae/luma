@@ -33,7 +33,7 @@ m <- lapply(conds, function(cond) {
   
   colnames(interactions)[1:2] <- c("from", "to")
   net <- graph_from_data_frame(interactions, 
-  directed=F, vertices = vertices)
+  directed=F, vertices = vertiices)
   comm <- cluster_louvain(graph = net)
   names(comm$membership) <- comm$names
   
@@ -45,10 +45,10 @@ m <- lapply(conds, function(cond) {
   write.table(vertices, file = paste0("data/network-tables/", cond, "-", n, "-vertices.tsv") , 
               quote = F, row.names = F, col.names = T, sep = "\t")
   
-  write.table(df_comm, paste0("data/", cond,  "-communities.tsv"), 
+  write.table(df_comm, paste0("data/communities/", cond,  "-communities.tsv"), 
             quote = F, row.names = F, col.names = T, sep = "\t")
   
   comm_info <- getComInfo(comm$membership, net)
-  write.table(comm_info, paste0("data/", cond, "-communities-info.tsv"), 
+  write.table(comm_info, paste0("data/communities/", cond, "-communities-info.tsv"), 
               quote = F, row.names = F, col.names = T, sep = "\t")
 })

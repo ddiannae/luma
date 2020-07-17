@@ -10,7 +10,7 @@ m <- lapply(conds, function(cond) {
   
   cat("Working with condition: ", cond, "\n")
   
-  membership <- read_tsv(file = paste0("data/", cond,  "-communities.tsv"))
+  membership <- read_tsv(file = paste0("data/communities/", cond,  "-communities.tsv"))
   membership$entrez <- mapIds(org.Hs.eg.db,
                             keys = membership$ensemblID,
                             column="ENTREZID",

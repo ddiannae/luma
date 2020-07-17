@@ -11,7 +11,7 @@ luma_vertices <- read_tsv("data/network-tables/luma-20127-vertices.tsv",
                             chr = col_character()
                           ))
 
-luma_comm <- read_tsv(file = paste0("data/luma-communities.tsv"))
+luma_comm <- read_tsv(file = paste0("data/communities/luma-communities.tsv"))
 
 luma_net <- graph_from_data_frame(d = luma_interactions, vertices = luma_vertices, directed = FALSE)
 
@@ -22,12 +22,10 @@ getIntraCommunities <- function(net, membership) {
            FUN = function(n_comm){
              gene_list <- unlist(membership %>% filter(community == n_comm) %>%
                                   select(ensemblID))
-             #if(length(gene_list) > 5) {
                comm <- induced_subgraph(luma_net, gene_list)
                if(is_connected(comm)){
                  return(n_comm)
                }  
-             #}
              
              return(NULL)
            })
@@ -50,7 +48,7 @@ getCommunitiesDiameter <- function(vertices, membership, communities) {
 
 intra_diam <- getCommunitiesDiameter(luma_vertices, luma_comm, intra_comm)
 
-png(paste0("figures/intra-comm-diameter.png"), width = 1000, height = 500)
+png(paste0("figures/communities/intra-comm-diameter.png"), width = 1000, height = 500)
 ggplot(intra_diam, aes(x = diam)) +
   geom_density() +
   scale_x_log10() +
@@ -65,4 +63,4 @@ intra_vertices <- luma_vertices %>% semi_join(luma_comm %>%
                               filter(community %in% intra_comm), by = "ensemblID") %>%
                               mutate(type = "gene")
 
-write_tsv(intra_vertices, path = "data/luma-intra-vertices.tsv")
+write_tsv(intra_vertices, path = "data/communities/luma-intra-vertices.tsv")
