@@ -37,7 +37,11 @@ vertices$exp <- as.factor(vertices$exp)
 
 g <- graph_from_data_frame(interactions, vertices = vertices, directed = FALSE)  
 exp_assortativity <- getAssortativityByAttr(g, "exp")
+exp_assortativity <- exp_assortativity %>% 
+  inner_join(vertices %>% group_by(community) %>% summarise(mean_exp = mean(coef)), 
+             by = c("community_id" = "community"))
 write_tsv(exp_assortativity, path = "data/assortativity/luma-exp-assortativity.tsv")
+
 chr_assortativity <- getAssortativityByAttr(g, "chr")
 write_tsv(chr_assortativity, path = "data/assortativity/luma-chr-assortativity.tsv")
 
