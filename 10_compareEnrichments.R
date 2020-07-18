@@ -1,12 +1,16 @@
 library(readr)
 library(dplyr)
 
+#### Get exclusive enrichments
 healthy_enr <- read_tsv("./data/enrich-universe/healthy-go-enrichments.tsv")
 luma_enr <- read_tsv("./data/enrich-universe/luma-go-enrichments.tsv")
 
 #### No filter for size
 healthy_enr <- healthy_enr %>% filter(p.adjust < 0.005)
 luma_enr <- luma_enr %>% filter(p.adjust < 0.005)
+
+write_tsv(luma_enr, "data/enrich-universe/luma-go-filtered-enrichments.tsv")
+write_tsv(healthy_enr, "data/enrich-universe/healthy-go-filtered-enrichments.tsv")
 
 healthy_enr <- healthy_enr %>% select(ID, Description) %>% unique()
 luma_enr <- luma_enr %>% select(ID, Description) %>% unique()
@@ -36,18 +40,13 @@ write_tsv(luma_only %>% select(ID), "data/enrich-universe/luma-only-KEGG.tsv")
 write_tsv(healthy_only %>% select(ID), "data/enrich-universe/healthy-only-KEGG.tsv")
 write_tsv(shared %>% select(ID), "data/enrich-universe/shared-only-KEGG.tsv")
 
+### Data for alluvial
+luma_enr <- read_tsv("data/enrich-universe/luma-go-filtered-enrichments.tsv")
+luma_intra_comm <- read_tsv("data/communities/luma-intra-communities.tsv")
 
-healthy_enr <- read_tsv("./data/enrich-universe/healthy-go-enrichments.tsv")
-luma_enr <- read_tsv("./data/enrich-universe/luma-go-enrichments.tsv")
-healthy_enr <- healthy_enr %>% filter(p.adjust < 0.005)
-luma_enr <- luma_enr %>% filter(p.adjust < 0.005)
-write_tsv(luma_enr, "data/enrich-universe/luma-go-filtered-enrichments.tsv")
-write_tsv(healthy_enr, "data/enrich-universe/healthy-go-filtered-enrichments.tsv")
-
-intra_vertices <- read_tsv("data/luma-intra-vertices.tsv") 
-intra_comm <- unlist(unique(intra_vertices %>% select(community)))
 luma_enr <- luma_enr %>% mutate(community_type = 
-                                  ifelse(commun %in% intra_comm, "Intra-chromosomal", "Inter-chromosomal"))
+                                  ifelse(commun %in% luma_intra_comm$community_id, 
+                                         "Intra-chromosomal", "Inter-chromosomal"))
 intra_enrich <- luma_enr %>% filter(community_type == "Intra-chromosomal")
 ## 136 términos en 9 comunidades intra
 inter_enrich <-  luma_enr %>% filter(community_type == "Inter-chromosomal")
@@ -57,8 +56,13 @@ inter_enrich %>% filter(commun == 230) %>% select(ID) %>% write_tsv("data/enrich
 luma_comm_info <- read_tsv("data/communities/luma-communities-info.tsv")
 luma_vertices <- read_tsv("data/network-tables/luma-20127-vertices.tsv", 
                           col_types = cols_only(ensemblID = col_character(), symbol = col_character()))
+
 luma_comm_info <- luma_comm_info %>% left_join(luma_vertices, by = c("pg_gene" = "ensemblID"))
 luma_enr %>% left_join(luma_comm_info %>% select(com_id, symbol), by = c("commun" = "com_id")) %>% 
   select(ID, symbol, community_type)%>% unique() %>%
-  write_tsv("data/enrich-universe/id_comm_type_for_alluvial.tsv")
+  write_tsv("data/enrich-universe/id-comm-type-for-alluvial.tsv")
 
+### Enriched terms by comm
+luma_enr %>% group_by(commun, community_type) %>% tally() %>% 
+  rename(community_id = commun, terms = n) %>%
+  write_tsv("data/enrich-universe/comm-enriched-terms.tsv")

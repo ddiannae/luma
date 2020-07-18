@@ -17,7 +17,7 @@ getAssortativityByAttr <- function(gr, n_attr) {
     bynode <- rowSums(l_times_A) / rowSums(A)
     bynode_frac <- mean(bynode)
     total_frac <- sum(l_times_A)/sum(A)
-    return(list(com = com, newman = newman_a, bynode = bynode_frac, totalfrac = total_frac))
+    return(list(community_id = com, newman = newman_a, bynode = bynode_frac, totalfrac = total_frac))
   })
   comm_assort <- bind_rows(comm_assort)
   return(comm_assort)

@@ -41,7 +41,7 @@ getCommunitiesDiameter <- function(vertices, membership, communities) {
                            gene_list <- unlist(membership %>% filter(community == n_comm) %>%
                                                  select(ensemblID))
                            comm_ver <- vertices %>% filter(ensemblID %in% gene_list)
-                           return(list(comm = n_comm, diam = max(comm_ver$end) - min(comm_ver$start)))
+                           return(list(community_id = n_comm, diameter = max(comm_ver$end) - min(comm_ver$start)))
                          })
   return(bind_rows(diameters))
 } 
@@ -49,13 +49,13 @@ getCommunitiesDiameter <- function(vertices, membership, communities) {
 intra_diam <- getCommunitiesDiameter(luma_vertices, luma_comm, intra_comm)
 
 png(paste0("figures/communities/intra-comm-diameter.png"), width = 1000, height = 500)
-ggplot(intra_diam, aes(x = diam)) +
+ggplot(intra_diam, aes(x = diameter)) +
   geom_density() +
   scale_x_log10() +
   theme_bw()
 dev.off()
 
-quantile(intra_diam$diam)
+quantile(intra_diam$diameter)
 #0%         25%         50%         75%        100% 
 #3491.0     60612.5    160807.0    521243.0 192474079.0 
 
@@ -64,3 +64,4 @@ intra_vertices <- luma_vertices %>% semi_join(luma_comm %>%
                               mutate(type = "gene")
 
 write_tsv(intra_vertices, path = "data/communities/luma-intra-vertices.tsv")
+write_tsv(intra_diam, path = "data/communities/luma-intra-communities.tsv" )
