@@ -1,0 +1,20 @@
+Subtype Colors:
+LumA -  FF9E4A
+LumB - 67BF5C
+Her2 - 729ECE
+Basal - ED665D
+Sanos - C7C7C7
+
+
+
+Intra 1696AC
+Inter 73299e - circos: 6b16ac
+Trans C85200 - circos: ff8833
+
+
+Cis 2d20a5
+
+
+http://oct2018.archive.ensembl.org
+
+Cancer #B37700
