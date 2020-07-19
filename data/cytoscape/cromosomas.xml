@@ -36,7 +36,7 @@
             <visualProperty default="DefaultVisualizableVisualProperty(id=NODE_CUSTOMPAINT_5, name=Node Custom Paint 5)" name="NODE_CUSTOMPAINT_5"/>
             <visualProperty default="50.0" name="NODE_CUSTOMGRAPHICS_SIZE_2"/>
             <visualProperty default="#89D0F5" name="NODE_FILL_COLOR">
-                <discreteMapping attributeName="Chromosome/scaffold name" attributeType="string">
+                <discreteMapping attributeName="chr" attributeType="string">
                     <discreteMappingEntry attributeValue="22" value="#D909D1"/>
                     <discreteMappingEntry attributeValue="" value="#13834F"/>
                     <discreteMappingEntry attributeValue="11" value="#0492EE"/>
