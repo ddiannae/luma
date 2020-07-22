@@ -54,9 +54,19 @@ genesFULL <- bind_cols(
   B = fit$B[, 2]
 )
 
+genesFULL <- genesFULL %>% mutate(pass = abs(coef) >= 0.5 | p_value < 0.05, 
+                                  coef = ifelse(pass, coef, 0),
+                                  p_value = ifelse(pass, p_value, 0),
+                                  FDR = ifelse(pass, FDR, 0),
+                                  B = ifelse(pass, B, 0)) %>% select(-pass)
+
 write_tsv(genesFULL, paste0("data/", conds[2], "-deg-ebayes.tsv"))
-vertices <- vertices %>% inner_join(genesFULL, by = "ensemblID")
+
 n <- 20127  
+vertices <- read_tsv(file = paste0("data/network-tables/", conds[2], "-", n, "-vertices.tsv"))
+### Only if it is required
+### vertices <- vertices %>% select(-coef, -p_value, -FDR, -B)
+vertices <- vertices %>%  inner_join(genesFULL, by = "ensemblID")
 
 write.table(vertices, file = paste0("data/network-tables/", conds[2], "-", n, "-vertices.tsv") , 
             quote = F, row.names = F, col.names = T, sep = "\t")
