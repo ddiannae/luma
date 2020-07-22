@@ -28,7 +28,6 @@ n <- 20127
 #### luma
 interactions <- read_tsv(file = paste0("data/network-tables/luma-", n, "-interactions.tsv"))
 vertices <- read_tsv(file = paste0("data/network-tables/luma-", n, "-vertices.tsv"))
-vertices <- vertices %>% mutate(coef = if_else(FDR > 0.05, 0, coef))
 
 vertices <- vertices %>% mutate(exp = case_when(coef > 0 ~ "up", 
                                                 coef < 0 ~ "down", 
