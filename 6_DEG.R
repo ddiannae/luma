@@ -15,12 +15,11 @@ all_matrices <- lapply(conds, function(cond){
 matrices <- lapply(all_matrices, "[[", 1)
 nrows <- unlist(lapply(all_matrices, "[[", 2))
 ncols <- unlist(lapply(all_matrices, "[[", 3))
-genes <- unlist(all_matrices[[1]][4])
-names(genes) <- NULL
+genes <- unlist(all_matrices[[1]][4], use.names = FALSE)
 conds <- unlist(lapply(all_matrices, "[[", 5))
 
 M <- cpm(data.matrix(bind_cols(matrices)), log = T)
-rownames(M) <-genes
+rownames(M) <- genes
 targets <- data.frame(id = colnames(M), group = factor(unlist(mapply(rep, conds, ncols))))
 
 ## MUST BE TRUE ##
@@ -47,15 +46,19 @@ summary(dt)
 glMDPlot(path = "data", fit, counts = M, groups = targets$group, status = dt)
 
 genesFULL <- bind_cols(
-  ensemblID = rownames(fit$coefficients),
-  coef = fit$coefficients[, 2],
+  ensembl_id = rownames(fit$coefficients),
+  lfc = fit$coefficients[, 2],
+  avg_log2_cpm_exp = fit$coefficients[, 1] + fit$coefficients[, 2],
   p_value = fit$p.value[, 2],
   FDR = fit$fdr[, 2],
   B = fit$B[, 2]
 )
+genesFULL$avg_exp <- rowMeans(matrices[[2]])
+genesFULL$avg_log2_exp <- rowMeans(log2(matrices[[2]]))
+genesFULL$avg_cpm_exp <- rowMeans(cpm(matrices[[2]], log = FALSE))
 
-genesFULL <- genesFULL %>% mutate(pass = abs(coef) >= 0.5 | p_value < 0.05, 
-                                  coef = ifelse(pass, coef, 0),
+genesFULL <- genesFULL %>% mutate(pass = abs(lfc) >= 0.5 | p_value < 0.05, 
+                                  lfc = ifelse(pass, lfc, 0),
                                   p_value = ifelse(pass, p_value, 0),
                                   FDR = ifelse(pass, FDR, 0),
                                   B = ifelse(pass, B, 0)) %>% select(-pass)
@@ -64,9 +67,7 @@ write_tsv(genesFULL, paste0("data/", conds[2], "-deg-ebayes.tsv"))
 
 n <- 20127  
 vertices <- read_tsv(file = paste0("data/network-tables/", conds[2], "-", n, "-vertices.tsv"))
-### Only if it is required
-### vertices <- vertices %>% select(-coef, -p_value, -FDR, -B)
-vertices <- vertices %>%  inner_join(genesFULL, by = "ensemblID")
+vertices <- vertices %>%  inner_join(genesFULL, by = c("ensemblID" = "ensembl_id"))
 
 write.table(vertices, file = paste0("data/network-tables/", conds[2], "-", n, "-vertices.tsv") , 
             quote = F, row.names = F, col.names = T, sep = "\t")
