@@ -29,15 +29,20 @@ n <- 20127
 interactions <- read_tsv(file = paste0("data/network-tables/luma-", n, "-interactions.tsv"))
 vertices <- read_tsv(file = paste0("data/network-tables/luma-", n, "-vertices.tsv"))
 
-vertices <- vertices %>% mutate(exp = case_when(coef > 0 ~ "up", 
-                                                coef < 0 ~ "down", 
-                                                coef == 0 ~ "NA"))
+vertices <- vertices %>% mutate(exp = case_when(lfc > 0 ~ "up", 
+                                                lfc < 0 ~ "down", 
+                                                lfc == 0 ~ "NA"))
 vertices$exp <- as.factor(vertices$exp)
 
 g <- graph_from_data_frame(interactions, vertices = vertices, directed = FALSE)  
 exp_assortativity <- getAssortativityByAttr(g, "exp")
 exp_assortativity <- exp_assortativity %>% 
-  inner_join(vertices %>% group_by(community) %>% summarise(mean_exp = mean(coef)), 
+  inner_join(vertices %>% group_by(community) %>% 
+               summarise(mean_diff_exp = mean(lfc),
+                         mean_avg_exp  =  mean(avg_exp),
+                         mean_avg_log2_exp = mean(avg_log2_exp),
+                         mean_avg_cpm_exp = mean(avg_cpm_exp), 
+                         mean_avg_log2_cpm_exp = mean(avg_log2_cpm_exp)),
              by = c("community_id" = "community"))
 write_tsv(exp_assortativity, path = "data/assortativity/luma-exp-assortativity.tsv")
 
