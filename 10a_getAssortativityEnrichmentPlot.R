@@ -30,7 +30,7 @@ luma_plot[luma_plot$community_id == 158, "symbol"] <- "FOXM1"
 p <- ggplot(luma_plot, aes(x = totalfrac_chr, y = mean_diff_exp)) + 
   geom_point(aes(size = order, color = terms)) +
   geom_label(aes(label = ifelse(terms > 30, as.character(symbol), NA)),
-            colour = "darkslategrey", size = 10,
+            colour = "darkslategrey", size = 5,
             nudge_y = -0.20, nudge_x = 0.0, label.padding = unit(0.15, "lines"),) +
   geom_hline(yintercept = 0, linetype="dashed", color = "gray") +
   theme_base() +
