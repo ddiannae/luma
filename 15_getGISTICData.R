@@ -13,9 +13,10 @@ amps_info <- amps[1:4, ] %>% t()
 rownames(amps_info) <- NULL
 colnames(amps_info) <- c("cytoband", "q", "residual_q", "wide_peak")
 amps_info <- amps_info[c(-1, -46),]
+## -log10(q) for amps to get positive values
 amps_info <- amps_info %>% as_tibble() %>% 
   mutate(q =  as.numeric(q), residual_q = as.numeric(residual_q), 
-         id = rownames(.), neg_log10_q = -log10(q))
+         id = rownames(.), type_log10_q = -log10(q))
 
 dels <- read_tsv("data/luma-gistic/del_genes.conf_99.txt",
                  col_names = FALSE)
@@ -24,9 +25,10 @@ dels_info <- dels[1:4, ] %>% t()
 rownames(dels_info) <- NULL
 colnames(dels_info) <- c("cytoband", "q", "residual_q", "wide_peak")
 dels_info <- dels_info[c(-1, -37),]
+## log10(q) for dels to get negative values
 dels_info <- dels_info %>% as_tibble() %>% 
   mutate(q =  as.numeric(q), residual_q = as.numeric(residual_q), 
-         id = rownames(.),  neg_log10_q = -log10(q))
+         id = rownames(.),  type_log10_q = log10(q))
 
 amps_info <- amps_info %>% mutate(pos = str_split(wide_peak, ":"), 
                                   chr = str_remove(unlist(lapply(pos, "[[", 1)), "chr"),
