@@ -30,18 +30,18 @@ luma_plot[luma_plot$community_id == 158, "symbol"] <- "FOXM1"
 p <- ggplot(luma_plot, aes(x = totalfrac_chr, y = mean_diff_exp)) + 
   geom_point(aes(size = order, color = terms)) +
   geom_label(aes(label = ifelse(terms > 30, as.character(symbol), NA)),
-            colour = "darkslategrey", size = 5,
+            colour = "darkslategrey", size = 6,
             nudge_y = -0.20, nudge_x = 0.0, label.padding = unit(0.15, "lines"),) +
   geom_hline(yintercept = 0, linetype="dashed", color = "gray") +
   theme_base() +
   labs(size = "Nodes in community",
        color = "Enriched terms") +
-  xlab("Fraction of intra-chromosome links") +
+  xlab("Fraction of intra-chromosomal links") +
   ylab("Mean LFC") +
-  ylim(c(-3, 3)) +
+  ylim(c(-3, 2.0)) +
   scale_color_gradient(low="#CCFFCC", high="#003333") +
   scale_size_continuous(range = c(1, 15), breaks = c(1, 5, 20, 50, 100, 150, 200)) +
-  theme(text = element_text(size = 20))
+  theme(text = element_text(size = 20), axis.title = element_text(size = 25))
 
 png(paste0("figures/communities/intercomms-lfc-enrichment.png"), width = 1200, height = 600)
 p

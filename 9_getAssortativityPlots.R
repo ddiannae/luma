@@ -5,7 +5,7 @@ library(ggthemes)
 library(viridis)
 
 conds <- c("healthy", "luma")
-label_conds <- c("Healthy", "LumA")
+label_conds <- c("Healthy", "Luminal A")
 names(label_conds) <- conds
 colors <- c("#e3a098", "#a32e27")
 names(colors) <- conds
@@ -29,9 +29,11 @@ p <- all_assort_vals %>%
   ) +
   scale_x_discrete(labels = label_conds)+
   xlab("") +
-  ylab("Fraction of intra links")
+  ylab("Fraction of intra-chromosomal links") +
+  theme(text = element_text(size = 20), axis.text.x = element_text(size = 28),
+        axis.title.y = element_text(size = 25))
 
-png(paste0("figures/communities/community-fraction-intra-links.png"), width = 1200, height = 800)
+png(paste0("figures/communities/community-fraction-intra-links.png"), width = 1000, height = 600)
 p
 dev.off() 
 
