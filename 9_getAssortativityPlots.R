@@ -33,7 +33,7 @@ p <- all_assort_vals %>%
   theme(text = element_text(size = 20), axis.text.x = element_text(size = 28),
         axis.title.y = element_text(size = 25), plot.background=element_blank())
 
-png(paste0("figures/communities/community-fraction-intra-links.png"), width = 1000, height = 600)
+png(paste0("figures/communities/community-fraction-intra-links.png"), width = 1000, height = 500)
 p
 dev.off() 
 
