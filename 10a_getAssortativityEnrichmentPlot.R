@@ -25,7 +25,6 @@ comm_enrich <- read_tsv("data/enrich-universe/comm-enriched-terms.tsv",
 
 luma_plot <- luma_assort %>% inner_join(comm_info, by = c("community_id" = "com_id")) %>%
   left_join(comm_enrich, by = "community_id") %>%  mutate(terms = if_else(is.na(terms), 0, terms))
-luma_plot[luma_plot$community_id == 158, "symbol"] <- "FOXM1"
 
 p <- ggplot(luma_plot, aes(x = totalfrac_chr, y = mean_diff_exp)) + 
   geom_point(aes(size = order, color = terms)) +
