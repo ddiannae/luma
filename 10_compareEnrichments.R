@@ -68,4 +68,4 @@ luma_enr %>% group_by(commun, community_type) %>% tally() %>%
 
 minterms <- luma_enr %>% left_join(luma_comm_info %>% select(com_id, symbol), by = c("commun" = "com_id")) %>% 
   select(ID, symbol, Description, community_type, commun, p.adjust)%>% 
-  group_by(commun) %>% slice_min(p.adjust)
+  group_by(commun) %>% slice_min(p.adjust)  %>% write_tsv("data/enrich-universe/id-comm-type-min-terms.tsv")
