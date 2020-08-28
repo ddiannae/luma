@@ -44,6 +44,6 @@ p <- ggplot(luma_plot, aes(x = totalfrac_chr, y = mean_diff_exp)) +
   theme(text = element_text(size = 20), axis.title = element_text(size = 25),
         plot.background=element_blank())
 
-png(paste0("figures/communities/intercomms-lfc-enrichment.png"), width = 1800, height = 900)
+png(paste0("figures/communities/intercomms-lfc-enrichment.png"), width = 1200, height = 600)
 p
 dev.off()
