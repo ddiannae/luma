@@ -29,13 +29,13 @@ m <- lapply(conds, function(cond) {
                                                   keyType       = "ENSEMBL",
                                                   ont           = "BP",
                                                   pAdjustMethod = "BH",
-                                                  pvalueCutoff  = 0.05,
-                                                  qvalueCutoff  = 0.1,
+                                                  pvalueCutoff  = 0.005,
+                                                  qvalueCutoff  = 0.01,
                                                   minGSSize     = 10,
                                                   readable      = FALSE)
                                   
-                                
                                   if(nrow(as.data.frame(ego)) > 0) {
+                                    ego <- simplify(ego)
                                     ego_df <- as.data.frame(ego)
                                     ego_df$commun <- com 
                                     
@@ -43,12 +43,12 @@ m <- lapply(conds, function(cond) {
                                     ## with setReadable from clusterProfile
                                     ## but it's not parallelizable
                                   
-                                    png(paste0("figures/enrich-universe/", cond, "-go-", com, "-dotplot.png"), 
+                                    png(paste0("figures/enrich-universe-simple/", cond, "-go-", com, "-dotplot.png"), 
                                         width = 600, height = 800)
                                     print(dotplot(ego, showCategory=20))
                                     dev.off()
                                       
-                                    png(paste0("figures/enrich-universe/", cond, "-go-", com, "-cnetplot.png"), 
+                                    png(paste0("figures/enrich-universe-simple/", cond, "-go-", com, "-cnetplot.png"), 
                                           width = 600, height = 600)
                                     print(cnetplot(ego, node_label="category", showCategory = 10))
                                     dev.off()
@@ -63,7 +63,7 @@ m <- lapply(conds, function(cond) {
   all_enrichments <- plyr::compact(all_enrichments) 
   all_enrichments <- plyr::ldply(all_enrichments) 
   
-  write.table(all_enrichments, file =  paste0("data/enrich-universe/", cond, "-go-enrichments.tsv"),
+  write.table(all_enrichments, file =  paste0("data/enrich-universe-simple/", cond, "-go-enrichments.tsv"),
               quote = F, row.names = F, sep = "\t")
   
   
