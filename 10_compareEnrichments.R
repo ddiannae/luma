@@ -47,9 +47,9 @@ luma_intra_comm <- read_tsv("data/communities/luma-intra-communities.tsv")
 luma_enr <- luma_enr %>% mutate(community_type = 
                                   ifelse(commun %in% luma_intra_comm$community_id, 
                                          "*", "-"))
-intra_enrich <- luma_enr %>% filter(community_type == "Intra-chromosomal")
+intra_enrich <- luma_enr %>% filter(community_type == "*")
 ## 136 términos en 9 comunidades intra
-inter_enrich <-  luma_enr %>% filter(community_type == "Inter-chromosomal")
+inter_enrich <-  luma_enr %>% filter(community_type == "-")
 ## 792 términos en 20 comunidades inter
 
 luma_comm_info <- read_tsv("data/communities/luma-communities-info.tsv")
@@ -57,13 +57,15 @@ luma_vertices <- read_tsv("data/network-tables/luma-20127-vertices.tsv",
                           col_types = cols_only(ensemblID = col_character(), symbol = col_character()))
 
 luma_comm_info <- luma_comm_info %>% left_join(luma_vertices, by = c("pg_gene" = "ensemblID"))
-luma_comm_info[luma_comm_info$com_id == 158, "symbol"] <- "FOXM1"
-#luma_comm_info %>% filter(com_id == 158)
+
 luma_enr %>% left_join(luma_comm_info %>% select(com_id, symbol), by = c("commun" = "com_id")) %>% 
-  select(ID, symbol, community_type)%>% unique() %>%
-  write_tsv("data/enrich-universe/id-comm-type-for-alluvial.tsv")
+  select(ID, symbol, community_type)%>% unique() %>% write_tsv("data/enrich-universe/id-comm-type-for-alluvial.tsv")
 
 ### Enriched terms by comm
 luma_enr %>% group_by(commun, community_type) %>% tally() %>% 
   rename(community_id = commun, terms = n) %>%
   write_tsv("data/enrich-universe/comm-enriched-terms.tsv")
+
+minterms <- luma_enr %>% left_join(luma_comm_info %>% select(com_id, symbol), by = c("commun" = "com_id")) %>% 
+  select(ID, symbol, Description, community_type, commun, p.adjust)%>% 
+  group_by(commun) %>% slice_min(p.adjust)
