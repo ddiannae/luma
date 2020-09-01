@@ -42,7 +42,7 @@ comm_tfs <- all_tfs %>% group_by(community) %>% summarise(ntfs = n(), order = fi
 
 lapply(comm_tfs %>% select(community) %>% unlist(), function(community_id) {
   all_tfs %>% filter(community == community_id) %>% select(symbol_tf) %>%
-    write_tsv(paste0("data/tfs/tfs-community-", community_id, ".tsv"), col_names = FALSE)
+    write_tsv(paste0("data/tfs/tfs-community-", community_id, ".txt"), col_names = FALSE)
 })
 
 
