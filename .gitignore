@@ -7,3 +7,5 @@ packrat/*
 .Rprofile
 packrat/lib*/
 packrat/src/
+data/cytoscape
+data/cytoscape/*
