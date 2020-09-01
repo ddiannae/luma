@@ -1,0 +1,14 @@
+gene_symbol	i_am_tf	gene_description	chromosome_name	upstream	upstream_source	downstream	organism	p_value
+OR51M1	0	"olfactory receptor, family 51, subfamily M, member 1"	chr11	2	"Kulakovskiy 2013"	0	"Homo sapiens"	0.00001
+DEPDC5	0	"DEP domain containing 5"	chr22	8	"Kulakovskiy 2013"	0	"Homo sapiens"	0.00001
+FKBP2	0	"FK506 binding protein 2, 13kDa"	chr11	8	"Kulakovskiy 2013"	0	"Homo sapiens"	0.00001
+PLEK2	0	"pleckstrin 2"	chr14	5	"Kulakovskiy 2013"	0	"Homo sapiens"	0.00001
+TXNDC11	0	"thioredoxin domain containing 11"	chr16	5	"Kulakovskiy 2013"	0	"Homo sapiens"	0.00001
+CCRL2	0	"chemokine (C-C motif) receptor-like 2"	chr3	3	"Kulakovskiy 2013"	0	"Homo sapiens"	0.00001
+CEP128	0	"centrosomal protein 128kDa"	chr14	3	"Kulakovskiy 2013"	0	"Homo sapiens"	0.00001
+LEKR1	0	"leucine, glutamate and lysine rich 1"	chr3	7	"Kulakovskiy 2013"	0	"Homo sapiens"	0.00001
+SPRR2D	0	"small proline-rich protein 2D"	chr1	2	"Kulakovskiy 2013"	0	"Homo sapiens"	0.00001
+KRTAP19-4	0	"keratin associated protein 19-4"	chr21	5	"Kulakovskiy 2013"	0	"Homo sapiens"	0.00001
+EIF3D	0	"eukaryotic translation initiation factor 3, subunit D"	chr22	4	"Kulakovskiy 2013"	0	"Homo sapiens"	0.00001
+WI2-2373I1.2	0	"forkhead box L1-like"	chr7	3	"Kulakovskiy 2013"	0	"Homo sapiens"	0.00001
+SHCBP1L	0	"SHC SH2-domain binding protein 1-like"	chr1	5	"Kulakovskiy 2013"	0	"Homo sapiens"	0.00001

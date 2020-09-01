@@ -1,0 +1,44 @@
+gene_symbol	i_am_tf	gene_description	chromosome_name	upstream	upstream_source	downstream	organism	p_value
+SCIN	0	scinderin	chr7	2	"Kulakovskiy 2013"	0	"Homo sapiens"	0.00001
+SLC35E2B	0	"solute carrier family 35, member E2B"	chr1	4	"Kulakovskiy 2013"	0	"Homo sapiens"	0.00001
+MEIS2	1	"Meis homeobox 2"	chr15	3	"Kulakovskiy 2013"	19	"Homo sapiens"	0.00001
+SMEK1	0	"SMEK homolog 1, suppressor of mek1 (Dictyostelium)"	chr14	2	"Kulakovskiy 2013"	0	"Homo sapiens"	0.00001
+EXOSC9	0	"exosome component 9"	chr4	1	"Kulakovskiy 2013"	0	"Homo sapiens"	0.00001
+TNIP1	0	"TNFAIP3 interacting protein 1"	chr5	11	"Kulakovskiy 2013"	0	"Homo sapiens"	0.00001
+LRTOMT	0	"leucine rich transmembrane and O-methyltransferase domain containing"	chr11	3	"Kulakovskiy 2013"	0	"Homo sapiens"	0.00001
+GLYAT	0	glycine-N-acyltransferase	chr11	2	"Kulakovskiy 2013"	0	"Homo sapiens"	0.00001
+MRPS31	0	"mitochondrial ribosomal protein S31"	chr13	1	"Kulakovskiy 2013"	0	"Homo sapiens"	0.00001
+IRAK1	0	"interleukin-1 receptor-associated kinase 1"	chrX	5	"Kulakovskiy 2013"	0	"Homo sapiens"	0.00001
+RNF135	0	"ring finger protein 135"	chr17	3	"Kulakovskiy 2013"	0	"Homo sapiens"	0.00001
+ZNF347	0	"zinc finger protein 347"	chr19	3	"Kulakovskiy 2013"	0	"Homo sapiens"	0.00001
+CCDC117	0	"coiled-coil domain containing 117"	chr22	3	"Kulakovskiy 2013"	0	"Homo sapiens"	0.00001
+MBNL3	0	"muscleblind-like splicing regulator 3"	chrX	3	"Kulakovskiy 2013"	0	"Homo sapiens"	0.00001
+INSL6	0	"insulin-like 6"	chr9	3	"Kulakovskiy 2013"	0	"Homo sapiens"	0.00001
+TOMM7	0	"translocase of outer mitochondrial membrane 7 homolog (yeast)"	chr7	1	"Kulakovskiy 2013"	0	"Homo sapiens"	0.00001
+MAGED4	0	"melanoma antigen family D4"	chrX	4	"Kulakovskiy 2013"	0	"Homo sapiens"	0.00001
+TGM7	0	"transglutaminase 7"	chr15	2	"Kulakovskiy 2013"	0	"Homo sapiens"	0.00001
+EXOSC3	0	"exosome component 3"	chr9	2	"Kulakovskiy 2013"	0	"Homo sapiens"	0.00001
+AAGAB	0	"alpha- and gamma-adaptin binding protein"	chr15	5	"Kulakovskiy 2013"	0	"Homo sapiens"	0.00001
+RASSF5	0	"Ras association (RalGDS/AF-6) domain family member 5"	chr1	2	"Kulakovskiy 2013"	0	"Homo sapiens"	0.00001
+KRIT1	0	"KRIT1, ankyrin repeat containing"	chr7	8	"Kulakovskiy 2013"	0	"Homo sapiens"	0.00001
+RSPH10B2	0	"radial spoke head 10 homolog B2 (Chlamydomonas)"	chr7	3	"Kulakovskiy 2013"	0	"Homo sapiens"	0.00001
+HIST1H1A	0	"histone cluster 1, H1a"	chr6	2	"Kulakovskiy 2013"	0	"Homo sapiens"	0.00001
+WDR34	0	"WD repeat domain 34"	chr9	2	"Kulakovskiy 2013"	0	"Homo sapiens"	0.00001
+ELAC2	0	"elaC ribonuclease Z 2"	chr17	4	"Kulakovskiy 2013"	0	"Homo sapiens"	0.00001
+BSCL2	0	"Berardinelli-Seip congenital lipodystrophy 2 (seipin)"	chr11	5	"Kulakovskiy 2013"	0	"Homo sapiens"	0.00001
+HYDIN	0	"HYDIN, axonemal central pair apparatus protein"	chr16	3	"Kulakovskiy 2013"	0	"Homo sapiens"	0.00001
+RSPH10B	0	"radial spoke head 10 homolog B (Chlamydomonas)"	chr7	3	"Kulakovskiy 2013"	0	"Homo sapiens"	0.00001
+GABRP	0	"gamma-aminobutyric acid (GABA) A receptor, pi"	chr5	4	"Kulakovskiy 2013"	0	"Homo sapiens"	0.00001
+IFNB1	0	"interferon, beta 1, fibroblast"	chr9	3	"Kulakovskiy 2013"	0	"Homo sapiens"	0.00001
+NXT2	0	"nuclear transport factor 2-like export factor 2"	chrX	7	"Kulakovskiy 2013"	0	"Homo sapiens"	0.00001
+CYLC1	0	"cylicin, basic protein of sperm head cytoskeleton 1"	chrX	1	"Kulakovskiy 2013"	0	"Homo sapiens"	0.00001
+NYAP2	0	"neuronal tyrosine-phosphorylated phosphoinositide-3-kinase adaptor 2"	chr2	2	"Kulakovskiy 2013"	0	"Homo sapiens"	0.00001
+TM4SF5	0	"transmembrane 4 L six family member 5"	chr17	2	"Kulakovskiy 2013"	0	"Homo sapiens"	0.00001
+C11orf1	0	"chromosome 11 open reading frame 1"	chr11	1	"Kulakovskiy 2013"	0	"Homo sapiens"	0.00001
+ATP6AP2	0	"ATPase, H+ transporting, lysosomal accessory protein 2"	chrX	1	"Kulakovskiy 2013"	0	"Homo sapiens"	0.00001
+ZFP90	0	"ZFP90 zinc finger protein"	chr16	2	"Kulakovskiy 2013"	0	"Homo sapiens"	0.00001
+C6orf52	0	"chromosome 6 open reading frame 52"	chr6	2	"Kulakovskiy 2013"	0	"Homo sapiens"	0.00001
+SAP30BP	0	"SAP30 binding protein"	chr17	1	"Kulakovskiy 2013"	0	"Homo sapiens"	0.00001
+TRIM42	0	"tripartite motif containing 42"	chr3	4	"Kulakovskiy 2013"	0	"Homo sapiens"	0.00001
+KIAA2018	0	KIAA2018	chr3	3	"Kulakovskiy 2013"	0	"Homo sapiens"	0.00001
+HORMAD2	0	"HORMA domain containing 2"	chr22	4	"Kulakovskiy 2013"	0	"Homo sapiens"	0.00001

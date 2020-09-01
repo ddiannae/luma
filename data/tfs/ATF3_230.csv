@@ -1,0 +1,57 @@
+gene_symbol	i_am_tf	gene_description	chromosome_name	upstream	upstream_source	downstream	organism	p_value
+IL32	0	"interleukin 32"	chr16	14	"Kulakovskiy 2013"	0	"Homo sapiens"	0.00001
+FAM220A	0	"family with sequence similarity 220, member A"	chr7	5	"Kulakovskiy 2013"	0	"Homo sapiens"	0.00001
+THRA	1	"thyroid hormone receptor, alpha"	chr17	4	"Kulakovskiy 2013"	175	"Homo sapiens"	0.00001
+KIAA0556	0	KIAA0556	chr16	2	"Kulakovskiy 2013"	0	"Homo sapiens"	0.00001
+SPHK2	0	"sphingosine kinase 2"	chr19	4	"Kulakovskiy 2013"	0	"Homo sapiens"	0.00001
+GPSM3	0	"G-protein signaling modulator 3"	chr6	6	"Kulakovskiy 2013"	0	"Homo sapiens"	0.00001
+OTOF	0	otoferlin	chr2	4	"Kulakovskiy 2013"	0	"Homo sapiens"	0.00001
+PEX11G	0	"peroxisomal biogenesis factor 11 gamma"	chr19	6	"Kulakovskiy 2013"	0	"Homo sapiens"	0.00001
+EVX1	0	"even-skipped homeobox 1"	chr7	2	"Kulakovskiy 2013"	0	"Homo sapiens"	0.00001
+LRRC8A	0	"leucine rich repeat containing 8 family, member A"	chr9	6	"Kulakovskiy 2013"	0	"Homo sapiens"	0.00001
+LYRM1	0	"LYR motif containing 1"	chr16	8	"Kulakovskiy 2013"	0	"Homo sapiens"	0.00001
+RAD23A	0	"RAD23 homolog A, nucleotide excision repair protein"	chr19	4	"Kulakovskiy 2013"	0	"Homo sapiens"	0.00001
+OXSR1	0	"oxidative stress responsive 1"	chr3	3	"Kulakovskiy 2013"	0	"Homo sapiens"	0.00001
+CTNNA1	0	"catenin (cadherin-associated protein), alpha 1, 102kDa"	chr5	2	"Kulakovskiy 2013"	0	"Homo sapiens"	0.00001
+SMARCA5	0	"SWI/SNF related, matrix associated, actin dependent regulator of chromatin, subfamily a, member 5"	chr4	2	"Kulakovskiy 2013"	0	"Homo sapiens"	0.00001
+FAM76B	0	"family with sequence similarity 76, member B"	chr11	5	"Kulakovskiy 2013"	0	"Homo sapiens"	0.00001
+SIVA1	0	"SIVA1, apoptosis-inducing factor"	chr14	3	"Kulakovskiy 2013"	0	"Homo sapiens"	0.00001
+LGR5	0	"leucine-rich repeat containing G protein-coupled receptor 5"	chr12	1	"Kulakovskiy 2013"	0	"Homo sapiens"	0.00001
+EPHA2	0	"EPH receptor A2"	chr1	2	"Kulakovskiy 2013"	0	"Homo sapiens"	0.00001
+POU6F1	1	"POU class 6 homeobox 1"	chr12	1	"Kulakovskiy 2013"	32	"Homo sapiens"	0.00001
+ZMYND15	0	"zinc finger, MYND-type containing 15"	chr17	6	"Kulakovskiy 2013"	0	"Homo sapiens"	0.00001
+CCND2	0	"cyclin D2"	chr12	4	"Kulakovskiy 2013"	0	"Homo sapiens"	0.00001
+ACTR3B	0	"ARP3 actin-related protein 3 homolog B (yeast)"	chr7	2	"Kulakovskiy 2013"	0	"Homo sapiens"	0.00001
+CLSTN2	0	"calsyntenin 2"	chr3	6	"Kulakovskiy 2013"	0	"Homo sapiens"	0.00001
+PDP1	0	"pyruvate dehyrogenase phosphatase catalytic subunit 1"	chr8	12	"Kulakovskiy 2013"	0	"Homo sapiens"	0.00001
+MPZL3	0	"myelin protein zero-like 3"	chr11	3	"Kulakovskiy 2013"	0	"Homo sapiens"	0.00001
+WFDC3	0	"WAP four-disulfide core domain 3"	chr20	4	"Kulakovskiy 2013"	0	"Homo sapiens"	0.00001
+ICA1	0	"islet cell autoantigen 1, 69kDa"	chr7	4	"Kulakovskiy 2013"	0	"Homo sapiens"	0.00001
+SLC6A4	0	"solute carrier family 6 (neurotransmitter transporter), member 4"	chr17	2	"Kulakovskiy 2013"	0	"Homo sapiens"	0.00001
+IFT140	0	"intraflagellar transport 140"	chr16	3	"Kulakovskiy 2013"	0	"Homo sapiens"	0.00001
+CUL4A	0	"cullin 4A"	chr13	3	"Kulakovskiy 2013"	0	"Homo sapiens"	0.00001
+KIF1A	0	"kinesin family member 1A"	chr2	4	"Kulakovskiy 2013"	0	"Homo sapiens"	0.00001
+PHF1	0	"PHD finger protein 1"	chr6	4	"Kulakovskiy 2013"	0	"Homo sapiens"	0.00001
+TRIM28	0	"tripartite motif containing 28"	chr19	5	"Kulakovskiy 2013"	0	"Homo sapiens"	0.00001
+HIST1H4H	0	"histone cluster 1, H4h"	chr6	1	"Kulakovskiy 2013"	0	"Homo sapiens"	0.00001
+OGDH	0	"oxoglutarate (alpha-ketoglutarate) dehydrogenase (lipoamide)"	chr7	4	"Kulakovskiy 2013"	0	"Homo sapiens"	0.00001
+DDX10	0	"DEAD (Asp-Glu-Ala-Asp) box polypeptide 10"	chr11	5	"Kulakovskiy 2013"	0	"Homo sapiens"	0.00001
+KIAA1143	0	KIAA1143	chr3	1	"Kulakovskiy 2013"	0	"Homo sapiens"	0.00001
+LRRTM2	0	"leucine rich repeat transmembrane neuronal 2"	chr5	1	"Kulakovskiy 2013"	0	"Homo sapiens"	0.00001
+NCBP1	0	"nuclear cap binding protein subunit 1, 80kDa"	chr9	2	"Kulakovskiy 2013"	0	"Homo sapiens"	0.00001
+PDK1	0	"pyruvate dehydrogenase kinase, isozyme 1"	chr2	2	"Kulakovskiy 2013"	0	"Homo sapiens"	0.00001
+CGB2	0	"chorionic gonadotropin, beta polypeptide 2"	chr19	1	"Kulakovskiy 2013"	0	"Homo sapiens"	0.00001
+COLGALT1	0	"collagen beta(1-O)galactosyltransferase 1"	chr19	2	"Kulakovskiy 2013"	0	"Homo sapiens"	0.00001
+HCFC1	0	"host cell factor C1"	chrX	3	"Kulakovskiy 2013"	0	"Homo sapiens"	0.00001
+LCLAT1	0	"lysocardiolipin acyltransferase 1"	chr2	1	"Kulakovskiy 2013"	0	"Homo sapiens"	0.00001
+GTF3C1	0	"general transcription factor IIIC, polypeptide 1, alpha 220kDa"	chr16	2	"Kulakovskiy 2013"	0	"Homo sapiens"	0.00001
+WDR5	0	"WD repeat domain 5"	chr9	6	"Kulakovskiy 2013"	0	"Homo sapiens"	0.00001
+PFAS	0	"phosphoribosylformylglycinamidine synthase"	chr17	4	"Kulakovskiy 2013"	0	"Homo sapiens"	0.00001
+CCT2	0	"chaperonin containing TCP1, subunit 2 (beta)"	chr12	9	"Kulakovskiy 2013"	0	"Homo sapiens"	0.00001
+GOLGA8B	0	"golgin A8 family, member B"	chr15	1	"Kulakovskiy 2013"	0	"Homo sapiens"	0.00001
+SIPA1	0	"signal-induced proliferation-associated 1"	chr11	9	"Kulakovskiy 2013"	0	"Homo sapiens"	0.00001
+VRK3	0	"vaccinia related kinase 3"	chr19	2	"Kulakovskiy 2013"	0	"Homo sapiens"	0.00001
+C11orf87	0	"chromosome 11 open reading frame 87"	chr11	3	"Kulakovskiy 2013"	0	"Homo sapiens"	0.00001
+SLBP	0	"stem-loop binding protein"	chr4	2	"Kulakovskiy 2013"	0	"Homo sapiens"	0.00001
+HOXC10	0	"homeobox C10"	chr12	5	"Kulakovskiy 2013"	0	"Homo sapiens"	0.00001
+ELL2	0	"elongation factor, RNA polymerase II, 2"	chr5	2	"Kulakovskiy 2013"	0	"Homo sapiens"	0.00001

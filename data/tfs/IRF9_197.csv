@@ -1,0 +1,32 @@
+gene_symbol	i_am_tf	gene_description	chromosome_name	upstream	upstream_source	downstream	organism	p_value
+ADAR	0	"adenosine deaminase, RNA-specific"	chr1	3	"Kulakovskiy 2013"	0	"Homo sapiens"	0.00001
+DTNA	0	"dystrobrevin, alpha"	chr18	8	"Kulakovskiy 2013"	0	"Homo sapiens"	0.00001
+CCPG1	0	"cell cycle progression 1"	chr15	5	"Kulakovskiy 2013"	0	"Homo sapiens"	0.00001
+FMR1	0	"fragile X mental retardation 1"	chrX	2	"Kulakovskiy 2013"	0	"Homo sapiens"	0.00001
+ZIC4	0	"Zic family member 4"	chr3	8	"Kulakovskiy 2013"	0	"Homo sapiens"	0.00001
+MAGEB1	0	"melanoma antigen family B1"	chrX	3	"Kulakovskiy 2013"	0	"Homo sapiens"	0.00001
+FLCN	0	folliculin	chr17	2	"Kulakovskiy 2013"	0	"Homo sapiens"	0.00001
+CFL2	0	"cofilin 2 (muscle)"	chr14	5	"Kulakovskiy 2013"	0	"Homo sapiens"	0.00001
+SP140	0	"SP140 nuclear body protein"	chr2	3	"Kulakovskiy 2013"	0	"Homo sapiens"	0.00001
+OR4S2	0	"olfactory receptor, family 4, subfamily S, member 2"	chr11	2	"Kulakovskiy 2013"	0	"Homo sapiens"	0.00001
+DTX4	0	"deltex 4, E3 ubiquitin ligase"	chr11	3	"Kulakovskiy 2013"	0	"Homo sapiens"	0.00001
+TEPP	0	"testis, prostate and placenta expressed"	chr16	1	"Kulakovskiy 2013"	0	"Homo sapiens"	0.00001
+SSBP1	0	"single-stranded DNA binding protein 1, mitochondrial"	chr7	3	"Kulakovskiy 2013"	0	"Homo sapiens"	0.00001
+ANXA5	0	"annexin A5"	chr4	1	"Kulakovskiy 2013"	0	"Homo sapiens"	0.00001
+DENND6B	0	"DENN/MADD domain containing 6B"	chr22	4	"Kulakovskiy 2013"	0	"Homo sapiens"	0.00001
+CHRNA1	0	"cholinergic receptor, nicotinic, alpha 1 (muscle)"	chr2	3	"Kulakovskiy 2013"	0	"Homo sapiens"	0.00001
+CEP78	0	"centrosomal protein 78kDa"	chr9	2	"Kulakovskiy 2013"	0	"Homo sapiens"	0.00001
+TOM1	0	"target of myb1 membrane trafficking protein"	chr22	4	"Kulakovskiy 2013"	0	"Homo sapiens"	0.00001
+LYPLAL1	0	"lysophospholipase-like 1"	chr1	4	"Kulakovskiy 2013"	0	"Homo sapiens"	0.00001
+PKIB	0	"protein kinase (cAMP-dependent, catalytic) inhibitor beta"	chr6	4	"Kulakovskiy 2013"	0	"Homo sapiens"	0.00001
+RNF121	0	"ring finger protein 121"	chr11	1	"Kulakovskiy 2013"	0	"Homo sapiens"	0.00001
+SPATA32	0	"spermatogenesis associated 32"	chr17	2	"Kulakovskiy 2013"	0	"Homo sapiens"	0.00001
+IRF7	1	"interferon regulatory factor 7"	chr11	3	"Kulakovskiy 2013"	84	"Homo sapiens"	0.00001
+SLC36A4	0	"solute carrier family 36 (proton/amino acid symporter), member 4"	chr11	7	"Kulakovskiy 2013"	0	"Homo sapiens"	0.00001
+KPNA2	0	"karyopherin alpha 2 (RAG cohort 1, importin alpha 1)"	chr17	2	"Kulakovskiy 2013"	0	"Homo sapiens"	0.00001
+RNF114	0	"ring finger protein 114"	chr20	2	"Kulakovskiy 2013"	0	"Homo sapiens"	0.00001
+TTC29	0	"tetratricopeptide repeat domain 29"	chr4	1	"Kulakovskiy 2013"	0	"Homo sapiens"	0.00001
+FAM171B	0	"family with sequence similarity 171, member B"	chr2	2	"Kulakovskiy 2013"	0	"Homo sapiens"	0.00001
+IMPG1	0	"interphotoreceptor matrix proteoglycan 1"	chr6	1	"Kulakovskiy 2013"	0	"Homo sapiens"	0.00001
+ACBD6	0	"acyl-CoA binding domain containing 6"	chr1	1	"Kulakovskiy 2013"	0	"Homo sapiens"	0.00001
+FCF1	0	"FCF1 rRNA-processing protein"	chr14	1	"Kulakovskiy 2013"	0	"Homo sapiens"	0.00001
