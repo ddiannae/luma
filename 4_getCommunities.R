@@ -33,7 +33,7 @@ m <- lapply(conds, function(cond) {
   
   colnames(interactions)[1:2] <- c("from", "to")
   net <- graph_from_data_frame(interactions, 
-  directed=F, vertices = vertiices)
+  directed=F, vertices = vertices)
   comm <- cluster_louvain(graph = net)
   names(comm$membership) <- comm$names
   

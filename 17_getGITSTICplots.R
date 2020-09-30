@@ -32,8 +32,8 @@ comm_membership <- comm_membership %>% left_join(all_lesions, by = c("type", "id
 #### Color palettes
 col_fun = colorRamp2(c(log10(min_q), 0, -log10(min_q)),
                      c("blue", "white", "red"))
-col_fun = colorRamp2(c(-8, -5, 0, 5, 8),
-                     c("#0000AA", "#0000AA", "white", "#AA0000", "#AA0000"))
+col_fun = colorRamp2(c(-2, -1, 0, 1, 2),
+                     c("#009999", "#00FFFF", "white", "#9966FF", "#660099"))
 
 chromosomes.pal <- c("#D909D1", "#0492EE", "#5DA0CB", "#106F35", "#5BD2AE", "#199F41", 
                      "#FE0F43", "#00FFCC", "#F495C5", "#E1BF5D", "#5F166F", "#088ACA",
@@ -48,15 +48,13 @@ comms <- c(316, 158, 146, 197, 183, 230, 36, 575, 91)
 
 ## falta la 2,3
 ## 11 heatmaps for each community
-com_name <- comms[3]
+com_name <- comms[9]
 comm <- comm_membership %>% filter(community_id == com_name) %>% arrange(chr) 
 comm_matrix <- comm %>%  select(tlq) %>%  as.matrix() 
 rownames(comm_matrix) <- comm %>% select(symbol) %>% unlist()
 
-
 chrs <- as.data.frame(comm %>% select(chr) %>% 
                         rename(Chr = chr))
-
 
 ha <- rowAnnotation(df = chrs, 
                     name = "Chr", show_annotation_name = F,
@@ -67,13 +65,13 @@ ha <- rowAnnotation(df = chrs,
 
 ht <- Heatmap(comm_matrix, cluster_rows = F,  col = col_fun, na_col = "white",
               heatmap_legend_param = list( title_gp = gpar(fontsize = 14),
-                title = "-log10(q)", at = c(-8, -5, 0, 5, 8), legend_height = unit(4, "cm"),
-                labels = c("", "5-Del", "0", "5-Amp", "")
+                title = "-log10(q)", at = c(-3, -2, 0, 2, 3), legend_height = unit(4, "cm"),
+                labels = c("", "2-Del", "0", "2-Amp", "")
               ),
               name = "-log10(q)", rect_gp = gpar(col = "gray", lwd = 2),
               row_names_side = "left", width = unit(1, "cm"),
               right_annotation = ha,
               show_column_names = F, show_row_names = T)
 
-draw(ht[101:103,], heatmap_legend_side = "right", annotation_legend_side = "right")
+draw(ht, heatmap_legend_side = "right", annotation_legend_side = "right")
 
