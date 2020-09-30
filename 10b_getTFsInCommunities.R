@@ -25,16 +25,16 @@ comm_tfs <- all_tfs %>% group_by(community) %>% summarise(ntfs = n(), order = fi
 #     community  ntfs order intra pg       dif
 # <dbl> <int> <dbl> <lgl> <chr>  <dbl>
 #  1       169     7   177 FALSE NAA30    170
-#  2       281     5   110 FALSE UTP15    105
-#  3       146     2   103 FALSE RPL35    101
-#  4       158     4    80 FALSE NUSAP1    76
-#  5       183     3    26 FALSE CCL5      23
-#  6       197     1    23 FALSE MX1       22
-#  7       349     1    23 FALSE ESAM      22
-#  8       316     1    20 FALSE COL5A2    19
-#  9       230     8    20 FALSE NR4A1     12
-# 10        57     1     7 FALSE IGLL5      6
-# 11        36     1     6 FALSE TYROBP     5
+#  2       281     5   110 FALSE UTP15    105 -- ZNF354B
+#  3       146     2   103 FALSE RPL35    101 -- THRA
+#  4       158     4    80 FALSE NUSAP1    76 -- E2F2, ZNF367, FOXM1
+#  5       183     3    26 FALSE CCL5      23 -- EOMES, TBX21
+#  6       197     1    23 FALSE MX1       22 -- IRF9
+#  7       349     1    23 FALSE ESAM      22 -- BCL6B
+#  8       316     1    20 FALSE COL5A2    19 --
+#  9       230     8    20 FALSE NR4A1     12 -- ATF3, 	EGR1, EGR2, FOS, JUN, JUNB, NR4A1
+# 10        57     1     7 FALSE IGLL5      6 -- IRF4
+# 11        36     1     6 FALSE TYROBP     5 -- SPI1
 # 12        14     4     6 FALSE PER3       2
 # 13       134     6     7 TRUE  HOXB3      1
 # 14         4     6     6 TRUE  HOXA5      0
@@ -45,4 +45,4 @@ lapply(comm_tfs %>% select(community) %>% unlist(), function(community_id) {
     write_tsv(paste0("data/tfs/tfs-community-", community_id, ".txt"), col_names = FALSE)
 })
 
-
+comm_tfs %>% select(community) %>% unlist(use.names = F) %>% paste(collapse = ",")
