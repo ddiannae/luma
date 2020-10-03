@@ -1,0 +1,2 @@
+ensembl_id	uniprot_id	file
+ENSG00000161940	Q8N143	Q8N143.txt

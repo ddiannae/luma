@@ -1,0 +1,2 @@
+ensembl_id	uniprot_id	file
+ENSG00000120075	P09067	P09067.txt
