@@ -1,7 +1,8 @@
 library(igraph)
 library(readr)
+library(dplyr)
 
-communities <- c(169,281,146,158,183,197,349,316,230,57,36,14,134,4,475)
+communities <- read_tsv("data/enrich-universe/communities-more-30terms.tsv") %>% unlist()
 interactions <- read_tsv("data/network-tables/luma-20127-interactions.tsv")
 vertices <- read_tsv("data/network-tables/luma-20127-vertices.tsv")
 colnames(interactions)[1:2] <- c("from", "to")
@@ -44,9 +45,9 @@ all_coms <- lapply(communities, function(comm){
     ## Node colors
     colors <- ifelse(V(eg)$name %in% comm_tfs$ensembl_id,  "paleturquoise3", "wheat2")
     ## Node Sizes
-    sizes <- ifelse(V(eg)$name %in% comm_tfs$ensembl_id,  15, 5)
+    sizes <- ifelse(V(eg)$name %in% comm_tfs$ensembl_id,  10, 5)
 
-    png(paste0("figures/tfs/", tf, ".png"))
+    png(paste0("figures/tfs/", tf, ".png"), width = 800, height = 800)
       plot(eg, vertex.color = colors, layout = layout_with_fr,
          vertex.label = labels,
          vertex.label.family="Helvetica", vertex.size = sizes
