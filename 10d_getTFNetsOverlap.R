@@ -3,8 +3,7 @@ library(readr)
 library(dplyr)
 library(org.Hs.eg.db)
 
-communities <- c(169,281,146,158,183,197,349,316,230,57,36,14,134,4,475)
-
+communities <- read_tsv("data/enrich-universe/communities-more-30terms.tsv") %>% unlist()
 tfs_files <- list.files("data/tfs/gtrd/promoters_bs/", pattern = "[a-zA-Z0-9]*.txt")
 tfs_files <- tfs_files[sapply(paste0("data/tfs/gtrd/promoters_bs/", tfs_files), file.size) > 24]
 

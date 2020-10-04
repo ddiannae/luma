@@ -4,7 +4,7 @@ library(ggplot2)
 library(tidyr)
 library(ggthemes)
 
-communities <- c(169,281,146,158,183,197,349,316,230,57,36,14,134,4,475)
+communities <- read_tsv("data/enrich-universe/communities-more-30terms.tsv") %>% unlist()
 interactions <- read_tsv("data/network-tables/luma-20127-interactions.tsv")
 vertices <- read_tsv("data/network-tables/luma-20127-vertices.tsv")
 colnames(interactions)[1] = "from"
@@ -47,8 +47,12 @@ ggplot(all_tfs, aes(fill=interaction, y=value, x=symbol_gene)) +
   geom_bar(position="stack", stat="identity", width = .8,  color = "black") +
   ylab("Interactions in network") +
   xlab("") +
-  theme_few(base_size = 20) +
-  theme(axis.text.x =  element_text(angle = 90, hjust = 1, vjust = 0.5)) + 
+  theme_few(base_size = 15) +
+  theme(axis.text.x =  element_text(angle = 90, hjust = 1, vjust = 0.5),
+        legend.position="bottom",
+        legend.title = element_blank(),
+        legend.direction = "vertical") + 
   facet_grid( ~ symbol_community, scales = "free_x",  space = "free") +
-  scale_fill_manual(name = "Interaction type", values = colors) 
+  scale_fill_manual(name = "Interaction type", breaks = c("regulatory"), 
+                    values = colors, labels = c("Regulatory interactions")) 
 
