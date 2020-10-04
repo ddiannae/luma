@@ -27,7 +27,7 @@ all_coms <- lapply(communities, function(comm){
     eg <-  make_ego_graph(comm_net,
                           order = 1,
                           nodes = tf)[[1]]
-    eg_inter <- comm_inter %>% filter(to %in% V(eg)$name & from %in% V(eg)$name)
+    eg_inter <- comm_inter %>% filter(to == tf | from== tf)
     veg_inter <- unique(c(tf, unlist(eg_inter$from), unlist(eg_inter$to)))
 
     ### Edge colors
@@ -49,7 +49,7 @@ all_coms <- lapply(communities, function(comm){
 
     png(paste0("figures/tfs/", tf, ".png"), width = 800, height = 800)
       plot(eg, vertex.color = colors, layout = layout_with_fr,
-         vertex.label = labels,
+         vertex.label = labels, vertex.label.cex = 1.5,
          vertex.label.family="Helvetica", vertex.size = sizes
          )
     dev.off()
