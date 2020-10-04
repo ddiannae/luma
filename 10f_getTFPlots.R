@@ -43,16 +43,18 @@ all_tfs <- all_tfs %>% left_join(comm_info %>%
                       suffix = c("_gene", "_community"))
 
 colors <- c("white", "darkolivegreen4")
+
+png(paste0("figures/tfs/regulatory_interactions.png"), width= 1150, height = 600)
 ggplot(all_tfs, aes(fill=interaction, y=value, x=symbol_gene)) + 
   geom_bar(position="stack", stat="identity", width = .8,  color = "black") +
   ylab("Interactions in network") +
   xlab("") +
-  theme_few(base_size = 15) +
+  theme_few(base_size = 20) +
   theme(axis.text.x =  element_text(angle = 90, hjust = 1, vjust = 0.5),
         legend.position="bottom",
         legend.title = element_blank(),
         legend.direction = "vertical") + 
-  facet_grid( ~ symbol_community, scales = "free_x",  space = "free") +
+  facet_grid( ~ symbol_community, scales = "free_x",  space = "free", shrink = FALSE) +
   scale_fill_manual(name = "Interaction type", breaks = c("regulatory"), 
                     values = colors, labels = c("Regulatory interactions")) 
-
+dev.off()
