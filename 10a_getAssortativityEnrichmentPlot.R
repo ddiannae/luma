@@ -4,7 +4,7 @@ library(ggplot2)
 library(ggthemes)
 library(RColorBrewer)
 
-luma_exp <- read_tsv("data/assortativity/luma-exp-assortativity.tsv")
+luma_exp <- read_tsv("data/assortativity/luma-exp-assortativity.tsv") %>% select(community_id, mean_diff_exp)
 
 luma_chr <- read_tsv("data/assortativity/luma-chr-assortativity.tsv",
                      col_types = cols_only(community_id = col_double(),
@@ -12,6 +12,7 @@ luma_chr <- read_tsv("data/assortativity/luma-chr-assortativity.tsv",
 luma_chr <- luma_chr %>% filter(totalfrac < 1)
 
 luma_assort <- luma_chr %>% inner_join(luma_exp, by = "community_id", suffix = c("_chr", "_exp"))
+
 
 comm_info <- read_tsv("data/communities/luma-communities-info.tsv", 
                       col_types = cols_only(com_id = col_double(), order = col_double(), 
@@ -29,7 +30,7 @@ luma_plot <- luma_assort %>% inner_join(comm_info, by = c("community_id" = "com_
 luma_plot %>% filter(terms > 30) %>% 
   dplyr::select(community_id) %>% write_tsv("data/enrich-universe/communities-more-30terms.tsv")
 
-p <- ggplot(luma_plot, aes(x = totalfrac_chr, y = mean_diff_exp)) + 
+p <- ggplot(luma_plot, aes(x = totalfrac, y = mean_diff_exp)) + 
   geom_point(aes(size = order, color = terms)) +
   geom_label(aes(label = ifelse(terms > 30, as.character(symbol), NA)),
             colour = "darkslategrey", size = 6,
@@ -40,7 +41,7 @@ p <- ggplot(luma_plot, aes(x = totalfrac_chr, y = mean_diff_exp)) +
        color = "Enriched terms") +
   xlab("Fraction of intra-chromosomal links") +
   ylab("Mean LFC") +
-  ylim(c(-3, 2.0)) +
+  #ylim(c(-, 3.5)) +
   scale_color_gradient(low="#CCFFCC", high="#003333") +
   scale_size_continuous(range = c(1, 15), breaks = c(1, 5, 20, 50, 100, 150, 200)) +
   theme(text = element_text(size = 20), axis.title = element_text(size = 25),
