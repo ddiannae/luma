@@ -27,15 +27,16 @@ comm_enrich <- read_tsv("data/enrich-universe/comm-enriched-terms.tsv",
 luma_plot <- luma_assort %>% inner_join(comm_info, by = c("community_id" = "com_id")) %>%
   left_join(comm_enrich, by = "community_id") %>%  mutate(terms = if_else(is.na(terms), 0, terms))
 
-luma_plot %>% filter(terms > 30) %>% 
-  dplyr::select(community_id) %>% write_tsv("data/enrich-universe/communities-more-30terms.tsv")
+luma_plot %>% filter(terms > 20) %>% 
+  dplyr::select(community_id) %>% write_tsv("data/enrich-universe/communities-more-20terms.tsv")
 
 p <- ggplot(luma_plot, aes(x = totalfrac_chr, y = totalfrac_exp)) + 
   geom_point(aes(size = order, color = terms)) +
-  geom_label(aes(label = ifelse(terms > 30, as.character(symbol), NA)),
+  geom_label(aes(label = ifelse(terms > 20, as.character(symbol), NA)),
             colour = "darkslategrey", size = 6, label.padding = unit(0.15, "lines"),
             nudge_y = -0.02, nudge_x = 0.0,) +
-  #geom_hline(yintercept = 0, linetype="dashed", color = "gray") +
+  geom_hline(yintercept = 0.5, linetype="dashed", color = "gray") +
+  geom_vline(xintercept = 0.5, linetype="dashed", color = "gray") +
   theme_base() +
   labs(size = "Nodes in community",
        color = "Enriched terms") +
