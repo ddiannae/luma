@@ -2,7 +2,7 @@ library(igraph)
 library(readr)
 library(dplyr)
 
-communities <- read_tsv("data/enrich-universe/communities-more-30terms.tsv") %>% unlist()
+communities <- read_tsv("data/enrich-universe/communities-more-20terms.tsv") %>% unlist()
 interactions <- read_tsv("data/network-tables/luma-20127-interactions.tsv")
 vertices <- read_tsv("data/network-tables/luma-20127-vertices.tsv")
 colnames(interactions)[1:2] <- c("from", "to")
