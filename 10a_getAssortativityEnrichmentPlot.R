@@ -4,7 +4,7 @@ library(ggplot2)
 library(ggthemes)
 library(RColorBrewer)
 
-luma_exp <- read_tsv("data/assortativity/luma-exp-assortativity.tsv") %>% select(community_id, mean_diff_exp)
+luma_exp <- read_tsv("data/assortativity/luma-exp-assortativity.tsv") %>% select(community_id, totalfrac, mean_diff_exp)
 
 luma_chr <- read_tsv("data/assortativity/luma-chr-assortativity.tsv",
                      col_types = cols_only(community_id = col_double(),
@@ -30,18 +30,17 @@ luma_plot <- luma_assort %>% inner_join(comm_info, by = c("community_id" = "com_
 luma_plot %>% filter(terms > 30) %>% 
   dplyr::select(community_id) %>% write_tsv("data/enrich-universe/communities-more-30terms.tsv")
 
-p <- ggplot(luma_plot, aes(x = totalfrac, y = mean_diff_exp)) + 
+p <- ggplot(luma_plot, aes(x = totalfrac_chr, y = totalfrac_exp)) + 
   geom_point(aes(size = order, color = terms)) +
   geom_label(aes(label = ifelse(terms > 30, as.character(symbol), NA)),
-            colour = "darkslategrey", size = 6,
-            nudge_y = -0.20, nudge_x = 0.0, label.padding = unit(0.15, "lines"),) +
-  geom_hline(yintercept = 0, linetype="dashed", color = "gray") +
+            colour = "darkslategrey", size = 6, label.padding = unit(0.15, "lines"),
+            nudge_y = -0.02, nudge_x = 0.0,) +
+  #geom_hline(yintercept = 0, linetype="dashed", color = "gray") +
   theme_base() +
   labs(size = "Nodes in community",
        color = "Enriched terms") +
-  xlab("Fraction of intra-chromosomal links") +
-  ylab("Mean LFC") +
-  #ylim(c(-, 3.5)) +
+  xlab("Chromosomal assortativity") +
+  ylab("Expression assortativity") +
   scale_color_gradient(low="#CCFFCC", high="#003333") +
   scale_size_continuous(range = c(1, 15), breaks = c(1, 5, 20, 50, 100, 150, 200)) +
   theme(text = element_text(size = 20), axis.title = element_text(size = 25),
