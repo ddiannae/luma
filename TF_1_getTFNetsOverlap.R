@@ -14,7 +14,7 @@ colnames(interactions)[1:2] <- c("from", "to")
 net <- graph_from_data_frame(interactions, directed = F, vertices = vertices)
 
 all_coms <- lapply(communities, function(comm){
-  v_in_comm <- vertices %>% filter(community == comm) %>% dplyr::select(ensemblID) %>% unlist(use.names = F)
+  v_in_comm <- vertices %>% dplyr::filter(community == comm) %>% dplyr::select(ensemblID) %>% unlist(use.names = F)
   
   v_uniprots <- mapIds(org.Hs.eg.db,
                               keys = v_in_comm,

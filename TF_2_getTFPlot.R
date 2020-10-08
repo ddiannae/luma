@@ -1,10 +1,11 @@
 library(igraph)
 library(readr)
-library(ggplot2)
 library(tidyr)
+library(dplyr)
+library(ggplot2)
 library(ggthemes)
 
-communities <- read_tsv("data/enrich-universe/communities-more-30terms.tsv") %>% unlist()
+communities <- read_tsv("data/enrich-universe/communities-more-20terms.tsv") %>% unlist()
 interactions <- read_tsv("data/network-tables/luma-20127-interactions.tsv")
 vertices <- read_tsv("data/network-tables/luma-20127-vertices.tsv")
 colnames(interactions)[1] = "from"
