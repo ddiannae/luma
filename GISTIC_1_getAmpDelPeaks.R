@@ -6,6 +6,7 @@ library(IRanges)
 annot <- read_tsv("data/Biomart_EnsemblG94_GRCh38_p12.txt", skip = 1,
                   col_names = c("ensembl_id", "chr", "start", "end", "GC", "type", "symbol"))
 
+## Read the data
 amps <- read_tsv("data/luma-gistic/amp_genes.conf_99.txt",
                  col_names = FALSE)
 
@@ -13,6 +14,7 @@ amps_info <- amps[1:4, ] %>% t()
 rownames(amps_info) <- NULL
 colnames(amps_info) <- c("cytoband", "q", "residual_q", "wide_peak")
 amps_info <- amps_info[c(-1, -46),]
+
 ## -log10(q) for amps to get positive values
 amps_info <- amps_info %>% as_tibble() %>% 
   mutate(q =  as.numeric(q), residual_q = as.numeric(residual_q), 
@@ -20,16 +22,18 @@ amps_info <- amps_info %>% as_tibble() %>%
 
 dels <- read_tsv("data/luma-gistic/del_genes.conf_99.txt",
                  col_names = FALSE)
-
+## The file format requires some editing
 dels_info <- dels[1:4, ] %>% t() 
 rownames(dels_info) <- NULL
 colnames(dels_info) <- c("cytoband", "q", "residual_q", "wide_peak")
 dels_info <- dels_info[c(-1, -37),]
+
 ## log10(q) for dels to get negative values
 dels_info <- dels_info %>% as_tibble() %>% 
   mutate(q =  as.numeric(q), residual_q = as.numeric(residual_q), 
          id = rownames(.),  type_log10_q = log10(q))
 
+## Map the peaks
 amps_info <- amps_info %>% mutate(pos = str_split(wide_peak, ":"), 
                                   chr = str_remove(unlist(lapply(pos, "[[", 1)), "chr"),
                                   se = str_split(unlist(lapply(pos, "[[", 2)), "-"),
@@ -51,10 +55,14 @@ all_genes_lesions <- parallel::mclapply(X = chrs, mc.cores = 23, FUN = function(
   chr_genes <- annot %>% filter(chr == ch)
   chr_dels <- dels_info %>% filter(chr == ch)
   
+  ## Ranges for amplification peaks
   aranges <- IRanges(start = chr_amps$start, end = chr_amps$end, names = chr_amps$id)
+  ## Ranges for deletion peaks
   dranges <- IRanges(start = chr_dels$start, end = chr_dels$end, names = chr_dels$id)
+  ## Ranges for genes
   granges <- IRanges(start = chr_genes$start, end = chr_genes$end, names = chr_genes$ensembl_id)
 
+  ## Complete overlaps
   genes <- as.data.frame(findOverlaps(granges, aranges, type = "within"))
   
   amps <- genes %>% 

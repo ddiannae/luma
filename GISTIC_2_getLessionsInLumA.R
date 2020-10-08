@@ -13,4 +13,3 @@ genes_gistic <- genes_gistic %>% semi_join(luma_genes, by = c("ensembl_id" = "en
 genes_gistic %>% select(ensembl_id, lesion_id,  lesion_q, lesion_residual_q, lesion_type_log10_q,
                         lesion_type, lesion_wide_peak ) %>% 
   write_tsv("data/luma-gistic/luma-network-genes.tsv")
-c
