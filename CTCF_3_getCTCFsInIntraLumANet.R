@@ -130,10 +130,10 @@ plot_ctcfs <- class_ctcfs_50 %>% select(type, chr) %>%
   mutate(type = ordered(as.factor(type), levels = c("mrna", "gene", "promoter", "intergen")),
          chr = ordered(chr, levels = chrs))
   
-png(paste0("figures/ctcfs/ctcfs-by-chr-type.png"), width = 1800, height = 1800)
+png(paste0("figures/ctcfs/ctcfs-by-chr-type.png"), width = 1200, height = 1200)
 ggplot(plot_ctcfs, aes(x = type, fill = type)) +
   geom_bar() +
-  theme_bw() +
+  theme_bw(base_size = 25) +
   theme(axis.text.x = element_blank()) +
   scale_fill_viridis_d(option = "C", name = "Type",
                        labels = c("Genes", "CTCF bs in genes", "CTCF bs in promoters", "CTCF bs in intergenic\n region" )) + 
