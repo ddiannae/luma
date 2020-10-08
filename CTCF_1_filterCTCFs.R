@@ -2,9 +2,11 @@ library(readr)
 library(dplyr)
 library(ggplot2)
 
+### Read the database
 ctcfs <- read_tsv("data/GSE85108/GSM2257816_CTCF_E0h_MCF7_peaks_hg38.bed", 
          col_names = c("chr", "start", "end", "id", "score"))
 
+### How different are the peak sizes??
 ctcfs <- ctcfs %>% mutate(size = end - start)
 
 png(paste0("figures/ctcfs/size-density.png"), width = 600, height = 400)
@@ -29,6 +31,8 @@ quantile(ctcfs$size)
 quantile(x = ctcfs$size, probs = c(0.9, 0.95, 0.98))
 # 90%    95%    98% 
 # 482.00 577.35 773.14 
+
+### Keep the 90% of the peaks, remove outliers
 ctcfs <- ctcfs %>% filter(size <= 482)
 
 png(paste0("figures/ctcfs/size-density-filtered.png"), width = 600, height = 400)
@@ -72,7 +76,7 @@ ctcfs <- ctcfs %>% distinct(chr, start, end, .keep_all = T)
 chrs <- as.character(c(seq(1:22), "X"))
 ctcfs <- ctcfs %>% filter(chr %in% paste0("chr", chrs))
 
-### Distance
+### Distance between peaks in chromosomes.
 ctcfs_distance <- parallel::mclapply(X = chrs, mc.cores = 23, FUN = function(ch){
   ctcfs_chr <- ctcfs %>% filter(chr == paste0("chr", ch)) %>% 
     select(id, chr, start, end) %>%
@@ -84,6 +88,7 @@ ctcfs_distance <- parallel::mclapply(X = chrs, mc.cores = 23, FUN = function(ch)
 
 ctcfs_distance <- plyr::ldply(ctcfs_distance)
 
+### Around 100000 bps between peaks
 png(paste0("figures/ctcfs/distance-density.png"), width = 400, height = 600)
 ggplot(ctcfs_distance, aes(x = distance)) +
   geom_density() + 
@@ -98,12 +103,12 @@ ggplot(ctcfs_distance, aes(y = distance, x = chr)) +
   theme_light()
 dev.off()
 
-# peak overlaps
+# Peak overlaps
 peak_overlaps <- ctcfs_distance %>% filter(distance < 0) %>% 
   mutate(size = end - start, dif = size + distance)
 nrow(peak_overlaps)
 # [1] 23
-# remove them
+# Remove them
 ctcfs <- ctcfs %>% filter(!id %in% peak_overlaps$id) 
 
 write_tsv(ctcfs, path = "data/filtered_ctcfs.tsv")

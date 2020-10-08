@@ -3,9 +3,14 @@ library(dplyr)
 library(ggplot2)
 library(IRanges)
 
+### Read the classified CTCFs
 ctcfs <- read_tsv("data/class_ctcfs.tsv", col_types = cols(
   chr = col_character()))
 
+ctcfs %>% select(type) %>% table()
+# gen  intergen    other promoter 
+# 8047     8979     2459      868
+# intergen = 11438
 ctcfs_hits <- read_tsv("data/ctcfs_hits.tsv")
 genes <- read_tsv("data/luma-intra-vertices.tsv", 
                           col_types = cols_only(
@@ -20,8 +25,9 @@ luma_ctcfs <- ctcfs_hits %>%
   semi_join(genes, by = c("sequence" = "id")) %>% 
   select(ctcf) %>% unlist(use.names = FALSE) %>% unique()
 
-## remove ctcfs that lie on gene promoters or gene bodies in genes that are not 
-## in our network
+## Remove ctcfs that lie on gene promoters or gene bodies in genes that are not 
+## in our network. Keep the ones in the intergenic region of genes to check if they include
+## other peaks at a certain distance
 ctcfs <- bind_rows(
   ctcfs %>% 
     filter(id %in% luma_ctcfs),
@@ -29,12 +35,13 @@ ctcfs <- bind_rows(
   filter(!id %in% luma_ctcfs, type  %in% c("intergen", "other"))
   )
 
-promoters <- genes %>% mutate(end = start + 5000, start = start - 5000)
+promoters <- genes %>% mutate(end = start + 500, start = start - 5000)
 extended_regions <- genes %>% mutate(start = start - 5000, end = end)
-gene_bodies <- genes %>% mutate(start = start + 5000) %>% filter(end > start)
+gene_bodies <- genes %>% mutate(start = start + 500) %>% filter(end > start)
 
 chrs <- as.character(c(seq(1:22), "X"))
 
+### Reclasify
 luma_ctfs <- parallel::mclapply(X = chrs, mc.cores = 23, FUN = function(ch){
   chr_ctcfs <- ctcfs %>% filter(chr == ch)
   chr_gene_bodies <- gene_bodies %>% filter(chr == ch)
@@ -50,14 +57,23 @@ luma_ctfs <- parallel::mclapply(X = chrs, mc.cores = 23, FUN = function(ch){
   chr_ctcfs <- chr_ctcfs %>% mutate(phits = countOverlaps(cranges, pranges, type = "within"), 
                                     ghits = countOverlaps(cranges, granges, type = "within"))
                          
-  phits <- as.data.frame(findOverlaps(cranges, pranges, type = "within")) %>% 
-    mutate(ctcf = chr_ctcfs$id[queryHits], sequence = chr_promoters$id[subjectHits], type = "promoter")
+  phits <- as.data.frame(findOverlaps(cranges, pranges, type = "within")) 
+  if(nrow(phits) > 0) {
+    phits <- phits  %>% 
+      mutate(ctcf = chr_ctcfs$id[queryHits], sequence = chr_promoters$id[subjectHits], type = "promoter")
+  }
+ 
+  ghits <- as.data.frame(findOverlaps(cranges, granges, type = "within"))
+  if(nrow(ghits) > 0) {
+    ghits <- ghits %>% 
+      mutate(ctcf = chr_ctcfs$id[queryHits], sequence = chr_gene_bodies$id[subjectHits], type = "gene")
+  }
+   
+  hits <- bind_rows(phits, ghits)
   
-  ghits <- as.data.frame(findOverlaps(cranges, granges, type = "within")) %>% 
-    mutate(ctcf = chr_ctcfs$id[queryHits], sequence = chr_gene_bodies$id[subjectHits], type = "gene")
-  
-  hits <- bind_rows(phits, ghits) %>% select(ctcf, sequence, type)
-  
+  if(nrow(hits) > 0) {
+    hits <- hits %>% select(ctcf, sequence, type)
+  }
   # Distance to the extended region
   dist <- distanceToNearest(cranges, eranges)
   chr_ctcfs$near_region <- chr_extended_regions$id[to(dist)]
@@ -74,7 +90,7 @@ class_ctcfs <- class_ctcfs %>% mutate(type = case_when(phits > 0 ~ "promoter",
 
 class_ctcfs %>% select(type) %>% table()
 #gene intergen promoter 
-#1234    11394      283 
+#1343    11438      177
 
 png(paste0("figures/ctcfs/class-barplot-luma.png"), width = 600, height = 800)
 ggplot(class_ctcfs, aes(x = type, fill = type)) +
@@ -106,14 +122,28 @@ dev.off()
 ## digamos que 50k 
 class_ctcfs_50 <- class_ctcfs %>% filter(near_distance <= 50000)
 
-png(paste0("figures/ctcfs/class-barplot-luma-distance-bychr.png"), width = 1200, height = 1200)
-ggplot(class_ctcfs_50, aes(x = type, fill = type)) +
+class_ctcfs_50 %>% select(type) %>% table()
+# gene intergen promoter 
+# 1343      887      177 
+plot_ctcfs <- class_ctcfs_50 %>% select(type, chr) %>% 
+  bind_rows(genes %>% select(chr) %>% mutate(type = "mrna")) %>% 
+  mutate(type = ordered(as.factor(type), levels = c("mrna", "gene", "promoter", "intergen")),
+         chr = ordered(chr, levels = chrs))
+  
+png(paste0("figures/ctcfs/ctcfs-by-chr-type.png"), width = 1800, height = 1800)
+ggplot(plot_ctcfs, aes(x = type, fill = type)) +
   geom_bar() +
   theme_bw() +
-  scale_fill_viridis_d() + 
-  facet_wrap(~chr)
+  theme(axis.text.x = element_blank()) +
+  scale_fill_viridis_d(option = "C", name = "Type",
+                       labels = c("Genes", "CTCF bs in genes", "CTCF bs in promoters", "CTCF bs in intergenic\n region" )) + 
+  facet_wrap(~chr) +
+  xlab("") +
+  ylab("") +
+  ggtitle("Genes and CTCF bs in intra-chromosomal communities") 
 dev.off()
 
 write_tsv(class_ctcfs, path = "data/ctcfs_in_intra_luma.tsv")
 write_tsv(ctcfs_hits, path  = "data/ctcfs_hits_in_intra_luma.tsv")
 write_tsv(class_ctcfs_50, path  = "data/ctcfs_in_intra_luma_50k.tsv")
+
