@@ -43,14 +43,14 @@ all_tfs <- all_tfs %>% left_join(comm_info %>%
                         dplyr::select(com_id, symbol), by = "com_id", 
                       suffix = c("_gene", "_community"))
 
-colors <- c("white", "darkolivegreen4")
+colors <- c("white", "#336600")
 
-png(paste0("figures/tfs/regulatory_interactions.png"), width= 1150, height = 600)
+png(paste0("figures/tfs/regulatory_interactions.png"), width= 2400, height = 800)
 ggplot(all_tfs, aes(fill=interaction, y=value, x=symbol_gene)) + 
   geom_bar(position="stack", stat="identity", width = .8,  color = "black") +
   ylab("Interactions in network") +
   xlab("") +
-  theme_few(base_size = 20) +
+  theme_few(base_size = 40) +
   theme(axis.text.x =  element_text(angle = 90, hjust = 1, vjust = 0.5),
         legend.position="bottom",
         legend.title = element_blank(),
