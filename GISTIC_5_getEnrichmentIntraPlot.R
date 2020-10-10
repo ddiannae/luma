@@ -44,10 +44,8 @@ comm_info <- comm_info %>% left_join(all_enrichments, by = c("com_id" = "comm"))
 comm_info <- comm_info %>% rename(lesion_id = ID)
 comm_info <- comm_info %>% left_join(gistic_peaks, by =c("lesion_id" = "id"), 
                                      suffix = c("_comm", "_peak"))
-#comm_info %>% filter(com_id == 165) %>% select(lesion_id)
-comm_info$chr_comm <- factor(comm_info$chr_comm, levels = as.character(c(1:22, "X")))
 
-comm_info3 <- comm_info %>% filter(chrom %in% 1:3)
+comm_info$chr_comm <- factor(comm_info$chr_comm, levels = as.character(c(1:22, "X")))
 
 ## only the visible ones
 chr_labs <- c(as.character(1:12), "", as.character(14:17), "", as.character(19:20), "", "22", "X")
@@ -56,7 +54,7 @@ p <- ggplot(comm_info, aes(x = xpos, y = mean_diff_exp)) +
   geom_bar(stat = "identity", aes(color = type_log10_q)) +
   geom_point(aes(size = order),  fill = NA, shape=19) +
   theme_base() +
-  labs(size = "Nodes in community", color = "Peak\n-log10(q)") +
+  labs(size = "Nodes in \ncommunity", color = "Peak\n-log10(q)") +
   xlab("") +
   ylab("Mean LFC") +
   scale_color_gradient2(midpoint=0, low="turquoise", mid="white",
@@ -67,11 +65,11 @@ p <- ggplot(comm_info, aes(x = xpos, y = mean_diff_exp)) +
         plot.background=element_blank()) +
   facet_grid(~chr_comm, scales = 'free_x', switch = "x", space = 'free_x',
              labeller = labeller(chr_comm = chr_labs)) + 
-  theme_classic(base_size = 20) + 
+  theme_classic(base_size = 25) + 
   theme(axis.text.x = element_blank(),
         axis.ticks.x = element_blank(),
         panel.spacing = unit(0, "lines"),
-        strip.text = element_text(size = 12), 
+        strip.text = element_text(size = 14), 
         strip.background = element_rect(fill = "grey90", colour = "white"),
         axis.line.x = element_blank()) +
   ggtitle("Intra-chromosomal communities with Amp-Del peaks enrichment")
