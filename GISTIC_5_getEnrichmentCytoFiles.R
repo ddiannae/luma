@@ -36,3 +36,13 @@ comm_info$node_type <- "comm"
 gistic_peaks$node_type <- "peak"
 write_tsv(comm_info, "data/luma-gistic/enriched-comms.tsv")
 write_tsv(gistic_peaks, "data/luma-gistic/enriched-peaks.tsv")
+
+luma_genes <- read_tsv("data/network-tables/luma-20127-vertices.tsv")
+lesion_genes <- read_tsv("data/luma-gistic/luma-network-genes.tsv")
+
+### Get genes in enriched communities
+luma_genes <- luma_genes %>% filter(community %in% comm_info$id)
+luma_genes %>% select( ensemblID) %>% write_tsv("data/luma-gistic/genes-in-enriched-comms.tsv")
+### Select only genes in lesions
+lesion_genes <- luma_genes %>% filter(ensemblID %in% lesion_genes$ensembl_id)
+lesion_genes %>% select( ensemblID) %>% write_tsv("data/luma-gistic/genes-in-enriched-comms-lesion.tsv")
