@@ -42,12 +42,12 @@ p <- ggplot(luma_plot, aes(x = totalfrac_chr, y = totalfrac_exp)) +
        color = "Enriched \nterms") +
   xlab("Chromosomal assortativity") +
   ylab("Expression assortativity") +
-  ylim(0.10, 1) +
+  #ylim(0.10, 1) +
   scale_color_gradient(low="#CCFFCC", high="#003333") +
   scale_size_continuous(range = c(1, 15), breaks = c(1, 5, 20, 50, 100, 150, 200)) +
   theme(text = element_text(size = 20), axis.title = element_text(size = 25),
         plot.background=element_blank())
 
-png(paste0("figures/communities/intercomms-lfc-enrichment.png"), width = 800, height = 400)
+png(paste0("figures/communities/intercomms-lfc-enrichment.png"), width = 800, height = 450)
 p
 dev.off()
