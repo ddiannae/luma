@@ -39,37 +39,11 @@ n <- lapply(conds, function(cond){
   vertices <- rbind(targets, sources)
   vertices <- vertices[!duplicated(vertices$ensemblID), ]
   vertices <- vertices %>% inner_join(annot.symbol, by = "ensemblID")
-  
-  housekeeping <- read.delim("data/housekeeping.txt", header = F, 
-                             colClasses = c("character", "NULL"))
-  housekeeping <- housekeeping[, 1, drop= T]
-  housekeeping <- stringr::str_trim(housekeeping)
-  housekeeping <- tolower(housekeeping)
-  vertices <- vertices %>% mutate(isHK = if_else(tolower(symbol) %in% housekeeping, T, F))
-  
-  tfs <- read.delim("data/tfs_2018.txt", header = F,
-                    col.names = c("ensemblID"))
-  vertices <- vertices %>% mutate(isTF = if_else(ensemblID %in% tfs$ensemblID, T, F))
-  
-  # kariotype <- read.delim("/media/ddisk/transpipeline-data/annotations/chromosome.band.hg38.txt",
-  #                         header = T, stringsAsFactors = F)
-  # names(kariotype)[1] <- "chr"
-  # tbands <- kariotype %>% mutate(arm = unlist(lapply(as.vector(strsplit(name, split = "")), "[[", 1)))
-  # tbands <- tbands %>% group_by(chr, arm) %>% summarise(t = max(name))
-  # tbands <- tbands %>% group_by(chr) %>% summarise(t1 = min(t), t2 = max(t))
-  # tbands$chr <- stringr::str_replace(tbands$chr, "chr", "")
-  # vertices <- vertices %>% inner_join(tbands, by = "chr")
-  # vertices$isExtreme <- vertices$band == vertices$t1 | vertices$band == vertices$t2
-  # vertices$isExtreme <- as.integer(vertices$isExtreme)
-  vertices$isHK <- as.integer(vertices$isHK)
-  vertices$isTF <- as.integer(vertices$isTF)
-  
+   
   net <- net %>% 
     select(source, target, MI, distance, row_num, interaction_type) %>%
     arrange(desc(MI)) 
-  
-  # vertices <- vertices %>% select(-t1, -t2)
-  
+ 
   write.table(vertices, file = paste0("data/network-tables/", cond, "-vertices.tsv") , 
               quote = F, row.names = F, col.names = T, sep = "\t")
   write.table(net, file = paste0("data/network-tables/", cond, "-interactions.tsv"),
