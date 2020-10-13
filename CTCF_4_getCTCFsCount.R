@@ -3,8 +3,9 @@ library(dplyr)
 library(parallel)
 library(IRanges)
 library(ggplot2)
+library(dgof)
 
-ctcfs <- read_tsv("data/ctcfs_in_intra_luma_50k.tsv", col_types = cols(
+ctcfs <- read_tsv("data/ctcfs_in_intra_luma_50k_1000_100.tsv", col_types = cols(
   chr = col_character(),
   start = col_double(),
   end = col_double(),
@@ -16,7 +17,7 @@ ctcfs <- read_tsv("data/ctcfs_in_intra_luma_50k.tsv", col_types = cols(
   near_distance = col_double()
 ))
 
-ctcfs_hits <- read_tsv("data/ctcfs_hits_in_intra_luma.tsv")
+ctcfs_hits <- read_tsv("data/ctcfs_hits_in_intra_luma_1000_100.tsv")
 
 genes <- read_tsv("data/luma-intra-vertices.tsv", col_types = cols_only(
   ensemblID = col_character(),
@@ -41,7 +42,7 @@ ctcfs_comm_counts <- mclapply(X = intra_comm,
     comm_ctcfs <- ctcfs %>% filter(near_region %in% gene_comm$id)
     
     ## to get the promoter region associated
-    s <- min(gene_comm$start) - 5000
+    s <- min(gene_comm$start) - 1000
     e <- max(gene_comm$end) 
     
     #from gene start to gene end
@@ -112,8 +113,9 @@ ggplot(count_by_types, aes(x = slice_type,  y = sum_ctcf, fill = type)) +
 
 length(unique(ctcfs_comm_counts$comm))
 # [1] 404
+# 416 con 1000 100
 
-## Fill the missing values with
+## Fill the missing values with zeroes
 all_ctcfs_by_comm <- all_ctcfs %>% dplyr::group_by(comm, slice_type) %>%
   dplyr::summarise(sum_ctcf = sum(ctcf_count)) %>%
   tidyr::spread(key = slice_type, value = sum_ctcf, fill = 0) %>%
@@ -130,7 +132,7 @@ ggplot(all_ctcfs_by_comm, aes(y = sum_ctcf, x = slice_type, color = slice_type))
   theme_bw() +
   scale_color_viridis_d()
 
-png(paste0("figures/ctcfs/density-count-by-type.png"), width = 800, height = 400)
+png(paste0("figures/ctcfs/density-count-by-type-1000-100.png"), width = 800, height = 400)
 ggplot(all_ctcfs_by_comm, aes(x = sum_ctcf, color = slice_type))+
   geom_density(show.legend=FALSE) +
   stat_density(aes(x=sum_ctcf, colour=slice_type), 
@@ -140,3 +142,32 @@ ggplot(all_ctcfs_by_comm, aes(x = sum_ctcf, color = slice_type))+
   xlab("Average CTCFs binding sites") +
   ylab("Density") 
 dev.off()
+
+
+mids <- all_ctcfs_by_comm %>% filter(slice_type == "mid") %>% ungroup() %>% select(sum_ctcf) %>% 
+  unlist(use.names = F)
+pmids <- ecdf(mids)
+vals = seq(-3, 3, by=0.01) 
+out_end <- all_ctcfs_by_comm %>% filter(slice_type == "out_end") %>% ungroup() %>% select(sum_ctcf) %>% 
+  unlist(use.names = F)
+pouts <- ecdf(out_end)
+out_start <- all_ctcfs_by_comm %>% filter(slice_type == "out_start") %>% ungroup() %>% select(sum_ctcf) %>% 
+  unlist(use.names = F)
+pstart <- ecdf(out_start)
+
+ks.test(out_end, mids, exact = F, simulate.p.value = T)
+
+
+### count number of communities with greater outs
+comms_gather <- all_ctcfs_by_comm %>% 
+  tidyr::spread(key = slice_type, value = sum_ctcf, fill = 0)
+comms_gather <- comms_gather %>% mutate(type = case_when((out_end > mid | out_start > mid) ~ "out",
+                                                         (mid > out_end | mid > out_start ) ~ "mid",
+                                                         TRUE ~ "equal")
+                                        )
+comms_gather %>% group_by(type) %>% tally()
+
+# type      n
+# 1 equal     1
+# 2 mid     219
+# 3 out     196

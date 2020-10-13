@@ -4,14 +4,20 @@ library(ggplot2)
 library(IRanges)
 
 ### Read the classified CTCFs
-ctcfs <- read_tsv("data/class_ctcfs.tsv", col_types = cols(
+ctcfs <- read_tsv("data/class_ctcfs_5000_500.tsv", col_types = cols(
   chr = col_character()))
 
 ctcfs %>% select(type) %>% table()
+# -5000, 500
 # gen  intergen    other promoter 
 # 8047     8979     2459      868
 # intergen = 11438
-ctcfs_hits <- read_tsv("data/ctcfs_hits.tsv")
+# 
+# -1000, 100
+# gen intergen    other promoter 
+# 8270     9393     2523      167 
+# intergen = 11916
+ctcfs_hits <- read_tsv("data/ctcfs_hits_5000_500.tsv")
 genes <- read_tsv("data/luma-intra-vertices.tsv", 
                           col_types = cols_only(
                             ensemblID = col_character(),
@@ -89,10 +95,15 @@ class_ctcfs <- class_ctcfs %>% mutate(type = case_when(phits > 0 ~ "promoter",
                                                    TRUE ~ "intergen"))
 
 class_ctcfs %>% select(type) %>% table()
-#gene intergen promoter 
-#1343    11438      177
+# -5000, 500
+# gene intergen promoter 
+# 1343    11438      177
+# 
+# -1000, 100
+# gene intergen promoter 
+# 1370    11916       48 
 
-png(paste0("figures/ctcfs/class-barplot-luma.png"), width = 600, height = 800)
+png(paste0("figures/ctcfs/class-barplot-luma-5000-500.png"), width = 600, height = 800)
 ggplot(class_ctcfs, aes(x = type, fill = type)) +
   geom_bar() +
   theme_bw() +
@@ -112,7 +123,7 @@ ctcfs_count <- ctcfs_count %>% group_by(type, distance) %>% tally()
 ctcfs_count$distance <- factor(ctcfs_count$distance, 
                                   levels = c("1k", "5k", "10k", "15k", "25k", "50k", "75k", "100k"))
 
-png(paste0("figures/ctcfs/class-barplot-luma-distance.png"), width = 800, height = 800)
+png(paste0("figures/ctcfs/class-barplot-luma-distance-5000-500.png"), width = 800, height = 800)
 ggplot(ctcfs_count, aes(x = distance,  y = n, fill = type)) +
   geom_bar(position="dodge", stat="identity") +
   theme_bw() +
@@ -123,14 +134,19 @@ dev.off()
 class_ctcfs_50 <- class_ctcfs %>% filter(near_distance <= 50000)
 
 class_ctcfs_50 %>% select(type) %>% table()
+# -5000, 500
 # gene intergen promoter 
 # 1343      887      177 
+
+# -1000, 100
+# gene intergen promoter 
+# 1370     1027       48 
 plot_ctcfs <- class_ctcfs_50 %>% select(type, chr) %>% 
   bind_rows(genes %>% select(chr) %>% mutate(type = "mrna")) %>% 
   mutate(type = ordered(as.factor(type), levels = c("mrna", "gene", "promoter", "intergen")),
          chr = ordered(chr, levels = chrs))
   
-png(paste0("figures/ctcfs/ctcfs-by-chr-type.png"), width = 1200, height = 1200)
+png(paste0("figures/ctcfs/ctcfs-by-chr-type-5000-500.png"), width = 1200, height = 1200)
 ggplot(plot_ctcfs, aes(x = type, fill = type)) +
   geom_bar() +
   theme_bw(base_size = 25) +
@@ -143,7 +159,7 @@ ggplot(plot_ctcfs, aes(x = type, fill = type)) +
   ggtitle("Genes and CTCF bs in intra-chromosomal communities") 
 dev.off()
 
-write_tsv(class_ctcfs, path = "data/ctcfs_in_intra_luma.tsv")
-write_tsv(ctcfs_hits, path  = "data/ctcfs_hits_in_intra_luma.tsv")
-write_tsv(class_ctcfs_50, path  = "data/ctcfs_in_intra_luma_50k.tsv")
+write_tsv(class_ctcfs, path = "data/ctcfs_in_intra_luma_5000_500.tsv")
+write_tsv(ctcfs_hits, path  = "data/ctcfs_hits_in_intra_luma_5000_500.tsv")
+write_tsv(class_ctcfs_50, path  = "data/ctcfs_in_intra_luma_50k_5000_500.tsv")
 

@@ -71,14 +71,14 @@ class_ctcfs <- class_ctcfs %>% mutate(type = case_when(phits > 0 ~ "promoter",
                                         ohits > 0 ~ "other",
                                         TRUE ~ "intergen"))
 
-png(paste0("figures/ctcfs/class-barplot-all.png"), width = 800, height = 600)
+png(paste0("figures/ctcfs/class-barplot-all-5000-500.png"), width = 800, height = 600)
 ggplot(class_ctcfs, aes(x = type, fill = type)) +
   geom_bar() +
   theme_bw() +
   scale_fill_viridis_d() 
 dev.off()
 
-png(paste0("figures/ctcfs/class-barplot-all-bychr.png"), width = 1200, height = 1200)
+png(paste0("figures/ctcfs/class-barplot-all-bychr-5000-500.png"), width = 1200, height = 1200)
 ggplot(class_ctcfs, aes(x = type, fill = type)) +
   geom_bar() +
   theme_bw() +
@@ -86,5 +86,5 @@ ggplot(class_ctcfs, aes(x = type, fill = type)) +
   facet_wrap(~chr)
 dev.off()
 
-write_tsv(class_ctcfs, path = "data/class_ctcfs.tsv")
-write_tsv(ctcfs_hits, path = "data/ctcfs_hits.tsv")
+write_tsv(class_ctcfs, "data/class_ctcfs_5000_500.tsv")
+write_tsv(ctcfs_hits, "data/ctcfs_hits_5000_500.tsv")
