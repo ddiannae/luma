@@ -109,7 +109,9 @@ count_by_types <- all_ctcfs %>% dplyr::group_by(type, slice_type, comm) %>%
 ggplot(count_by_types, aes(x = slice_type,  y = sum_ctcf, fill = type)) +
   geom_bar(position="stack", stat="identity") +
   theme_bw() +
-  scale_fill_viridis_d()
+  scale_fill_viridis_d() +
+  xlab("") +
+  ylab("Total number of CTCF bs")
 
 length(unique(ctcfs_comm_counts$comm))
 # [1] 404
