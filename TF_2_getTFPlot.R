@@ -20,11 +20,11 @@ all_tfs <- lapply(communities, function(comm){
   comm_tfs <- read_tsv(paste0("data/tfs/gtrd/tfs_in_comm_", comm, ".txt"))
   e_in_comm <- interactions %>% filter(from %in% v_in_comm & to %in% v_in_comm)
   
-  tfs_info <- lapply(comm_tfs$ensembl_id, function(tf){
-    e_tfs <- e_in_comm %>% filter(from == tf | to == tf)
-    e_reg <- tf_interactions %>% filter(from == tf | to == tf)
+  tfs_info <- lapply(comm_tfs$ensembl_id, function(transf){
+    e_tfs <- e_in_comm %>% filter(from == transf | to == transf)
+    e_reg <- tf_interactions %>% filter(tf == transf)
     
-    return(list(tf = tf, non_regulatory = (nrow(e_tfs)-nrow(e_reg)), regulatory = nrow(e_reg)))
+    return(list(tf = transf, non_regulatory = (nrow(e_tfs)-nrow(e_reg)), regulatory = nrow(e_reg)))
   })
   
   tfs_info <- bind_rows(tfs_info)

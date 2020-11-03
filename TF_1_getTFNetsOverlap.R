@@ -39,16 +39,19 @@ all_coms <- lapply(communities, function(comm){
                         col_names = c("to", "ensembl_id", "site_count"), skip = 1)
       if(nrow(neigh) > 0) {
         neigh$from <- tf_ensembl
-        neigh <- neigh %>% dplyr::select(to, from, site_count)
+        neigh <- neigh %>% dplyr::select(from, to, site_count)
         tf_net <- graph_from_data_frame(neigh, directed = F)
-        
-        return(get.data.frame(intersection(tf_net, comm_net), what = "edges"))
+        tf_inter <- get.data.frame(intersection(tf_net, comm_net), what = "edges")
+        if(nrow(tf_inter) > 0){
+          tf_inter$tf = tf_ensembl
+        }
+        return(tf_inter)
       }
     })
     netss <- bind_rows(netss)
     if(nrow(netss) > 0) {
       netss$community <- comm
-      netss <- netss[!duplicated(netss %>% dplyr::select(to, from)), ]
+      netss <- netss[!duplicated(netss %>% dplyr::select(to, from, tf)), ]
       return(netss) 
     }
   }
