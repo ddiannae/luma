@@ -18,7 +18,7 @@ ctcfs %>% select(type) %>% table()
 # 8270     9393     2523      167 
 # intergen = 11916
 ctcfs_hits <- read_tsv("data/ctcfs/ctcfs_hits_5000_500.tsv")
-genes <- read_tsv("data/luma-intra-vertices.tsv", 
+genes <- read_tsv("data/communities/luma-intra-vertices.tsv", 
                           col_types = cols_only(
                             ensemblID = col_character(),
                             chr = col_character(),
