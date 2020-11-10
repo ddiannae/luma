@@ -111,4 +111,4 @@ nrow(peak_overlaps)
 # Remove them
 ctcfs <- ctcfs %>% filter(!id %in% peak_overlaps$id) 
 
-write_tsv(ctcfs, path = "data/filtered_ctcfs.tsv")
+write_tsv(ctcfs, path = "data/ctcfs/filtered_ctcfs.tsv")

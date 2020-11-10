@@ -4,7 +4,7 @@ library(ggplot2)
 library(IRanges)
 
 ### Read the classified CTCFs
-ctcfs <- read_tsv("data/class_ctcfs_5000_500.tsv", col_types = cols(
+ctcfs <- read_tsv("data/ctcfs/class_ctcfs_5000_500.tsv", col_types = cols(
   chr = col_character()))
 
 ctcfs %>% select(type) %>% table()
@@ -17,7 +17,7 @@ ctcfs %>% select(type) %>% table()
 # gen intergen    other promoter 
 # 8270     9393     2523      167 
 # intergen = 11916
-ctcfs_hits <- read_tsv("data/ctcfs_hits_5000_500.tsv")
+ctcfs_hits <- read_tsv("data/ctcfs/ctcfs_hits_5000_500.tsv")
 genes <- read_tsv("data/luma-intra-vertices.tsv", 
                           col_types = cols_only(
                             ensemblID = col_character(),
@@ -159,7 +159,7 @@ ggplot(plot_ctcfs, aes(x = type, fill = type)) +
   ggtitle("Genes and CTCF bs in intra-chromosomal communities") 
 dev.off()
 
-write_tsv(class_ctcfs, path = "data/ctcfs_in_intra_luma_5000_500.tsv")
-write_tsv(ctcfs_hits, path  = "data/ctcfs_hits_in_intra_luma_5000_500.tsv")
-write_tsv(class_ctcfs_50, path  = "data/ctcfs_in_intra_luma_50k_5000_500.tsv")
+write_tsv(class_ctcfs, path = "data/ctcfs/ctcfs_in_intra_luma_5000_500.tsv")
+write_tsv(ctcfs_hits, path  = "data/ctcfs/ctcfs_hits_in_intra_luma_5000_500.tsv")
+write_tsv(class_ctcfs_50, path  = "data/ctcfs/ctcfs_in_intra_luma_50k_5000_500.tsv")
 

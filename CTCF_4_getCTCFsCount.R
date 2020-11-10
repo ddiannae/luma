@@ -5,7 +5,7 @@ library(IRanges)
 library(ggplot2)
 library(dgof)
 
-ctcfs <- read_tsv("data/ctcfs_in_intra_luma_50k_1000_100.tsv", col_types = cols(
+ctcfs <- read_tsv("data/ctcfs/ctcfs_in_intra_luma_50k_1000_100.tsv", col_types = cols(
   chr = col_character(),
   start = col_double(),
   end = col_double(),
@@ -17,7 +17,7 @@ ctcfs <- read_tsv("data/ctcfs_in_intra_luma_50k_1000_100.tsv", col_types = cols(
   near_distance = col_double()
 ))
 
-ctcfs_hits <- read_tsv("data/ctcfs_hits_in_intra_luma_1000_100.tsv")
+ctcfs_hits <- read_tsv("data/ctcfs/ctcfs_hits_in_intra_luma_1000_100.tsv")
 
 genes <- read_tsv("data/luma-intra-vertices.tsv", col_types = cols_only(
   ensemblID = col_character(),

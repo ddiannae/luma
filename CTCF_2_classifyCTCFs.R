@@ -17,7 +17,7 @@ annot <- annot %>% filter(chr %in% chrs)
 protein_coding <- annot %>% filter(type == "protein_coding")
 non_protein_coding <- annot %>% filter(type != "protein_coding")
 
-ctcfs <- read_tsv("data/filtered_ctcfs.tsv")
+ctcfs <- read_tsv("data/ctcfs/filtered_ctcfs.tsv")
 ctcfs <- ctcfs %>% mutate(chr = str_remove(chr, "chr")) %>% 
   filter(chr %in% chrs)
 
@@ -86,5 +86,5 @@ ggplot(class_ctcfs, aes(x = type, fill = type)) +
   facet_wrap(~chr)
 dev.off()
 
-write_tsv(class_ctcfs, "data/class_ctcfs_5000_500.tsv")
-write_tsv(ctcfs_hits, "data/ctcfs_hits_5000_500.tsv")
+write_tsv(class_ctcfs, "data/ctcfs/class_ctcfs_5000_500.tsv")
+write_tsv(ctcfs_hits, "data/ctcfs/ctcfs_hits_5000_500.tsv")
