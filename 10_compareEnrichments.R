@@ -44,13 +44,26 @@ write_tsv(shared %>% select(ID), "data/enrich-universe/shared-only-KEGG.tsv")
 luma_enr <- read_tsv("data/enrich-universe/luma-go-filtered-enrichments.tsv")
 luma_intra_comm <- read_tsv("data/communities/luma-intra-communities.tsv")
 
+healthy_enr <- read_tsv("data/enrich-universe/healthy-go-filtered-enrichments.tsv")
+healthy_intra_comm <- read_tsv("data/communities/healthy-intra-communities.tsv")
+
 luma_enr <- luma_enr %>% mutate(community_type = 
-                                  ifelse(commun %in% luma_intra_comm$community_id, 
-                                         "*", "-"))
+                            ifelse(commun %in% luma_intra_comm$community_id, 
+                              "*", "-"))
 intra_enrich <- luma_enr %>% filter(community_type == "*")
 ## 136 términos en 9 comunidades intra
 inter_enrich <-  luma_enr %>% filter(community_type == "-")
 ## 792 términos en 20 comunidades inter
+
+healthy_enr <- healthy_enr %>% mutate(community_type = 
+                          ifelse(commun %in% healthy_intra_comm$community_id, 
+                                         "*", "-"))
+healtlhy_intra_enrich <- healthy_enr %>% filter(community_type == "*")
+## 0
+healthy_inter_enrich <-  healthy_enr %>% filter(community_type == "-")
+## 612 en 20 comunidades
+healthy_comm_info <- read_tsv("data/communities/healthy-communities-info.tsv")
+healthy_comm_info %>% filter(com_id %in% healthy_intra_comm$community_id) %>% arrange(desc(order))
 
 luma_comm_info <- read_tsv("data/communities/luma-communities-info.tsv")
 luma_vertices <- read_tsv("data/network-tables/luma-20127-vertices.tsv", 
