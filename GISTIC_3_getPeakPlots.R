@@ -16,7 +16,7 @@ comm_enrich <- read_tsv("data/enrich-universe/comm-enriched-terms.tsv",
 ### Solo para comunidades con más de 30 terms
 comm_enrich <- comm_enrich %>% filter(terms > 30)
 comm_membership <- read_tsv("data/communities/luma-communities.tsv") %>% 
-  rename(ensembl_id = ensemblID, community_id = community)
+  dplyr::rename(ensembl_id = ensemblID, community_id = community)
 comm_membership <- comm_membership %>% semi_join(comm_enrich, by = "community_id")
 
 comm_membership <- comm_membership %>% left_join(all_genes_in_lesions, by = "ensembl_id") %>%
@@ -33,7 +33,7 @@ comm_membership <- comm_membership %>% left_join(all_lesions, by = c("type", "id
 col_fun = colorRamp2(c(log10(min_q), 0, -log10(min_q)),
                      c("blue", "white", "red"))
 col_fun = colorRamp2(c(-2, -1, 0, 1, 2),
-                     c("#009999", "#00FFFF", "white", "#9966FF", "#660099"))
+                     c("#00CED1", "#40E0D0", "white", "orchid1", "maroon1"))
 
 chromosomes.pal <- c("#D909D1", "#0492EE", "#5DA0CB", "#106F35", "#5BD2AE", "#199F41", 
                      "#FE0F43", "#00FFCC", "#F495C5", "#E1BF5D", "#5F166F", "#088ACA",
@@ -48,13 +48,13 @@ comms <- c(316, 158, 146, 197, 183, 230, 36, 575, 91)
 
 ## falta la 2,3
 ## 11 heatmaps for each community
-com_name <- comms[9]
+com_name <- comms[8]
 comm <- comm_membership %>% filter(community_id == com_name) %>% arrange(chr) 
 comm_matrix <- comm %>%  select(tlq) %>%  as.matrix() 
 rownames(comm_matrix) <- comm %>% select(symbol) %>% unlist()
 
 chrs <- as.data.frame(comm %>% select(chr) %>% 
-                        rename(Chr = chr))
+                        dplyr::rename(Chr = chr))
 
 ha <- rowAnnotation(df = chrs, 
                     name = "Chr", show_annotation_name = F,
