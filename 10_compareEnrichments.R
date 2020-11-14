@@ -12,16 +12,22 @@ luma_enr <- luma_enr %>% filter(p.adjust < 0.005)
 write_tsv(luma_enr, "data/enrich-universe/luma-go-filtered-enrichments.tsv")
 write_tsv(healthy_enr, "data/enrich-universe/healthy-go-filtered-enrichments.tsv")
 
-healthy_enr <- healthy_enr %>% select(ID, Description) %>% unique()
-luma_enr <- luma_enr %>% select(ID, Description) %>% unique()
+healthy_enr_min <- healthy_enr %>% select(ID, Description) %>% unique()
+luma_enr_min <- luma_enr %>% select(ID, Description) %>% unique()
 
-shared <- healthy_enr %>% semi_join(luma_enr)
-luma_only <- luma_enr %>% anti_join(healthy_enr)
-healthy_only <- healthy_enr %>% anti_join(luma_enr)
+shared <- healthy_enr_min %>% semi_join(luma_enr_min)
+luma_only <- luma_enr_min %>% anti_join(healthy_enr_min)
+healthy_only <- healthy_enr_min %>% anti_join(luma_enr_min)
 
 write_tsv(luma_only %>% select(ID), "data/enrich-universe/luma-only-GO.tsv")
 write_tsv(healthy_only %>% select(ID), "data/enrich-universe/healthy-only-GO.tsv")
 write_tsv(shared %>% select(ID), "data/enrich-universe/shared-only-GO.tsv")
+
+luma_enr %>% filter(ID %in% luma_only$ID) %>% write_tsv("data/enrich-universe/luma-only-all-info-GO.tsv")
+healthy_enr %>% filter(ID %in% healthy_only$ID) %>% write_tsv("data/enrich-universe/healthy-only-all-info-GO.tsv")
+luma_enr %>% select(ID) %>% write_tsv("data/enrich-universe/luma_ids.tsv")
+healthy_enr %>% select(ID) %>% write_tsv("data/enrich-universe/healthy_ids.tsv")
+
 
 healthy_kegg <- read_tsv("./data/enrich-universe/healthy-kegg-enrichments.tsv")
 luma_kegg <- read_tsv("./data/enrich-universe/luma-kegg-enrichments.tsv")
