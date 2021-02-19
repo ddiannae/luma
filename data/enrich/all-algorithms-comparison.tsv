@@ -1,0 +1,9 @@
+algorithm	n_comm	n_comm_5	n_comm_enrich	n_comm_enrich_10	n_terms_enrich	cond
+leading_eigenvector	354	33	19	6	218	healthy
+fast_greedy	400	50	14	7	187	healthy
+multi_level	362	41	17	8	239	healthy
+infomap	851	387	48	19	441	healthy
+leading_eigenvector	678	95	29	14	398	luma
+fast_greedy	701	117	29	12	360	luma
+multi_level	701	117	29	12	361	luma
+infomap	919	233	36	12	388	luma
