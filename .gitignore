@@ -4,15 +4,12 @@
 .RData
 .Ruserdata
 packrat/*
-.Rprofile
 packrat/lib*/
 packrat/src/
 data/cytoscape
 data/cytoscape/*
 figures/enrich-universe-simple
 figures/enrich-universe-simple/*
-figures/enrich
-figures/enrich/*
 data/pearson
 data/pearson/*
 
