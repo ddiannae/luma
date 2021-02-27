@@ -12,6 +12,7 @@ names(colors) <- conds
 algorithms <- c("Fast Greedy", "Infomap", "Leading Eigenvector", 
                 "Louvain")
 names(algorithms) <- c( "fast_greedy", "infomap", "leading_eigenvector", "multi_level")
+
 m <- lapply(conds, function(cond){
   print(cond)
   
@@ -26,8 +27,8 @@ m <- lapply(conds, function(cond){
   all_comm_info <- bind_rows(all_comm_info)
   label_size <- c("1-2","3-4", "5-9", "10-19", "20-49", "50-99", "100-199",
                   "200-500", ">500")
-    
-  p <- all_comm_info %>% 
+  
+  bars_info <- all_comm_info %>% 
     group_by(algrthm, gr = cut(order, 
                             breaks = c(0, 3, 5, 10, 20, 50, 100, 200, 500, 
                                        max(all_comm_info$order)+1),
@@ -37,16 +38,23 @@ m <- lapply(conds, function(cond){
     pivot_wider(names_from = "gr", values_from = "nnodes", values_fill = NA) %>%
     pivot_longer(cols = !algrthm, names_to = "gr", values_to = "nnodes") %>%
     mutate(gr = factor(gr, levels = label_size)) %>%
-    arrange(gr) %>% 
-    ggplot( aes(y = nnodes, x = gr, fill=cond, color = cond)) +
-    geom_bar(position=position_dodge(width=1), stat="identity") +
+    arrange(gr)  
+  
+  max_val <- max(bars_info$nnodes, na.rm = T)
+  
+  p <- bars_info %>%
+    ggplot( aes(y = nnodes, x = gr)) +
+    geom_bar(aes(fill=cond, color = cond), position=position_dodge(width=1), stat="identity") +
+    geom_text(aes(label = nnodes), vjust = -0.2)  +
     scale_fill_manual(values = colors[cond]) +
     scale_color_manual(values = colors[cond]) +
     theme_base()  +
-    theme(legend.position = "none") +
+    theme(legend.position = "none", plot.background=element_blank()) +
     xlab("Number of nodes in community") +
     ylab("Frequency") +
-    facet_wrap(~algrthm, ncol = 1, labeller = label_value)
+    ylim(c(0, max_val + 15)) +
+    facet_wrap(~algrthm, ncol = 1, labeller = label_value) +
+    ggtitle(label_conds[cond])
   
   png(paste0("figures/communities/community-order-by-algorithm-",cond,"-bars.png"), 
       width = 600, height = 800)
@@ -60,8 +68,10 @@ m <- lapply(conds, function(cond){
     scale_fill_manual(values = colors[cond]) +
     scale_color_manual(values = colors[cond]) +
     theme_base()  +
+    scale_y_log10() +
     theme(legend.position = "none") +
-    ylab("Number of nodes in community") 
+    ylab("Number of nodes in community (log)") +
+    ggtitle(label_conds[cond])
   
   png(paste0("figures/communities/community-order-by-algorithm-", cond, "-violin.png"), 
       width = 600, height = 400)

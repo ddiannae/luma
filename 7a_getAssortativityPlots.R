@@ -10,8 +10,10 @@ names(label_conds) <- conds
 colors <- c("#e3a098", "#a32e27")
 names(colors) <- conds
 
+labels_alg <- c("Fast Greedy", "Infomap", "Leading Eigenvector", "Louvain")
+algorithms <- c( "fast_greedy", "infomap", "leading_eigenvector","multi_level")
 
-algorithms <- c("leading_eigenvector", "fast_greedy", "multi_level", "infomap")
+names(labels_alg) <- algorithms
 
 m <- lapply(algorithms, function(algrthm) {
   
@@ -48,7 +50,7 @@ m <- lapply(algorithms, function(algrthm) {
   # Plot
   p <- all_assort_vals %>%
     ggplot( aes(x=cond, y=diffraction, fill=cond, color=cond)) +
-    geom_violin(width=1.5, size=0.2) +
+    geom_violin() +
     scale_fill_manual(values = colors) +
     scale_color_manual(values = colors) +
     theme_base() +
@@ -57,7 +59,7 @@ m <- lapply(algorithms, function(algrthm) {
     ) +
     scale_x_discrete(labels = label_conds)+
     xlab("") +
-    ylab("Fraction of intra-chromosomal links") +
+    ylab("Chromosomal Assortativity") +
     theme(text = element_text(size = 20), axis.text.x = element_text(size = 28),
           axis.title.y = element_text(size = 25), plot.background=element_blank())
 
@@ -65,7 +67,33 @@ m <- lapply(algorithms, function(algrthm) {
       width = 1000, height = 500)
   print(p)
   dev.off()
+  
+  all_assort_vals$algrthm <-labels_alg[algrthm]
+  return(all_assort_vals)
 })
+
+m <- bind_rows(m)
+
+p <- m %>%
+  ggplot(aes(x=cond, y=diffraction, fill=cond, color=cond)) +
+  geom_violin() +
+  scale_fill_manual(values = colors) +
+  scale_color_manual(values = colors) +
+  theme_base() +
+  theme(
+    legend.position="none"
+  ) +
+  scale_x_discrete(labels = label_conds)+
+  xlab("") +
+  ylab("Chromosomal Assortativity") +
+  theme(text = element_text(size = 20), axis.text.x = element_text(size = 20),
+        axis.title.y = element_text(size = 20), plot.background=element_blank()) +
+  facet_wrap(~algrthm, ncol = 1, labeller = label_value) 
+
+png(paste0("figures/assortativity/community-diff-intra-links.png"),
+    width = 500, height = 750)
+print(p)
+dev.off()
 
 luma_exp <- read_tsv(paste0("data/assortativity/luma-exp-assortativity.tsv"))
 
