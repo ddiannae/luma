@@ -87,11 +87,11 @@ p <- m %>%
   xlab("") +
   ylab("Chromosomal Assortativity") +
   theme(text = element_text(size = 20), axis.text.x = element_text(size = 20),
-        axis.title.y = element_text(size = 20), plot.background=element_blank()) +
+        axis.title.y = element_text(size = 16), plot.background=element_blank()) +
   facet_wrap(~algrthm, ncol = 1, labeller = label_value) 
 
 png(paste0("figures/assortativity/community-diff-intra-links.png"),
-    width = 500, height = 750)
+    units="in", width=5, height=8, res=300)
 print(p)
 dev.off()
 
@@ -101,12 +101,13 @@ p <-ggplot(luma_exp, aes(x = totalfrac, fill="luma")) +
   geom_histogram(bins = 50) +
   theme_base() +
   theme(
-    legend.position="none"
+    legend.position="none", text = element_text(size = 16)
   ) +
   scale_fill_manual(values = colors["luma"]) +
   xlab("Fraction of same expression links") +
   ylab("Frequency")
 
-png(paste0("figures/assortativity/community-fraction-exp-links.png"), width = 1200, height = 800)
+png(paste0("figures/assortativity/community-fraction-exp-links.png"), 
+    units="in", width=5, height=8, res=300)
 print(p)
 dev.off() 
