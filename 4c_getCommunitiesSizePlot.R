@@ -25,6 +25,11 @@ m <- lapply(conds, function(cond){
   })
   
   all_comm_info <- bind_rows(all_comm_info)
+  total_comms <- all_comm_info %>%
+    group_by(algrthm) %>%
+    slice_max(com_id) %>% select(algrthm, com_id) %>% 
+    rename(ncomms = com_id)
+  
   label_size <- c("1-2","3-4", "5-9", "10-19", "20-49", "50-99", "100-199",
                   "200-500", ">500")
   
@@ -38,26 +43,29 @@ m <- lapply(conds, function(cond){
     pivot_wider(names_from = "gr", values_from = "nnodes", values_fill = NA) %>%
     pivot_longer(cols = !algrthm, names_to = "gr", values_to = "nnodes") %>%
     mutate(gr = factor(gr, levels = label_size)) %>%
-    arrange(gr)  
-  
-  max_val <- max(bars_info$nnodes, na.rm = T)
+    arrange(gr)  %>% left_join(total_comms, by = "algrthm") %>%
+    mutate(algrthm = paste0(algrthm, " (", ncomms, ")"))
   
   p <- bars_info %>%
     ggplot( aes(y = nnodes, x = gr)) +
-    geom_bar(aes(fill=cond, color = cond), position=position_dodge(width=1), stat="identity") +
-    geom_text(aes(label = nnodes), vjust = -0.2)  +
+    geom_bar(aes(fill=cond, color = cond), position=position_dodge(width=1), 
+             stat="identity") +
+    geom_text(aes(label = nnodes), vjust = -0.2, size = 3)  +
     scale_fill_manual(values = colors[cond]) +
     scale_color_manual(values = colors[cond]) +
     theme_base()  +
-    theme(legend.position = "none", plot.background=element_blank()) +
+    theme(legend.position = "none", plot.background=element_blank(), 
+          plot.title = element_text(size = 16), 
+          text = element_text(size=14), 
+          axis.text.x = element_text(size=8), ) +
     xlab("Number of nodes in community") +
     ylab("Frequency") +
-    ylim(c(0, max_val + 15)) +
+    scale_y_continuous(expand = expansion(add = 60)) +
     facet_wrap(~algrthm, ncol = 1, labeller = label_value) +
     ggtitle(label_conds[cond])
   
   png(paste0("figures/communities/community-order-by-algorithm-",cond,"-bars.png"), 
-      width = 600, height = 800)
+      units="in", width=5, height=8, res=300)
   print(p)
   dev.off()  
   
@@ -69,13 +77,15 @@ m <- lapply(conds, function(cond){
     scale_color_manual(values = colors[cond]) +
     theme_base()  +
     scale_y_log10() +
-    theme(legend.position = "none") +
+    theme(legend.position = "none", plot.title = element_text(size = 12), 
+          text = element_text(size=10)) +
     ylab("Number of nodes in community (log)") +
     ggtitle(label_conds[cond])
   
   png(paste0("figures/communities/community-order-by-algorithm-", cond, "-violin.png"), 
-      width = 600, height = 400)
+      units="in", width=5, height=3, res=300)
   print(p)
   dev.off()  
   
 })
+
