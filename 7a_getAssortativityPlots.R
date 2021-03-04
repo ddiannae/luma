@@ -68,6 +68,23 @@ m <- lapply(algorithms, function(algrthm) {
   print(p)
   dev.off()
   
+  luma_exp <- read_tsv(paste0("data/assortativity/luma-exp-assortativity-", algrthm ,".tsv"))
+  
+  p <-ggplot(luma_exp, aes(x = totalfrac, fill="luma")) + 
+    geom_histogram(bins = 50) +
+    theme_base() +
+    theme(
+      legend.position="none", text = element_text(size = 16)
+    ) +
+    scale_fill_manual(values = colors["luma"]) +
+    xlab("Fraction of same expression links") +
+    ylab("Frequency")
+  
+  png(paste0("figures/assortativity/community-fraction-exp-links-", algrthm, ".png"), 
+      units="in", width=5, height=3, res=300)
+  print(p)
+  dev.off() 
+  
   all_assort_vals$algrthm <-labels_alg[algrthm]
   return(all_assort_vals)
 })
@@ -94,20 +111,3 @@ png(paste0("figures/assortativity/community-diff-intra-links.png"),
     units="in", width=5, height=8, res=300)
 print(p)
 dev.off()
-
-luma_exp <- read_tsv(paste0("data/assortativity/luma-exp-assortativity.tsv"))
-
-p <-ggplot(luma_exp, aes(x = totalfrac, fill="luma")) + 
-  geom_histogram(bins = 50) +
-  theme_base() +
-  theme(
-    legend.position="none", text = element_text(size = 16)
-  ) +
-  scale_fill_manual(values = colors["luma"]) +
-  xlab("Fraction of same expression links") +
-  ylab("Frequency")
-
-png(paste0("figures/assortativity/community-fraction-exp-links.png"), 
-    units="in", width=5, height=8, res=300)
-print(p)
-dev.off() 

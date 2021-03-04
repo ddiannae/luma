@@ -33,28 +33,13 @@ algorithms <- c("leading_eigenvector", "fast_greedy", "multi_level", "infomap")
 interactions <- read_tsv(file = paste0("data/network-tables/luma-", n, "-interactions.tsv"))
 vertices <- read_tsv(file = paste0("data/network-tables/luma-", n, "-vertices.tsv"))
 vertices <- vertices %>% select(-community)
-# vertices <- vertices %>% mutate(exp = case_when(lfc > 0 ~ "up", 
-#                                                 lfc < 0 ~ "down", 
-#                                                 lfc == 0 ~ "NA"))
-# vertices$exp <- as.factor(vertices$exp)
+vertices <- vertices %>% mutate(exp = case_when(lfc > 0 ~ "up",
+                                                lfc < 0 ~ "down",
+                                                lfc == 0 ~ "NA"))
+vertices$exp <- as.factor(vertices$exp)
 
 # g <- graph_from_data_frame(interactions, vertices = vertices, directed = FALSE)  
-# exp_assortativity <- getAssortativityByAttr(g, "exp")
-# exp_assortativity <- exp_assortativity %>% 
-#   inner_join(vertices %>% group_by(community) %>% 
-#                summarise(mean_diff_exp = mean(lfc),
-#                          mean_avg_exp  =  mean(avg_exp),
-#                          mean_avg_log2_exp = mean(avg_log2_exp),
-#                          m <- mapply(function(cond, algrthm) {
-#                            
-#                            cat("Working with condition: ", cond, ", ", algrthm, "\n")
-#                            
-#                            membership <- read_tsv(file = paste0("data/communities/", cond,  "-communities-",
-#                                                                 algrthm, ".tsv"))
-#                            mean_avg_cpm_exp = mean(avg_cpm_exp), 
-#                          mean_avg_log2_cpm_exp = mean(avg_log2_cpm_exp)),
-#              by = c("community_id" = "community"))
-# write_tsv(exp_assortativity, path = "data/assortativity/luma-exp-assortativity.tsv")
+
 
 m <- lapply(algorithms, function(algrthm) {
   
@@ -64,8 +49,23 @@ m <- lapply(algorithms, function(algrthm) {
                                        algrthm, ".tsv"))
   vertices <- vertices %>% left_join(membership)
   g <- graph_from_data_frame(interactions, vertices = vertices, directed = FALSE)  
+  
   chr_assortativity <- getAssortativityByAttr(g, "chr")
   write_tsv(chr_assortativity, path = paste0("data/assortativity/luma-chr-assortativity-",algrthm,".tsv"))
+  
+  exp_assortativity <- getAssortativityByAttr(g, "exp")
+  
+  exp_summary <- vertices %>% group_by(community) %>%
+                 summarise(mean_diff_exp = mean(lfc),
+                           mean_avg_exp  =  mean(avg_exp),
+                           mean_avg_log2_exp = mean(avg_log2_exp),
+                            mean_avg_cpm_exp = mean(avg_cpm_exp),
+                            mean_avg_log2_cpm_exp = mean(avg_log2_cpm_exp))
+  
+  exp_assortativity <- exp_assortativity %>%
+    inner_join(exp_summary,  by = c("community_id" = "community")) 
+  
+  write_tsv(exp_assortativity, file = paste0("data/assortativity/luma-exp-assortativity-", algrthm, ".tsv"))
 })
 
 ## Healthy
