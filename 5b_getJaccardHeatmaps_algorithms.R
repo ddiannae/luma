@@ -29,16 +29,16 @@ all_enrichments <- lapply(conds, function(cond){
                                   alg2, ".tsv"))
     
     jaccard_matrix <- jaccs %>% 
-      left_join(comm_info1 %>% select(com_id, pg_gene),
+      left_join(comm_info1 %>% select(com_id, pg_gene, order),
                                           by=c("comm1" ="com_id")) %>%
       left_join(biomart, by =c("pg_gene"= "gene_stable_id")) %>% 
-      select(-pg_gene) %>% rename(gene_comm1 = hgnc_symbol) %>% 
-      left_join(comm_info2 %>% select(com_id, pg_gene),
+      select(-pg_gene) %>% rename(gene_comm1 = hgnc_symbol,  order_comm1 = order) %>% 
+      left_join(comm_info2 %>% select(com_id, pg_gene, order),
                                           by=c("comm2" ="com_id")) %>%
       left_join(biomart, by =c("pg_gene"= "gene_stable_id")) %>% 
-      select(-pg_gene) %>% rename(gene_comm2 = hgnc_symbol) %>% 
-      mutate(c1 = paste0(gene_comm1, " (", terms1, ")"),
-             c2 = paste0(gene_comm2, " (", terms2, ")")) %>%
+      select(-pg_gene) %>% rename(gene_comm2 = hgnc_symbol, order_comm2 = order ) %>% 
+      mutate(c1 = paste0(gene_comm1, " (", order_comm1, "-", terms1, ")"),
+             c2 = paste0(gene_comm2, " (", order_comm2, "-", terms2, ")")) %>%
       pivot_wider(id_cols = c1, names_from = c2, values_from = jaccard) %>%
       select(sort(colnames(.)))
     
@@ -52,14 +52,15 @@ all_enrichments <- lapply(conds, function(cond){
             height = nrow(jaccard_matrix), 
             column_title = paste0(labels_alg[alg2], " (", ncol(jaccard_matrix), ")"),
             row_title = paste0(labels_alg[alg1], " (", nrow(jaccard_matrix), ")"),
-            row_names_gp = gpar(fontsize = 18), column_names_gp = gpar(fontsize = 18),
-            row_title_gp = gpar(fontsize = 24), column_title_gp = gpar(fontsize = 24),
-            heatmap_legend_param=list(title_gp=gpar(fontsize=12), 
-                                     label_gp=gpar(fontsize=10)))
+            row_names_gp = gpar(fontsize = 6), column_names_gp = gpar(fontsize = 6),
+            row_title_gp = gpar(fontsize = 12), column_title_gp = gpar(fontsize = 12),
+            heatmap_legend_param=list(title_gp=gpar(fontsize=8), 
+                                     labels_gp=gpar(fontsize=6)))
     
     png(paste0("figures/enrich/", cond, "-", alg1, "-", alg2, "-heatmap.png"), 
-        width = 800, height = 800)
+        units="in", width=5, height=5, res=300)
     draw(ht)
     dev.off()  
   })
 })
+
