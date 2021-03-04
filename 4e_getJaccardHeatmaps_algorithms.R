@@ -5,6 +5,7 @@ library(ggplot2)
 library(ggthemes)
 library(ComplexHeatmap)
 library(circlize)
+library(janitor)
 
 conds <- c("healthy", "luma")
 label_conds <- c("Healthy", "LumA")
@@ -17,6 +18,9 @@ names(labels_alg) <- algorithms
 
 col_fun = colorRamp2(c(0, 0.1+1e-6,  0.5 , 1), 
                      c("white","#0D0887FF", "#CC4678FF",  "#F0F921FF"))
+
+biomart <- read_tsv("data/Biomart_EnsemblG94_GRCh38_p12.txt") %>% clean_names() %>%
+  select(gene_stable_id, hgnc_symbol)
 
 alg_pairs <- as.data.frame(combn(algorithms, 2), stringsAsFactors = F) 
 
@@ -47,33 +51,53 @@ l <- lapply(conds, function(cond){
         mutate(gr = factor(gr, levels = label_size)) %>%
         arrange(gr) %>% 
         ggplot( aes(y = nnodes, x = gr)) +
-        geom_bar(aes(color = cond, fill = cond), position=position_dodge(width=1), stat="identity") +
-        geom_text(aes(label = nnodes), vjust = -0.2)  +
+        geom_bar(aes(color = cond, fill = cond), 
+                 position=position_dodge(width=1), stat="identity") +
+        geom_text(aes(label = nnodes), vjust = -0.2, size = 3)  +
         scale_fill_manual(values = colors[cond]) +
         scale_color_manual(values = colors[cond]) +
         theme_base()  +
         xlab("Jaccard Index") +
         ylab("Frequency") +
-        theme(legend.position = "none", plot.background=element_blank()) + 
+        scale_y_continuous(expand = expansion(add = 100)) +
+        theme(legend.position = "none", plot.background=element_blank(), 
+              plot.title = element_text(size = 12), 
+              text = element_text(size=10)) + 
         ggtitle(paste0(labels_alg[alg1], " (", total1, ") vs ", 
                        labels_alg[alg2], " (", total2, ")" ), 
                 subtitle = "Non zero values")
       
-      png(paste0("figures/communities/jaccard-index-", cond, "-", alg1, "-", alg2,
-                 "-bars.png"),  width = 600, height = 350)
+      png(paste0("figures/communities/", cond, "-", alg1, "-", alg2,
+                 "-bars.png"), height = 3,
+          width = 5, units = "in", res = 300)
       print(p)
       dev.off()
       
       one_to_one <- jaccs %>% filter(jaccard == 1) 
-   
+      
+      comm1_info  <- read_tsv(paste0("data/communities/", cond, "-communities-info-", 
+                                      alg1, ".tsv"))
+      comm2_info  <- read_tsv(paste0("data/communities/", cond, "-communities-info-", 
+                                     alg2, ".tsv"))
+      
       jaccard_matrix <- jaccs %>% 
         anti_join(one_to_one, by="comm1") %>% 
         anti_join(one_to_one, by="comm2")  %>% 
+        left_join(comm1_info %>% select(com_id, pg_gene, order),
+                  by=c("comm1" ="com_id")) %>%
+        left_join(biomart, by =c("pg_gene"= "gene_stable_id")) %>% 
+        select(-pg_gene) %>% rename(gene_comm1 = hgnc_symbol, order_comm1 = order) %>%
+        left_join(comm2_info %>% select(com_id, pg_gene, order),
+                  by=c("comm2" ="com_id")) %>%
+        left_join(biomart, by =c("pg_gene"= "gene_stable_id")) %>% 
+        select(-pg_gene) %>% rename(gene_comm2 = hgnc_symbol,  order_comm2 = order) %>%
         arrange(comm1, comm2) %>%
-        pivot_wider(id_cols = comm1, names_from = comm2, values_from = jaccard)
+        mutate(c1 = paste0(gene_comm1, " (", order_comm1, ")"),
+               c2 = paste0(gene_comm2, " (", order_comm2, ")")) %>%
+        pivot_wider(id_cols = c1, names_from = c2, values_from = jaccard)
       
-      comm1_names <- jaccard_matrix %>% select(comm1) %>% unlist(use.names = F)
-      jaccard_matrix <- jaccard_matrix %>% select(-comm1) %>% as.matrix()
+      comm1_names <- jaccard_matrix %>% select(c1) %>% unlist(use.names = F)
+      jaccard_matrix <- jaccard_matrix %>% select(-c1) %>% as.matrix()
       rownames(jaccard_matrix) <- comm1_names
       
       total1 <- nrow(jaccard_matrix)
@@ -94,14 +118,16 @@ l <- lapply(conds, function(cond){
                     column_title = paste0( labels_alg[alg2],  " (", total2, ")"),
                     row_title = paste0( labels_alg[alg1],  " (", total1, ")"),
                     column_title_gp = gpar(fontsize = 18),
+                    row_names_gp = gpar(fontsize = 8), 
+                    column_names_gp = gpar(fontsize = 8),
                     row_title_gp = gpar(fontsize = 18),
-                    heatmap_legend_param=list(title_gp=gpar(fontsize=12), 
-                                              label_gp=gpar(fontsize=10)))
+                    heatmap_legend_param=list(title_gp=gpar(fontsize=6), 
+                                              labels_gp=gpar(fontsize=4)))
       
       
-      png(paste0("figures/communities/jaccard-index-",  cond, "-", alg1, 
-                 "-", alg2, "-heatmap.png"), height = 8,
-          width = 8, units = "in", res = 100)
+      png(paste0("figures/communities/",  cond, "-", alg1, 
+                 "-", alg2, "-heatmap.png"), height = 5,
+          width = 6, units = "in", res = 300)
         draw(ht)
       dev.off()  
   })

@@ -12,6 +12,8 @@ names(label_conds) <- conds
 colors <- c("#e3a098", "#a32e27")
 names(colors) <- conds
 algorithms <- c("fast_greedy", "infomap" ,"leading_eigenvector", "multi_level")
+labels_alg <- c("Fast Greedy", "Infomap", "Leading Eigenvector", "Louvain")
+names(labels_alg) <- algorithms
 
 col_fun = colorRamp2(c(0, 0.1+1e-6,  0.5 , 1), 
                      c("white","#0D0887FF", "#CC4678FF",  "#F0F921FF"))
@@ -58,17 +60,19 @@ p <- non_zero %>%
   ggplot( aes(y = nnodes, x = gr)) +
   geom_bar(position=position_dodge(width=1), stat="identity", 
            fill = "steelblue4") +
-  geom_text(aes(label = nnodes), vjust = -0.2)  +
+  geom_text(aes(label = nnodes), vjust = -0.2, size = 3)  +
   theme_base()  +
   xlab("Jaccard Index") +
   ylab("Frequency") +
-  scale_y_continuous(expand = expansion(add = 150)) +
+  scale_y_continuous(expand = expansion(add = 100)) +
   theme(legend.position = "none", plot.background=element_blank(),
-        strip.text = element_text(size = 20)) + 
+        strip.text = element_text(size = 11), 
+        text = element_text(size=12), 
+        axis.text.x = element_text(size = 7)) + 
   facet_wrap(~alg, labeller = as_labeller(labels_alg)) 
 
 png("figures/communities/jaccard-index-all-conds-all-algs-bars.png",
-      width = 1200, height = 800)
+    units="in", width=8, height=6, res=300)
 print(p)
 dev.off() 
 
