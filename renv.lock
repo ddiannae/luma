@@ -122,10 +122,10 @@
     },
     "MASS": {
       "Package": "MASS",
-      "Version": "7.3-53",
+      "Version": "7.3-53.1",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "d1bc1c8e9c0ace57ec9ffea01021d45f"
+      "Hash": "4ef21dd0348b9abb7f8bd1d77e4cd0c3"
     },
     "Matrix": {
       "Package": "Matrix",
@@ -247,10 +247,10 @@
     },
     "cluster": {
       "Package": "cluster",
-      "Version": "2.1.0",
+      "Version": "2.1.1",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "db63a44aab5aadcb6bf2f129751d129a"
+      "Hash": "5ea8f54741ff907e2c0b5efabc9de729"
     },
     "clusterProfiler": {
       "Package": "clusterProfiler",
@@ -309,10 +309,10 @@
     },
     "dplyr": {
       "Package": "dplyr",
-      "Version": "1.0.4",
+      "Version": "1.0.5",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "01c82e3b053eb7660a8ace8d932265b8"
+      "Hash": "d0d76c11ec807eb3f000eba4e3eb0f68"
     },
     "ellipsis": {
       "Package": "ellipsis",
@@ -391,10 +391,10 @@
     },
     "ggforce": {
       "Package": "ggforce",
-      "Version": "0.3.2",
+      "Version": "0.3.3",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "4adaf6b01b41f243ba0c62801de3331e"
+      "Hash": "4c64a588b497f8c088e1d308ddd40bc6"
     },
     "ggplot2": {
       "Package": "ggplot2",
@@ -538,10 +538,10 @@
     },
     "mgcv": {
       "Package": "mgcv",
-      "Version": "1.8-33",
+      "Version": "1.8-34",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "eb7b6439bc6d812eed2cddba5edc6be3"
+      "Hash": "bd4a6c4b600f58651d60d381b0e9a397"
     },
     "munsell": {
       "Package": "munsell",
