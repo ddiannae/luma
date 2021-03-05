@@ -40,7 +40,7 @@ m <- mapply(function(cond, algrthm) {
                         readable      = FALSE)
         
         if(nrow(as.data.frame(ego)) > 0) {
-          ego <- simplify(ego)
+         # ego <- simplify(ego)
           ego_df <- as.data.frame(ego)
           ego_df$commun <- com 
           
