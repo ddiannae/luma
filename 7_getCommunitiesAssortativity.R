@@ -38,8 +38,6 @@ vertices <- vertices %>% mutate(exp = case_when(lfc > 0 ~ "up",
                                                 lfc == 0 ~ "NA"))
 vertices$exp <- as.factor(vertices$exp)
 
-# g <- graph_from_data_frame(interactions, vertices = vertices, directed = FALSE)  
-
 
 m <- lapply(algorithms, function(algrthm) {
   
@@ -51,7 +49,7 @@ m <- lapply(algorithms, function(algrthm) {
   g <- graph_from_data_frame(interactions, vertices = vertices, directed = FALSE)  
   
   chr_assortativity <- getAssortativityByAttr(g, "chr")
-  write_tsv(chr_assortativity, path = paste0("data/assortativity/luma-chr-assortativity-",algrthm,".tsv"))
+  write_tsv(chr_assortativity, file = paste0("data/assortativity/luma-chr-assortativity-",algrthm,".tsv"))
   
   exp_assortativity <- getAssortativityByAttr(g, "exp")
   
