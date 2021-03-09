@@ -1,0 +1,2 @@
+ensembl_id	uniprot_id	file
+ENSG00000158636	Q7Z589	Q7Z589.txt

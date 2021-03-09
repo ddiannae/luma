@@ -1,0 +1,2 @@
+ensembl_id	uniprot_id	file
+ENSG00000171862	P60484	P60484.txt

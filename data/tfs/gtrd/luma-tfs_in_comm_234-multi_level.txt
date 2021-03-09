@@ -1,0 +1,2 @@
+ensembl_id	uniprot_id	file
+ENSG00000080503	P51531	P51531.txt

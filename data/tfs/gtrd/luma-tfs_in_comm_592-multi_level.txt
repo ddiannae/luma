@@ -1,0 +1,2 @@
+ensembl_id	uniprot_id	file
+ENSG00000267680	Q9NZL3	Q9NZL3.txt

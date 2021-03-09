@@ -1,0 +1,2 @@
+ensembl_id	uniprot_id	file
+ENSG00000124789	P49790	P49790.txt

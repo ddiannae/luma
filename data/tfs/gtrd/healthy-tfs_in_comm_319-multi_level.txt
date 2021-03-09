@@ -1,0 +1,2 @@
+ensembl_id	uniprot_id	file
+ENSG00000205903	A6NFI3	A6NFI3.txt

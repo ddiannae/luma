@@ -1,0 +1,2 @@
+ensembl_id	uniprot_id	file
+ENSG00000179922	Q8NCA9	Q8NCA9.txt

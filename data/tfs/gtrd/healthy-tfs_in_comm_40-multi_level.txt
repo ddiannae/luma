@@ -1,0 +1,2 @@
+ensembl_id	uniprot_id	file
+ENSG00000165097	Q8NB78	Q8NB78.txt

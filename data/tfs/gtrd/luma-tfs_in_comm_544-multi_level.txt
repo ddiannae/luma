@@ -1,0 +1,2 @@
+ensembl_id	uniprot_id	file
+ENSG00000185697	P10243	P10243.txt

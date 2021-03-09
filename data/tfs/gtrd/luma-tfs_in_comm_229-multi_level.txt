@@ -1,0 +1,2 @@
+ensembl_id	uniprot_id	file
+ENSG00000100906	P25963	P25963.txt

@@ -1,0 +1,2 @@
+ensembl_id	uniprot_id	file
+ENSG00000256229	Q96H40	Q96H40.txt

@@ -1,0 +1,2 @@
+ensembl_id	uniprot_id	file
+ENSG00000168283	P35226	P35226.txt

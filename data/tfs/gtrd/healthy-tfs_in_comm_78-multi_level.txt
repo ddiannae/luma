@@ -1,0 +1,2 @@
+ensembl_id	uniprot_id	file
+ENSG00000100395	Q969R5	Q969R5.txt

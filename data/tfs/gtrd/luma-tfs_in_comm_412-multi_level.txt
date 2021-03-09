@@ -1,0 +1,2 @@
+ensembl_id	uniprot_id	file
+ENSG00000162521	Q09028	Q09028.txt

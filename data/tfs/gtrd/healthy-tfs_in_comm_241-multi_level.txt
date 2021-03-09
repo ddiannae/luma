@@ -1,0 +1,2 @@
+ensembl_id	uniprot_id	file
+ENSG00000177469	Q6NZI2	Q6NZI2.txt

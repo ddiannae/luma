@@ -1,0 +1,2 @@
+ensembl_id	uniprot_id	file
+ENSG00000218891	Q8NAF0	Q8NAF0.txt

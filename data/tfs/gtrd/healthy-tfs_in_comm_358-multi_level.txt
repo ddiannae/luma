@@ -1,0 +1,2 @@
+ensembl_id	uniprot_id	file
+ENSG00000272333	Q9UMN6	Q9UMN6.txt

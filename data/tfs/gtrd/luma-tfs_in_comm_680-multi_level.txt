@@ -1,0 +1,2 @@
+ensembl_id	uniprot_id	file
+ENSG00000058673	O75152	O75152.txt

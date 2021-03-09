@@ -1,2 +1,0 @@
-ensembl_id	uniprot_id	file
-ENSG00000179583	P33076	P33076.txt

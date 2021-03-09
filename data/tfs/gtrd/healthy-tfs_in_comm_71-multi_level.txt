@@ -1,0 +1,2 @@
+ensembl_id	uniprot_id	file
+ENSG00000154832	Q9P0U4	Q9P0U4.txt

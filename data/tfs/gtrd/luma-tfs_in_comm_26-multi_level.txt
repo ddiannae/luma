@@ -1,0 +1,2 @@
+ensembl_id	uniprot_id	file
+ENSG00000077782	P11362	P11362.txt

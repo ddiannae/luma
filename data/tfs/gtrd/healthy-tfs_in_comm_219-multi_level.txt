@@ -1,0 +1,2 @@
+ensembl_id	uniprot_id	file
+ENSG00000171634	Q12830	Q12830.txt

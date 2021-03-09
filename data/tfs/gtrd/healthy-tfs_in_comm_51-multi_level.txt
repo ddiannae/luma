@@ -1,0 +1,2 @@
+ensembl_id	uniprot_id	file
+ENSG00000132964	P49336	P49336.txt

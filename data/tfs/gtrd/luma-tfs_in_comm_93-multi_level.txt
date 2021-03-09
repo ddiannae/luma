@@ -1,0 +1,2 @@
+ensembl_id	uniprot_id	file
+ENSG00000196793	Q16600	Q16600.txt

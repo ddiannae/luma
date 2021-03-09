@@ -1,0 +1,2 @@
+ensembl_id	uniprot_id	file
+ENSG00000169057	P51608	P51608.txt

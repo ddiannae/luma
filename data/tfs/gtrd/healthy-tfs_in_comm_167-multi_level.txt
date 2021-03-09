@@ -1,0 +1,2 @@
+ensembl_id	uniprot_id	file
+ENSG00000134453	Q96I25	Q96I25.txt

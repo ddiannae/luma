@@ -1,0 +1,2 @@
+ensembl_id	uniprot_id	file
+ENSG00000164032	P0C0S5	P0C0S5.txt

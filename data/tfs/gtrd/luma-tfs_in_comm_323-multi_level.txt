@@ -1,0 +1,2 @@
+ensembl_id	uniprot_id	file
+ENSG00000139651	Q8NDX6	Q8NDX6.txt

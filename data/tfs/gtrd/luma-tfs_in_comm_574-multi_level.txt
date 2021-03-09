@@ -1,0 +1,2 @@
+ensembl_id	uniprot_id	file
+ENSG00000173041	Q8NEM1	Q8NEM1.txt

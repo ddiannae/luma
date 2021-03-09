@@ -1,0 +1,2 @@
+ensembl_id	uniprot_id	file
+ENSG00000196268	Q6ZR52	Q6ZR52.txt

@@ -1,0 +1,2 @@
+ensembl_id	uniprot_id	file
+ENSG00000077150	Q00653	Q00653.txt

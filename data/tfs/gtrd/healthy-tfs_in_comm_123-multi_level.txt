@@ -1,0 +1,2 @@
+ensembl_id	uniprot_id	file
+ENSG00000143390	P48382	P48382.txt

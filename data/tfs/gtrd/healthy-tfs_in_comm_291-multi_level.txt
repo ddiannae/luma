@@ -1,0 +1,2 @@
+ensembl_id	uniprot_id	file
+ENSG00000197024	Q8TD17	Q8TD17.txt

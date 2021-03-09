@@ -1,0 +1,2 @@
+ensembl_id	uniprot_id	file
+ENSG00000054267	Q4LE39	Q4LE39.txt

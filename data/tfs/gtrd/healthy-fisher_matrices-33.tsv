@@ -1,0 +1,5 @@
+not_tf_neigh	tf_neigh	tf	type
+5986	1	ENSG00000100393	regulatory
+361	0	ENSG00000100393	not_regulatory
+1	0	ENSG00000126883	regulatory
+6346	1	ENSG00000126883	not_regulatory

@@ -1,0 +1,2 @@
+ensembl_id	uniprot_id	file
+ENSG00000196646	P52737	P52737.txt
