@@ -1,3 +1,0 @@
-gene_symbol	i_am_tf	gene_description	chromosome_name	upstream	upstream_source	downstream	organism	p_value
-PAAF1	0	"proteasomal ATPase-associated factor 1"	chr11	1	TF2DNA	0	"Homo sapiens"	0.00001
-DLG3	0	"discs, large homolog 3 (Drosophila)"	chrX	4	TF2DNA	0	"Homo sapiens"	0.00001
