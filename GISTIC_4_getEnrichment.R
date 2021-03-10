@@ -2,6 +2,7 @@ library(readr)
 library(dplyr)
 library(clusterProfiler)
 
+algrthm = "multi_level"
 
 luma_genes <- read_tsv("data/network-tables/luma-20127-vertices.tsv") %>% 
   select(ensemblID, symbol, community)
@@ -15,17 +16,20 @@ colnames(lesions_gistic) <- paste0("lesion_",colnames(lesions_gistic))
 lesion2gene <- genes_gistic %>% mutate(lesion_id = paste0(lesion_id, "_", lesion_type)) %>%
   select(lesion_id, ensembl_id)
 
-lesion2name <- lesions_gistic %>% mutate(lesion_id = paste0(id, "_", type), 
-                                         name = paste0(cytoband, "_", type)) %>%
+lesion2name <- lesions_gistic %>% mutate(lesion_id = paste0(lesion_id, "_", lesion_type), 
+                                         name = paste0(lesion_cytoband, "_", lesion_type)) %>%
   select(lesion_id, name)
 
 lesion2gene %>% group_by(lesion_id) %>% tally() %>% arrange(n)
-comms <- unique(luma_genes$community)
 universe <- luma_genes$ensemblID
+
+gene_comm <- read_tsv(paste0("data/communities/luma-communities-", algrthm, ".tsv"))
+
+comms <- unique(gene_comm$community)
 
 all_comms <- lapply(comms, function(comm) {
   
-  geneList <- unlist(luma_genes %>% filter(community == comm) %>%
+  geneList <- unlist(gene_comm %>% filter(community == comm) %>%
                        dplyr::select(ensemblID))
   
   egistic <- enricher(gene  = geneList,
